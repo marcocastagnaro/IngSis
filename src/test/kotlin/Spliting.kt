@@ -1,5 +1,3 @@
-package Lexer
-
 import org.example.lexer.Lexer
 import org.example.lexer.Mapper
 import org.junit.jupiter.api.Assertions
@@ -15,6 +13,11 @@ class Spliting {
         Assertions.assertEquals(3, result.size)
         println(result.size)
     }
+
+    @Test
+    fun doomTest() {
+        Assertions.fail<String>("This test is doomed to fail!")
+    }
 }
 
 fun main() {
@@ -24,10 +27,10 @@ fun main() {
     println(result.size)
     for (i in result) {
         println(
-            i.getValue() + " | ("
-            + i.getInitialPosition().getRow() + ", " + i.getInitialPosition().getColumn()
-            + ") | ("
-            + i.getFinalPosition().getRow() + ", " + i.getFinalPosition().getColumn() + ")"
+            i.getValue() + " | (" +
+                i.getInitialPosition().getRow() + ", " + i.getInitialPosition().getColumn() +
+                ") | (" +
+                i.getFinalPosition().getRow() + ", " + i.getFinalPosition().getColumn() + ")",
         )
     }
 }
