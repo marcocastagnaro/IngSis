@@ -1,13 +1,17 @@
 package org.example.AST
+
 import org.example.Token.Token
 
-class AbstractSyntaxTree(val value: Token, var left: AbstractSyntaxTree? = null, var right: AbstractSyntaxTree? = null) {
-
-    fun getLeft(): AbstractSyntaxTree? {
+class AbstractSyntaxTree(
+    private val value: Token,
+    private val left: AbstractSyntaxTree? = null,
+    private val right: AbstractSyntaxTree? = null,
+) {
+    fun left(): AbstractSyntaxTree? {
         return left
     }
 
-    fun getRight(): AbstractSyntaxTree? {
+    fun right(): AbstractSyntaxTree? {
         return right
     }
 
