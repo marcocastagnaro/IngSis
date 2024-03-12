@@ -1,5 +1,4 @@
 package org.example.AST
-
 import org.example.Token.Token
 
 class AbstractSyntaxTree(val value: Token, var left: AbstractSyntaxTree? = null, var right: AbstractSyntaxTree? = null) {

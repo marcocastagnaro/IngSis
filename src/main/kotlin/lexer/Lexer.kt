@@ -16,29 +16,54 @@ class Lexer (private var map : Mapper) {
         }
         return result
     }
-    fun split (string : String) : List<SplitToken>  {
-        val finalList = ArrayList<SplitToken>()
-        val caracteres = string.split("") //[a,b,c, ,d,e,f, ,g // ]
-        var countRow = 0
-        var countColumn = 0
-        var value = ""
-        var initialPositionColumn = 0
-        for (caracter in caracteres){
-            if (caracter == "\n"){
-                finalList.add(SplitToken(Position(countRow, initialPositionColumn),Position(countRow, countColumn), value))
-                countRow += 1
-                countColumn = 0
-                initialPositionColumn = 0
+
+    fun split(string: String): List<SplitToken> { // [absdf f  k]
+        val result = ArrayList<SplitToken>()
+        var columnCounter = 0
+        var rowCounter = 0
+        var wordStartingColumn = 0
+        var actualWord = ""
+        for (char in string) {
+            if (char == '\n') {
+                if (actualWord != "") {
+                    result.add(
+                        createToken(actualWord, rowCounter, wordStartingColumn, columnCounter-1)
+                    )
+                }
+                rowCounter += 1
+                columnCounter = 0
+                wordStartingColumn = 0
+                actualWord = ""
             }
-            if (caracter != " ") {
-                countColumn +=1
-                value += caracter
+            else if (char == ' ') {
+                if (actualWord == "") {
+                    columnCounter += 1
+                    wordStartingColumn += 1
+                    continue
+                }
+                result.add(
+                    createToken(actualWord, rowCounter, wordStartingColumn, columnCounter-1)
+                )
+                columnCounter += 1
+                wordStartingColumn = columnCounter
+                actualWord = ""
             }
-            else if (caracter == " "){
-                finalList.add(SplitToken(Position(countRow, initialPositionColumn),Position(countRow, countColumn), value))
-                initialPositionColumn = countColumn + 2
+            else {
+                actualWord += char
+                columnCounter += 1
             }
         }
-        return finalList
+        if (actualWord != "") {
+            result.add(
+                createToken(actualWord, rowCounter, wordStartingColumn, columnCounter-1)
+            )
+        }
+        return result
+    }
+
+    private fun createToken(word : String, row : Int, firsCol : Int, lastCol: Int) : SplitToken {
+        val startingPos = Position(row, firsCol)
+        val endingPos = Position(row, lastCol)
+        return SplitToken(startingPos, endingPos, word)
     }
 }
