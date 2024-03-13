@@ -2,19 +2,12 @@ package org.example.lexer
 
 import org.example.Token.Position
 import org.example.Token.Token
+import org.example.Token.Types
 
-class Lexer (private var map : Mapper) {
+class Lexer (private var map : ValueMapper) {
     fun lex (string : String) : List<Token> {
-        var result = ArrayList<Token>()
-        var array = split(string)
-        for( value in array) {
-            var type = map.getMap().get(value.getValue())
-            if (type != null){
-                var token = Token (type, value.getValue(), value.getInitialPosition(), value.getFinalPosition())
-                result.add(token)
-            }
-        }
-        return result
+        val listOfSplitToken = split(string)
+        return map.assigningTypesToTokenValues(listOfSplitToken)
     }
 
     fun split(string: String): List<SplitToken> { // [absdf f  k]
