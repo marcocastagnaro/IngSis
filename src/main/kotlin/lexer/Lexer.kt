@@ -29,41 +29,21 @@ class Lexer(private var map: ValueMapper) {
             when (char) {
                 ' ' -> {
                     if (!readingString) {
-                        val wordStart = lastSpaceIndex + 1
-                        tokens.add(
-                            createToken(
-                                string.substring(wordStart, index),
-                                row,
-                                wordStart,
-                                index,
-                            ),
-                        )
+                        if (index != lastSpaceIndex + 1) {
+                            val wordStart = lastSpaceIndex + 1
+                            tokens.add(
+                                createToken(
+                                    string.substring(wordStart, index),
+                                    row,
+                                    wordStart,
+                                    index,
+                                ),
+                            )
+                        }
+                        lastSpaceIndex = index
                     }
-                    lastSpaceIndex = index
                 }
-                ':', ';' -> {
-                    if (!readingString) {
-                        tokens.add(
-                            createToken(
-                                string.substring(lastSpaceIndex, index),
-                                row,
-                                lastSpaceIndex,
-                                index,
-                            ),
-                        )
-
-                        tokens.add(
-                            createToken(
-                                string.substring(index, index + 1),
-                                row,
-                                index,
-                                index + 1,
-                            ),
-                        )
-                    }
-                    lastSpaceIndex = index
-                }
-                else -> {
+                '"', ':', ';' -> {
                     if (char == '"') {
                         if (readingString) {
                             val wordStart = lastSpaceIndex + 1
@@ -79,6 +59,27 @@ class Lexer(private var map: ValueMapper) {
                             readingString = false
                         } else {
                             readingString = true
+                        }
+                    } else {
+                        if (!readingString) {
+                            val wordStart = lastSpaceIndex + 1
+                            tokens.add(
+                                createToken(
+                                    string.substring(wordStart, index),
+                                    row,
+                                    wordStart,
+                                    index,
+                                ),
+                            )
+                            tokens.add(
+                                createToken(
+                                    char.toString(),
+                                    row,
+                                    index,
+                                    index,
+                                ),
+                            )
+                            lastSpaceIndex = index
                         }
                     }
                 }
