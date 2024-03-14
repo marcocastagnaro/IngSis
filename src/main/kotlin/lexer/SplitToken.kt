@@ -2,16 +2,20 @@ package org.example.lexer
 
 import org.example.Token.Position
 
-class SplitToken (private val InitialPosition : Position, private val FinalPosition : Position, private val value : String) {
-
-    fun getInitialPosition() : Position{
-        return InitialPosition
+class SplitToken(
+    private val initialPosition: Position,
+    private val finalPosition: Position,
+    private val value: String,
+) {
+    fun getInitialPosition(): Position {
+        return initialPosition
     }
-    fun getValue () : String{
+
+    fun getValue(): String {
         return value
     }
-    fun getFinalPosition() : Position{
-        return FinalPosition
-    }
 
+    fun getFinalPosition(): Position {
+        return finalPosition
+    }
 }

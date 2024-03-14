@@ -5,16 +5,49 @@ import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
 class LexerTest {
-    val valueMapper = ValueMapper()
-    val lexer = Lexer(ValueMapper())
+    private val lexer = Lexer(ValueMapper())
 
     @Test
     fun simpleLexing() {
-        val result = lexer.lex("val name = \"Pedro\"")
+        val result = lexer.execute("let     name  = \"Pe  dro \"")
+        System.out.println(result.map { it.getValue() })
         Assertions.assertEquals(4, result.size)
         Assertions.assertEquals(Types.KEYWORD, result[0].getType())
         Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
         Assertions.assertEquals(Types.OPERATOR, result[2].getType())
         Assertions.assertEquals(Types.LITERAL, result[3].getType())
+    }
+
+    @Test
+    fun emptyInput() {
+        val result = lexer.execute("")
+        Assertions.assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun onlyWhitespacesInput() {
+        val result = lexer.execute("    \t\n")
+        Assertions.assertTrue(result.isEmpty())
+    }
+
+    @Test
+    fun inputWithMultipleLines() {
+        val input =
+            """
+            let x = 10;
+            let y = 20;
+            """.trimIndent()
+        val result = lexer.execute(input)
+        Assertions.assertEquals(10, result.size)
+        Assertions.assertEquals(Types.KEYWORD, result[0].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[2].getType())
+        Assertions.assertEquals(Types.LITERAL, result[3].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
+        Assertions.assertEquals(Types.KEYWORD, result[5].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[6].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[7].getType())
+        Assertions.assertEquals(Types.LITERAL, result[8].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[9].getType())
     }
 }

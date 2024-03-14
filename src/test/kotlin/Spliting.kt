@@ -26,11 +26,4 @@ class Spliting {
         val result = lex.split("val nombre = \"Pepe\"")
         Assertions.assertEquals(4, result.size)
     }
-
-    @Test
-    fun doomTest() {
-        Assertions.fail<String>("This test is doomed to fail!")
-    }
 }
-
-

@@ -1,5 +1,12 @@
 package org.example.Token
 
 enum class Types {
-IDENTIFIER, KEYWORD, PUNCTUATOR, OPERATOR, LITERAL, COMMENT
+    IDENTIFIER,
+    KEYWORD,
+    PUNCTUATOR,
+    OPERATOR,
+    LITERAL,
+    COMMENT,
+    DATA_TYPE,
+    ASSIGNATOR,
 }
