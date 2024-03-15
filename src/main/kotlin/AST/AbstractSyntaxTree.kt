@@ -19,7 +19,7 @@ class AbstractSyntaxTree(
         return left == null && right == null
     }
 
-    fun getValue(): String {
-        return value.getValue()
+    fun getValue(): Token {
+        return value
     }
 }
