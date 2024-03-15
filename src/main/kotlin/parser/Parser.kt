@@ -21,6 +21,7 @@ class Parser {
         }
         return finalList
     }
+
     private fun variableAssignation(tokens: List<Token>): AbstractSyntaxTree {
         val leftTokens = tokens.takeWhile { it.getValue() != "=" }
         val rightTokens = tokens.drop(leftTokens.size + 1)
