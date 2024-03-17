@@ -7,7 +7,7 @@ class Leaf(private var value: Token) : AbstractSyntaxTree {
         return true
     }
 
-    override fun getValue(): Token {
+    override fun getToken(): Token {
         return this.value
     }
 }

@@ -33,14 +33,59 @@ class ParserTest {
         val leftNode = ast.getLeft()
         val rightNode = ast.getRight()
 
-        assertEquals("=", ast.getValue().getValue())
-        assertEquals("let", leftNode?.getValue()?.getValue())
-        assertEquals("var", leftNode?.getLeft()?.getValue()?.getValue())
-        assertEquals("string", leftNode?.getRight()?.getValue()?.getValue())
-        assertEquals("+", rightNode?.getValue()?.getValue())
-        assertEquals("hola", rightNode?.getLeft()?.getValue()?.getValue())
-        assertEquals("*", rightNode?.getRight()?.getValue()?.getValue())
-        assertEquals("15", rightNode?.getRight()?.getRight()?.getValue()?.getValue())
-        assertEquals("1", rightNode?.getRight()?.getLeft()?.getValue()?.getValue())
+        assertEquals("=", ast.getToken().getValue())
+        assertEquals("let", leftNode?.getToken()?.getValue())
+        assertEquals("var", leftNode?.getLeft()?.getToken()?.getValue())
+        assertEquals("string", leftNode?.getRight()?.getToken()?.getValue())
+        assertEquals("+", rightNode?.getToken()?.getValue())
+        assertEquals("hola", rightNode?.getLeft()?.getToken()?.getValue())
+        assertEquals("*", rightNode?.getRight()?.getToken()?.getValue())
+        assertEquals("15", rightNode?.getRight()?.getRight()?.getToken()?.getValue())
+        assertEquals("1", rightNode?.getRight()?.getLeft()?.getToken()?.getValue())
+    }
+
+    @Test
+    fun testExecute_Println() {
+        val tokens = listOf(
+            Token(Types.OUTPUT, "println", Position(0, 0), Position(1, 6)),
+            Token(Types.PUNCTUATOR, "(", Position(0, 7), Position(1, 8)),
+            Token(Types.LITERAL, "Hello", Position(0, 9), Position(1, 15)),
+            Token(Types.OPERATOR, "+", Position(0, 16), Position(1, 15)),
+            Token(Types.LITERAL, "world", Position(0, 16), Position(1, 15)),
+            Token(Types.PUNCTUATOR, ")", Position(0, 22), Position(1, 23)),
+            Token(Types.PUNCTUATOR, ";", Position(0, 24), Position(1, 25))
+        )
+
+        val parser = Parser()
+        val abstractSyntaxTrees = parser.execute(tokens)
+
+        assertEquals(1, abstractSyntaxTrees.size)
+
+        val ast = abstractSyntaxTrees[0]
+        val leftNode = ast.getLeft()
+        val rightNode = ast.getRight()
+
+        assertEquals("println", ast.getToken().getValue())
+        assertEquals("Hello", rightNode?.getLeft()?.getToken()?.getValue())
+        assertEquals("+", rightNode?.getToken()?.getValue())
+        assertEquals("world", rightNode?.getRight()?.getToken()?.getValue())
+    }
+
+    @Test
+    fun testExecute_Println_NoArgs() {
+        val tokens = listOf(
+            Token(Types.KEYWORD, "println", Position(0, 0), Position(1, 6)),
+            Token(Types.PUNCTUATOR, "(", Position(0, 7), Position(1, 8)),
+            Token(Types.PUNCTUATOR, ")", Position(0, 9), Position(1, 10)),
+            Token(Types.PUNCTUATOR, ";", Position(0, 11), Position(1, 12))
+        )
+
+        val parser = Parser()
+        val abstractSyntaxTrees = parser.execute(tokens)
+
+        assertEquals(1, abstractSyntaxTrees.size)
+
+        val ast = abstractSyntaxTrees[0]
+        assertEquals("println", ast.getToken().getValue())
     }
 }

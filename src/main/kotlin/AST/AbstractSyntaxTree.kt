@@ -9,5 +9,5 @@ interface AbstractSyntaxTree {
 
     fun isLeaf(): Boolean
 
-    fun getValue(): Token
+    fun getToken(): Token
 }

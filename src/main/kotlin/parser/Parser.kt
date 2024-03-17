@@ -14,8 +14,22 @@ class Parser {
                 val abstractSyntaxTree = variableAssignation(row)
                 finalList.add(abstractSyntaxTree)
             }
+            else if (row.isNotEmpty() && hasPrintln(row)) {
+                val abstractSyntaxTree = printlnDeclarator(row)
+                finalList.add(abstractSyntaxTree)
+            }
         }
         return finalList
+    }
+    private fun printlnDeclarator(tokens: List<Token>): AbstractSyntaxTree {
+        val root = NodeBuilder()
+        root.setValue(tokens.find { it.getValue() == "println" }!!)
+        val rightTokens = tokens.drop(2).take(tokens.size -1) //SACO LOS PARENTESIS
+        //TERMINAR.
+        return root.build()
+    }
+    private fun hasPrintln(tokens: List<Token>): Boolean {
+        return tokens.any { it.getValue() == "println" }
     }
 
     private fun variableAssignation(tokens: List<Token>): AbstractSyntaxTree {

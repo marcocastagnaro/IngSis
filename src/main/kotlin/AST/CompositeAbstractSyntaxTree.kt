@@ -2,7 +2,7 @@ package org.example.AST
 import org.example.Token.Token
 
 class CompositeAbstractSyntaxTree(
-    private var value: Token,
+    private var token: Token,
     private var left: AbstractSyntaxTree? = null,
     private var right: AbstractSyntaxTree? = null,
 ) : AbstractSyntaxTree {
@@ -10,8 +10,8 @@ class CompositeAbstractSyntaxTree(
         return false
     }
 
-    override fun getValue(): Token {
-        return this.value
+    override fun getToken(): Token {
+        return this.token
     }
 
     override fun getLeft(): AbstractSyntaxTree? {
