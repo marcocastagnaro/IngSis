@@ -2,24 +2,12 @@ package org.example.AST
 
 import org.example.Token.Token
 
-class AbstractSyntaxTree(
-    private val value: Token,
-    private val left: AbstractSyntaxTree? = null,
-    private val right: AbstractSyntaxTree? = null,
-) {
-    fun left(): AbstractSyntaxTree? {
-        return left
-    }
+interface AbstractSyntaxTree {
+    fun getLeft(): AbstractSyntaxTree? = null
 
-    fun right(): AbstractSyntaxTree? {
-        return right
-    }
+    fun getRight(): AbstractSyntaxTree? = null
 
-    fun isLeaf(): Boolean {
-        return left == null && right == null
-    }
+    fun isLeaf(): Boolean
 
-    fun getValue(): Token {
-        return value
-    }
+    fun getValue(): Token
 }

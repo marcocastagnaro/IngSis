@@ -2,12 +2,12 @@ package org.example.parser
 
 import org.example.Token.Token
 import org.example.Token.Types
-import org.example.Token.nodes.Node
-import org.example.Token.nodes.NodeBuilder
+import org.example.AST.AbstractSyntaxTree
+import org.example.AST.NodeBuilder
 
 class Parser {
-    fun execute(tokens: List<Token>): List<Node> {
-        val finalList = ArrayList<Node>()
+    fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
+        val finalList = ArrayList<AbstractSyntaxTree>()
         val rows = getSameLineTokens(tokens)
         for (row in rows) {
             if (row.isNotEmpty() && hasAssignation(row)) {
@@ -18,7 +18,7 @@ class Parser {
         return finalList
     }
 
-    private fun variableAssignation(tokens: List<Token>): Node {
+    private fun variableAssignation(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getValue() == "=" }!!)
         val leftTokens = tokens.takeWhile { it.getValue() != "=" }
@@ -38,7 +38,7 @@ class Parser {
         return root.build()
     }
 
-    private fun operationsDeclarator(tokens: List<Token>): Node {
+    private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val nodes = tokens.stream().map { NodeBuilder().setValue(it) }.toList().toMutableList()
         var j = 0
         while (j <  nodes.size) {
@@ -63,7 +63,7 @@ class Parser {
         return nodes[0].build()
     }
 
-    private fun variableDeclaration(tokens: List<Token>): Node {
+    private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
         val letToken = tokens.find { it.getValue() == "let" }
         val root = NodeBuilder()
         if (letToken != null) {
