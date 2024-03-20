@@ -24,10 +24,28 @@ class Parser {
     private fun printlnDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getValue() == "println" }!!)
-        val rightTokens = tokens.drop(2).take(tokens.size -1) //SACO LOS PARENTESIS
-        //TERMINAR.
-        return root.build()
+        val tree = getSumPrintln(tokens.drop(2).dropLast(1), root)
+        return tree
     }
+    private fun getSumPrintln(tokens: List<Token>, root : NodeBuilder): AbstractSyntaxTree {
+
+        val sumIndex = tokens.indexOfFirst { it.getValue() == "+" }
+
+        if (sumIndex == -1) {
+            return NodeBuilder().setValue(tokens[0]).build()
+        } else {
+            val leftTokens = tokens.subList(0, sumIndex)
+            val rightTokens = tokens.subList(sumIndex + 1, tokens.size)
+            val sumNode = NodeBuilder().setValue(tokens[sumIndex])
+            val leftSubtree = getSumPrintln(leftTokens, sumNode)
+            val rightSubtree = getSumPrintln(rightTokens, sumNode)
+            root.setLeft(leftSubtree)
+            root.setRight(rightSubtree)
+
+            return root.build() as CompositeAbstractSyntaxTree
+        }
+    }
+
     private fun hasPrintln(tokens: List<Token>): Boolean {
         return tokens.any { it.getValue() == "println" }
     }

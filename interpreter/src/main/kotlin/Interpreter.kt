@@ -16,6 +16,7 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
 
                 "println" -> { // si es un println
                     val value = tree.getLeft()?.getToken()?.getValue()
+                    //hacer
                     if (value != null) {
                         output.changeString(value)
                     }
@@ -24,6 +25,7 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         }
         return output
     }
+
 
     private fun getValues (tree : AbstractSyntaxTree) {//de izquierda a derecha
         val variable = tree.getLeft()?.getLeft()?.getToken()?.getValue()
