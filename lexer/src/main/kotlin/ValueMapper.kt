@@ -3,32 +3,55 @@ package org.example
 import org.example.Token.Token
 import org.example.Token.Types
 
-class ValueMapper {
-    private val regexMap =
-        mapOf(
-            "(if|else|for|while|when|fun|class|object|return|break|continue|let)".toRegex() to Types.KEYWORD,
-            "(string|number)".toRegex() to Types.DATA_TYPE,
-            "(:)".toRegex() to Types.ASSIGNATOR,
-            "(\\d+|\"[^\"]*\"|'[^']*')".toRegex() to Types.LITERAL,
-            """(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex() to Types.IDENTIFIER,
-            "[,;(){}\\[\\]].*".toRegex() to Types.PUNCTUATOR,
-            "[+\\-*/%=><!&|^~]*".toRegex() to Types.OPERATOR,
-            "(//.*|/\\*(.|\\n)*?\\*/)".toRegex() to Types.COMMENT,
+class RegexAssignator(val classification : Regex) : Assignator{
+
+    override fun isThisType(splitToken: SplitToken): Boolean {
+        return classification.matches(splitToken.getValue())
+    }
+}
+
+interface Assignator {
+    fun isThisType(splitToken: SplitToken): Boolean
+}
+
+class ValueMapper (private val assignatorTuple: List<Pair<Assignator, Types>> = default){
+
+    companion object{
+        val default = listOf(
+            RegexAssignator("(if|else|for|while|when|fun|class|object|return|break|continue|let)".toRegex()) to Types.KEYWORD,
+            RegexAssignator("(string|number)".toRegex()) to Types.DATA_TYPE,
+            RegexAssignator("(:)".toRegex()) to Types.ASSIGNATOR,
+            RegexAssignator("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
+            RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
+            RegexAssignator("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
+            RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
+            RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
         )
+    }
+
+
 
     fun assigningTypesToTokenValues(tokenList: List<SplitToken>): List<Token> {
         val resultTokens = ArrayList<Token>()
-        for (token in tokenList) {
-            for ((key, type) in regexMap) {
-                val result = key.find(token.getValue())
-                if (result != null) {
-                    resultTokens.add(createToken(token, type))
-                    break
+        tokenList.forEach{
+            token ->
+                val tokenType = findAppropiateTokenType(token)
+                if(tokenType != null){
+                    resultTokens.add(createToken(token, tokenType))
                 }
-            }
         }
         return resultTokens
     }
+
+    private fun findAppropiateTokenType(splitToken: SplitToken): Types? {
+        assignatorTuple.forEach{
+            (assignator, type) -> if(assignator.isThisType(splitToken)){
+                return type
+            }
+        }
+        return null
+    }
+
 
     private fun createToken(
         value: SplitToken,
