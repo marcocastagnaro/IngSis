@@ -1,11 +1,12 @@
 package org.example
 
 class Output {
-    var string = "";
+    var string = ""
 
-    fun changeString(newString: String) {
+    fun buildOutput(newString: String) {
         string = string + newString
     }
+
     fun print() {
         println(string)
     }

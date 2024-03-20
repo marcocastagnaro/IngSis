@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/Token" />
             <option value="$PROJECT_DIR$/lexer" />
             <option value="$PROJECT_DIR$/parser" />
-            <option value="$PROJECT_DIR$/untitled" />
           </set>
         </option>
       </GradleProjectSettings>

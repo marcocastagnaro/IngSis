@@ -2,34 +2,32 @@ package org.example
 
 import org.example.Token.Token
 import org.example.Token.Types
-import org.example.AbstractSyntaxTree
-import org.example.NodeBuilder
 
 class Parser {
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
-        val finalList = ArrayList<AbstractSyntaxTree>()
-        val rows = getSameLineTokens(tokens)
-        for (row in rows) {
-            if (row.isNotEmpty() && hasAssignation(row)) {
-                val abstractSyntaxTree = variableAssignation(row)
-                finalList.add(abstractSyntaxTree)
+        return getSameLineTokens(tokens)
+            .filter { it.isNotEmpty() }
+            .flatMap { row ->
+                when {
+                    hasAssignation(row) -> listOf(variableAssignation(row))
+                    hasPrintln(row) -> listOf(printlnDeclarator(row))
+                    else -> emptyList()
+                }
             }
-            else if (row.isNotEmpty() && hasPrintln(row)) {
-                val abstractSyntaxTree = printlnDeclarator(row)
-                finalList.add(abstractSyntaxTree)
-            }
-        }
-        return finalList
     }
+
     private fun printlnDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getValue() == "println" }!!)
         val tree = getSumPrintln(tokens.drop(2).dropLast(1), root)
         return tree
     }
-    private fun getSumPrintln(tokens: List<Token>, root : NodeBuilder): AbstractSyntaxTree {
 
-        val sumIndex = tokens.indexOfFirst { it.getValue() == "+" }
+    private fun getSumPrintln(
+        tokens: List<Token>,
+        root: NodeBuilder,
+    ): AbstractSyntaxTree {
+        val sumIndex = tokens.indexOfFirst { it.getValue() == ("+") }
 
         if (sumIndex == -1) {
             return NodeBuilder().setValue(tokens[0]).build()
@@ -73,7 +71,7 @@ class Parser {
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val nodes = tokens.stream().map { NodeBuilder().setValue(it) }.toList().toMutableList()
         var j = 0
-        while (j <  nodes.size) {
+        while (j < nodes.size) {
             if (nodes[j].getValue()!!.getValue() == "/" || nodes[j].getValue()!!.getValue() == "*") {
                 nodes[j].setLeft(nodes[j - 1].build())
                 nodes[j].setRight(nodes[j + 1].build())

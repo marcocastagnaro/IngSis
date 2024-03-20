@@ -6,7 +6,6 @@ import org.example.Token.Token
 class Lexer(private var map: ValueMapper) {
     fun execute(string: String): List<Token> {
         val rows = splitRows(string)
-        System.out.println(rows)
         val tokens = ArrayList<SplitToken>()
         for ((index, row) in rows.withIndex()) {
             tokens.addAll(splitRow(row, index))
@@ -43,7 +42,6 @@ class Lexer(private var map: ValueMapper) {
                         lastSpaceIndex = index
                     }
                 }
-
                 '"', ':', ';' -> {
                     if (char == '"') {
                         if (readingString) {

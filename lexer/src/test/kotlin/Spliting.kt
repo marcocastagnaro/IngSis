@@ -3,7 +3,7 @@ import org.example.ValueMapper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class Spliting {
+class Splitting {
     val valueMapper = ValueMapper()
     val lex = Lexer(valueMapper)
 
