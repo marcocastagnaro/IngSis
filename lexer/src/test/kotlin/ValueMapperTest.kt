@@ -8,7 +8,7 @@ class ValueMapperTest {
     val lexer = Lexer(valueMapper)
 
     @Test
-    fun simpleStringTest()  {
+    fun simpleStringTest() {
         val tokens = lexer.split("val nombre = \"Pedro\" \n109")
         val result = valueMapper.assigningTypesToTokenValues(tokens)
         for (token in result) {

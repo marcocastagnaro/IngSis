@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.21"
+    id("org.jmailen.kotlinter") version "4.3.0"
 }
 
 group = "org.example"
@@ -19,4 +20,8 @@ tasks.test {
 
 kotlin {
     jvmToolchain(21)
+}
+
+tasks.check {
+    dependsOn("installKotlinterPrePushHook")
 }

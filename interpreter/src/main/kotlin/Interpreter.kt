@@ -53,7 +53,7 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
                 output.buildOutput(result.toString())
             }
         } else {
-            if (tree?.getLeft() == null || tree?.getRight() == null) return
+            if (tree.getLeft() == null || tree.getRight() == null) return
             getPrintOutput(tree.getLeft()!!, output)
             getPrintOutput(tree.getRight()!!, output)
         }
@@ -63,10 +63,8 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        if (tree.getLeft()!!.getToken().getValue() is String && tree.getRight()!!.getToken().getValue() is String) {
-            getPrintOutput(tree.getLeft()!!, output)
-            getPrintOutput(tree.getRight()!!, output)
-        }
+        getPrintOutput(tree.getLeft()!!, output)
+        getPrintOutput(tree.getRight()!!, output)
     }
 
     private fun getValues(

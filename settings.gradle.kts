@@ -3,4 +3,3 @@ plugins {
 }
 rootProject.name = "Ingsis"
 include("Interpreter", "AST", "lexer", "parser", "Token")
-

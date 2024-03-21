@@ -3,35 +3,35 @@ package org.example
 import org.example.Token.Token
 import org.example.Token.Types
 
-class RegexAssignation(private val classification: Regex) : Assignation {
+class RegexAssignator(private val classification: Regex) : Assignator {
     override fun isThisType(splitToken: SplitToken): Boolean {
         return classification.matches(splitToken.getValue())
     }
 }
 
-interface Assignation {
+interface Assignator {
     fun isThisType(splitToken: SplitToken): Boolean
 }
 
-class ValueMapper(private val assignationTuple: List<Pair<Assignation, Types>> = default) {
+class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = default) {
     companion object {
         val default =
             listOf(
-                RegexAssignation("(if|else|for|while|when|fun|class|object|return|break|continue|let)".toRegex()) to Types.KEYWORD,
-                RegexAssignation("(string|number)".toRegex()) to Types.DATA_TYPE,
-                RegexAssignation("(:)".toRegex()) to Types.ASSIGNATOR,
-                RegexAssignation("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
-                RegexAssignation("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
-                RegexAssignation("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
-                RegexAssignation("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
-                RegexAssignation("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
+                RegexAssignator("(if|else|for|while|when|fun|class|object|return|break|continue|let)".toRegex()) to Types.KEYWORD,
+                RegexAssignator("(string|number)".toRegex()) to Types.DATA_TYPE,
+                RegexAssignator("(:)".toRegex()) to Types.ASSIGNATOR,
+                RegexAssignator("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
+                RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
+                RegexAssignator("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
+                RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
+                RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
             )
     }
 
     fun assigningTypesToTokenValues(tokenList: List<SplitToken>): List<Token> {
         val resultTokens = ArrayList<Token>()
         tokenList.forEach { token ->
-            val tokenType = findAppropriateTokenType(token)
+            val tokenType = findAppropiateTokenType(token)
             if (tokenType != null) {
                 resultTokens.add(createToken(token, tokenType))
             }
@@ -39,8 +39,8 @@ class ValueMapper(private val assignationTuple: List<Pair<Assignation, Types>> =
         return resultTokens
     }
 
-    private fun findAppropriateTokenType(splitToken: SplitToken): Types? {
-        assignationTuple.forEach { (assignator, type) ->
+    private fun findAppropiateTokenType(splitToken: SplitToken): Types? {
+        assignatorTuple.forEach { (assignator, type) ->
             if (assignator.isThisType(splitToken)) {
                 return type
             }
