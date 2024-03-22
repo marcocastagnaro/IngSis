@@ -9,13 +9,13 @@ class Splitting {
 
     @Test
     fun simpleSplit() {
-        val result = lex.split("a b c")
+        val result = lex.execute("a b c")
         Assertions.assertEquals(3, result.size)
     }
 
     @Test
     fun newLineTest() {
-        val result = lex.split("hola\nMe llamo Pedro")
+        val result = lex.execute("hola\nMe llamo Pedro")
         Assertions.assertEquals(4, result.size)
         Assertions.assertEquals(0, result[0].getInitialPosition().getRow())
         Assertions.assertEquals(1, result[2].getInitialPosition().getRow())
@@ -23,7 +23,7 @@ class Splitting {
 
     @Test
     fun insideString() {
-        val result = lex.split("val nombre = \"Pepe\"")
+        val result = lex.execute("val nombre = \"Pepe\"")
         Assertions.assertEquals(4, result.size)
     }
 }

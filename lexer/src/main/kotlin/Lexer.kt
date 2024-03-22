@@ -87,7 +87,7 @@ class Lexer(private var map: ValueMapper) {
         return tokens
     }
 
-    fun split(string: String): List<SplitToken> {
+    private fun split(string: String): List<SplitToken> {
         val result = ArrayList<SplitToken>()
         var columnCounter = 0
         var rowCounter = 0
