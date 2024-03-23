@@ -27,7 +27,6 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        System.out.println(output)
         if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
         if (tree.getToken().getType() == Types.OPERATOR) {
             val operator = tree.getToken().getValue()

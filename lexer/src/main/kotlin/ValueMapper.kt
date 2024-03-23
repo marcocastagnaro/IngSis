@@ -25,6 +25,7 @@ class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = d
                 RegexAssignator("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
                 RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
                 RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
+                RegexAssignator("println\\((.*)\\)".toRegex()) to Types.FUNCTION,
             )
     }
 
