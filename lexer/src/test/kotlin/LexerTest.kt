@@ -1,11 +1,11 @@
-import org.example.Lexer
+import org.example.Lexer2
 import org.example.Token.Types
 import org.example.ValueMapper
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
 class LexerTest {
-    private val lexer = Lexer(ValueMapper())
+    private val lexer = Lexer2(ValueMapper())
 
     @Test
     fun simpleLexing() {
@@ -49,5 +49,23 @@ class LexerTest {
         Assertions.assertEquals(Types.OPERATOR, result[7].getType())
         Assertions.assertEquals(Types.LITERAL, result[8].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[9].getType())
+    }
+
+    @Test
+    fun testLexerWithFunction() {
+        val input =
+            """
+            let x = 10;
+            println(x)
+            """.trimIndent()
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+        Assertions.assertEquals(6, result.size)
+        Assertions.assertEquals(Types.KEYWORD, result[0].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[2].getType())
+        Assertions.assertEquals(Types.LITERAL, result[3].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
+        Assertions.assertEquals(Types.FUNCTION, result[5].getType())
     }
 }
