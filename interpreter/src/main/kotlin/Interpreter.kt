@@ -3,7 +3,7 @@ package org.example
 import org.example.Token.Types
 
 class Interpreter(private var trees: List<AbstractSyntaxTree>) {
-    val mapValuesAndVariables = mutableMapOf<String, String>()
+    private val mapValuesAndVariables = mutableMapOf<String, String>()
 
     fun execute(): Output {
         val output: Output = Output()
@@ -12,7 +12,7 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
             when (tree.getToken().getValue()) {
                 "=" -> { // si es una asignacion. ASUMIENDO QUE NO HAY ERRORES
                     // TODO (Falta el coso eso que busca errores y formatea)
-                    // getValues(tree)
+                    getValues(tree, output)
                 }
 
                 "println" -> { // si es un println
@@ -27,8 +27,14 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        System.out.println(output)
-        if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
+        if (tree.getToken().getType() == Types.IDENTIFIER) {
+            val value = mapValuesAndVariables[tree.getToken().getValue()]
+            if (value == null) System.out.println("Error! Not Valid Variable")
+            else output.buildOutput(value)
+        }
+            else if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
+
+
         if (tree.getToken().getType() == Types.OPERATOR) {
             val operator = tree.getToken().getValue()
             if (operator == "+") {
@@ -70,8 +76,8 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     private fun getValues(
         tree: AbstractSyntaxTree,
         output: Output,
-    ) { // de izquierda a derecha
-        val variable = tree.getLeft()?.getLeft()?.getToken()?.getValue()
+    ) {
+        val variable = tree.getLeft()?.getToken()?.getValue()
         val rightValue = tree.getRight()?.getToken()?.getValue() // esto si es un string tipo x = "hola"
         // TODO : si es una suma o conjunto de numeros esto no es valido
         if (variable != null && rightValue != null) {
