@@ -7,7 +7,7 @@ class StrategyMapper {
             '"' to QuoteSplittingStrategy(),
             ':' to SpecialChartSplittingStrategy(),
             ';' to SpecialChartSplittingStrategy(),
-            ')' to FunctionSplittingStrategy(),
+            ')' to QuoteSplittingStrategy(),
         )
 
     fun getStrategy(char: Char): SplittingStrategy? {

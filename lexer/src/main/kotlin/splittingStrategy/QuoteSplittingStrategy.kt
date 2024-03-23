@@ -14,7 +14,6 @@ class QuoteSplittingStrategy : SplittingStrategy {
     ) {
         if (state.readingString) {
             val wordStart = state.lastSpaceIndex + 1
-            val word = string.substring(wordStart, index)
             tokens.add(SplitTokenBuilder.createToken(string.substring(wordStart, index + 1), row, wordStart, index))
             state.lastSpaceIndex = index
             state.readingString = false
