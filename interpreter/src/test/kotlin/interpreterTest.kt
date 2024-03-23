@@ -16,7 +16,7 @@ class InterpreterTest {
                         Leaf(
                             Token(
                                 Types.LITERAL,
-                                "'Hello world!'",
+                                "Hello world!",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
@@ -25,7 +25,7 @@ class InterpreterTest {
             )
         val interpreter = Interpreter(trees)
 
-        assertEquals("'Hello world!'", interpreter.execute().string)
+        assertEquals("Hello world!", interpreter.execute().string)
     }
 
     @Test
@@ -45,7 +45,7 @@ class InterpreterTest {
                             Leaf(
                                 Token(
                                     Types.LITERAL,
-                                    "'Hello'",
+                                    "Hello",
                                     Position(1, 1),
                                     Position(1, 1),
                                 ),
@@ -53,7 +53,7 @@ class InterpreterTest {
                             Leaf(
                                 Token(
                                     Types.LITERAL,
-                                    "' world!'",
+                                    " world!",
                                     Position(1, 1),
                                     Position(1, 1),
                                 ),
@@ -63,7 +63,7 @@ class InterpreterTest {
             )
         val interpreter = Interpreter(trees)
 
-        assertEquals("'Hello'' world!'", interpreter.execute().string)
+        assertEquals("Hello world!", interpreter.execute().string)
     }
 
     @Test
@@ -76,7 +76,7 @@ class InterpreterTest {
                     Leaf(
                         Token(
                             Types.LITERAL,
-                            value = "' world!'",
+                            value = " world!",
                             Position(2, 2),
                             Position(3, 3),
                         ),
@@ -84,7 +84,7 @@ class InterpreterTest {
                     left =
                         Leaf(
                             Token (
-                                Types.LITERAL,
+                                Types.IDENTIFIER,
                                 value = "x",
                                 Position(1,1),
                                 Position(1,1)
@@ -104,14 +104,14 @@ class InterpreterTest {
                         Leaf(
                             Token(
                                 Types.LITERAL,
-                                "'Hello'",
+                                "Hello",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                         ),
                         Leaf(
                             Token(
-                                Types.LITERAL,
+                                Types.IDENTIFIER,
                                 "x",
                                 Position(1, 1),
                                 Position(1, 1),
@@ -122,5 +122,5 @@ class InterpreterTest {
             )
         val interpreter = Interpreter(trees)
 
-        assertEquals("'Hello'' world!'", interpreter.execute().string)
+        assertEquals("Hello world!", interpreter.execute().string)
     }}

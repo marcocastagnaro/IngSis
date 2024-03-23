@@ -27,14 +27,13 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        if (tree.getToken().getType() == Types.LITERAL){
-            if (tree.getToken().getValue()[0] != '\'' && tree.getToken().getValue()[tree.getToken().getValue().length - 1] != '\''){
-                val value = mapValuesAndVariables[tree.getToken().getValue()]
-                if (value == null) System.out.println("Error! Not Valid Variable")
-                else output.buildOutput(value)
-            }
-            else if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
+        if (tree.getToken().getType() == Types.IDENTIFIER) {
+            val value = mapValuesAndVariables[tree.getToken().getValue()]
+            if (value == null) System.out.println("Error! Not Valid Variable")
+            else output.buildOutput(value)
         }
+            else if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
+
 
         if (tree.getToken().getType() == Types.OPERATOR) {
             val operator = tree.getToken().getValue()
