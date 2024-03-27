@@ -1,0 +1,5 @@
+disabled_rules:
+  - no-wildcard-imports
+override_rules:
+  - function-naming:
+      uppercase: false  # Set to 'true' for UPPER_CASE, 'false' for camelCase (default)
