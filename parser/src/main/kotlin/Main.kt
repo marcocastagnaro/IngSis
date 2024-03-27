@@ -1,6 +1,5 @@
 package org.example
 
 fun main() {
-    println("Hello World!")nkb l
+    println("Hello World!");
 }
-nm kb
