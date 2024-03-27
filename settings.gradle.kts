@@ -5,3 +5,4 @@ rootProject.name = "Ingsis"
 include("AST", "lexer", "parser", "Token")
 include("IntegrationTesting")
 include("interpreter")
+include("formatter")
