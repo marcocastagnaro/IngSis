@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Compilar el proyecto
+      - name: Build
+        run: ./gradlew build
+        
+      # Ejecutar las pruebas
+      - name: Run tests
+        run: ./gradlew test
