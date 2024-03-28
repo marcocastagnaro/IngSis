@@ -1,9 +1,4 @@
-package AST
-
-import AbstractSyntaxTree
-import NodeBuilder
-import Position
-import Token
+package org.example
 
 class AstBuilder {
     fun buildTree(

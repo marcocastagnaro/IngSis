@@ -1,3 +1,5 @@
+package org.example
+
 class Parser {
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         return getSameLineTokens(tokens)

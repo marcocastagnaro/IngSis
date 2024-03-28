@@ -1,3 +1,5 @@
+package org.example
+
 interface AbstractSyntaxTree {
     fun getLeft(): AbstractSyntaxTree? = null
 

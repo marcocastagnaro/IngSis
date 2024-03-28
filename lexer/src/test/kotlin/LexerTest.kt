@@ -1,3 +1,4 @@
+package org.example
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
@@ -7,7 +8,6 @@ class LexerTest {
     @Test
     fun simpleLexing() {
         val result = lexer.execute("let     name  = \"Pe  dro \"")
-        System.out.println(result.map { it.getValue() })
         Assertions.assertEquals(4, result.size)
         Assertions.assertEquals(Types.KEYWORD, result[0].getType())
         Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())

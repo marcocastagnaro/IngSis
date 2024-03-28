@@ -1,4 +1,4 @@
-package splittingStrategy
+package org.example.splittingStrategy
 
 class StrategyMapper {
     private val splittingStrategies =

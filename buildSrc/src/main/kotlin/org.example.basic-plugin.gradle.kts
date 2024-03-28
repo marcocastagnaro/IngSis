@@ -2,10 +2,7 @@
 plugins {
     kotlin("jvm")
     id("org.jlleitschuh.gradle.ktlint")
-}
-
-allprojects {
-    apply(plugin = "org.jetbrains.kotlinx.kover")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 koverReport {

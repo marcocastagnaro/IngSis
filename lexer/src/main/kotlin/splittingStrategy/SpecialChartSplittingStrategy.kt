@@ -1,7 +1,7 @@
-package splittingStrategy
+package org.example.splittingStrategy
 
-import SplitToken
-import SplitTokenBuilder.Companion.createToken
+import org.example.SplitToken
+import org.example.SplitTokenBuilder.Companion.createToken
 
 class SpecialChartSplittingStrategy : SplittingStrategy {
     override fun split(

@@ -1,3 +1,5 @@
+package org.example
+
 enum class Types {
     IDENTIFIER,
     KEYWORD,

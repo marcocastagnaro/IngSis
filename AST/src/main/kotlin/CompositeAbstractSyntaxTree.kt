@@ -1,3 +1,5 @@
+package org.example
+
 class CompositeAbstractSyntaxTree(
     private var token: Token,
     private var left: AbstractSyntaxTree? = null,

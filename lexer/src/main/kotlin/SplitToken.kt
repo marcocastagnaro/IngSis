@@ -1,3 +1,5 @@
+package org.example
+
 class SplitToken(
     private val initialPosition: Position,
     private val finalPosition: Position,

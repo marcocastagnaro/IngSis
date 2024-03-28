@@ -1,3 +1,5 @@
+package org.example
+
 class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     private val mapValuesAndVariables = mutableMapOf<String, String>()
 

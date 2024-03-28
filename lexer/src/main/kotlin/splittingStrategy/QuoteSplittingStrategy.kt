@@ -1,7 +1,7 @@
-package splittingStrategy
+package org.example.splittingStrategy
 
-import SplitToken
-import SplitTokenBuilder
+import org.example.SplitToken
+import org.example.SplitTokenBuilder
 
 class QuoteSplittingStrategy : SplittingStrategy {
     override fun split(

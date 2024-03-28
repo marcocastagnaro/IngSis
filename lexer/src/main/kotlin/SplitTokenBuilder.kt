@@ -1,3 +1,5 @@
+package org.example
+
 class SplitTokenBuilder {
     companion object {
         fun createToken(

@@ -1,3 +1,5 @@
+package org.example
+
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

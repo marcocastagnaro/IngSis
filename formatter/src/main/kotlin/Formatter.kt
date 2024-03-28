@@ -1,3 +1,5 @@
+package org.example
+
 class Formatter(private val formatRules: List<FormatRule>) {
     fun execute(input: AbstractSyntaxTree): String {
         val tokens = ParseTreeToTokens().parseToString(input)

@@ -1,3 +1,5 @@
+package org.example
+
 class PrintNode(
     private var token: Token,
     private var right: AbstractSyntaxTree? = null,

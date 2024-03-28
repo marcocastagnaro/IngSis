@@ -1,3 +1,4 @@
+package org.example
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

@@ -1,3 +1,3 @@
-package splittingStrategy
+package org.example.splittingStrategy
 
 class SplittingState(var lastSpaceIndex: Int, var readingString: Boolean)
