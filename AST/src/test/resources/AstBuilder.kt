@@ -1,10 +1,9 @@
 package AST
 
+import AbstractSyntaxTree
 import NodeBuilder
-import org.example.Token.Position
-import org.example.Token.Token
-import org.example.Token.Types
-import org.example.org.example.AbstractSyntaxTree
+import Position
+import Token
 
 class AstBuilder {
     fun buildTree(
