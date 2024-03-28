@@ -1,7 +1,3 @@
-import org.example.Parser
-import org.example.Token.Position
-import org.example.Token.Token
-import org.example.Token.Types
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

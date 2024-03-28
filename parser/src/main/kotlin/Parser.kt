@@ -1,8 +1,3 @@
-package org.example
-
-import org.example.Token.Token
-import org.example.Token.Types
-
 class Parser {
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         return getSameLineTokens(tokens)

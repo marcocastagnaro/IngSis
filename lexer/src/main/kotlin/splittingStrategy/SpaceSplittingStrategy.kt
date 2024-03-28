@@ -1,7 +1,7 @@
-package org.example.splittingStrategy
+package splittingStrategy
 
-import org.example.SplitToken
-import org.example.SplitTokenBuilder
+import SplitToken
+import SplitTokenBuilder
 
 class SpaceSplittingStrategy : SplittingStrategy {
     override fun split(

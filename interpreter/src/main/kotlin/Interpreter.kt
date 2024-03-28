@@ -1,7 +1,3 @@
-package org.example
-
-import org.example.Token.Types
-
 class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     private val mapValuesAndVariables = mutableMapOf<String, String>()
 
@@ -29,11 +25,14 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     ) {
         if (tree.getToken().getType() == Types.IDENTIFIER) {
             val value = mapValuesAndVariables[tree.getToken().getValue()]
-            if (value == null) System.out.println("Error! Not Valid Variable")
-            else output.buildOutput(value)
+            if (value == null) {
+                System.out.println("Error! Not Valid Variable")
+            } else {
+                output.buildOutput(value)
+            }
+        } else if (tree.isLeaf()) {
+            output.buildOutput(tree.getToken().getValue())
         }
-            else if (tree.isLeaf()) output.buildOutput(tree.getToken().getValue())
-
 
         if (tree.getToken().getType() == Types.OPERATOR) {
             val operator = tree.getToken().getValue()

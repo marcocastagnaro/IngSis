@@ -1,7 +1,3 @@
-package org.example
-
-import org.example.Token.Token
-
 class PrintNode(
     private var token: Token,
     private var right: AbstractSyntaxTree? = null,

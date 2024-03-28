@@ -1,6 +1,3 @@
-package org.example
-import org.example.Token.Token
-
 class CompositeAbstractSyntaxTree(
     private var token: Token,
     private var left: AbstractSyntaxTree? = null,

@@ -1,6 +1,3 @@
-import org.example.Lexer2
-import org.example.Token.Types
-import org.example.ValueMapper
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 

@@ -1,5 +1,3 @@
-package org.example
-
 class Output {
     var string = ""
 

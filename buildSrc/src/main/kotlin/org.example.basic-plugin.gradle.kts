@@ -1,9 +1,7 @@
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") version "1.9.21"
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    kotlin("jvm")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 repositories {

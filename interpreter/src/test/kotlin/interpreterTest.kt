@@ -1,11 +1,3 @@
-
-import org.example.CompositeAbstractSyntaxTree
-import org.example.Interpreter
-import org.example.Leaf
-import org.example.PrintNode
-import org.example.Token.Position
-import org.example.Token.Token
-import org.example.Token.Types
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

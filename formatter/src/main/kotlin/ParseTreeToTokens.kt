@@ -1,6 +1,3 @@
-import org.example.AbstractSyntaxTree
-import org.example.Token.Token
-
 class ParseTreeToTokens {
     fun parseToString(root: AbstractSyntaxTree): List<Token> {
         val tokenList: MutableList<Token> = mutableListOf()

@@ -1,5 +1,3 @@
-package org.example.Token
-
 class Token(
     private var type: Types,
     private var value: String,

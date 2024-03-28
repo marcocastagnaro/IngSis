@@ -1,7 +1,3 @@
-import org.example.Interpreter
-import org.example.Lexer2
-import org.example.Parser
-import org.example.ValueMapper
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

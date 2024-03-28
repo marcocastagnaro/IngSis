@@ -1,8 +1,3 @@
-package org.example
-
-import org.example.Token.Token
-import org.example.Token.Types
-
 class RegexAssignator(private val classification: Regex) : Assignator {
     override fun isThisType(splitToken: SplitToken): Boolean {
         return classification.matches(splitToken.getValue())

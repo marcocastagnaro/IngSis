@@ -1,6 +1,6 @@
-package org.example.splittingStrategy
+package splittingStrategy
 
-import org.example.SplitToken
+import SplitToken
 
 interface SplittingStrategy {
     fun split(
