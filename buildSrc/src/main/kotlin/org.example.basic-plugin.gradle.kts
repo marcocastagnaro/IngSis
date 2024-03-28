@@ -4,6 +4,18 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
 }
 
+allprojects {
+    apply(plugin = "org.jetbrains.kotlinx.kover")
+}
+
+koverReport {
+    verify {
+        rule {
+            isEnabled = true
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
