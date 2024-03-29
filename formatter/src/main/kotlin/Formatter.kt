@@ -1,6 +1,10 @@
 package org.example
 
-class Formatter(private val formatRules: List<FormatRule>) {
+class Formatter(private val formatRules: List<FormatRule> = default) {
+    companion object {
+        val default = listOf(ReadSpacesFormat())
+    }
+
     fun execute(input: AbstractSyntaxTree): String {
         val tokens = ParseTreeToTokens().parseToString(input)
         return giveFormat(tokens)

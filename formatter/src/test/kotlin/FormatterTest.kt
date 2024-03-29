@@ -39,4 +39,40 @@ class FormatterTest {
         val result = formatter.execute(tree)
         assertEquals("printlnHello+world!", result)
     }
+
+    @Test
+    fun `test 002 space rule applied`()  {
+        val formatter = Formatter(emptyList())
+        val tree =
+            PrintNode(
+                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                right =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "+",
+                            Position(1, 15),
+                            Position(1, 15),
+                        ),
+                        Leaf(
+                            Token(
+                                Types.LITERAL,
+                                "Hello",
+                                Position(1, 8),
+                                Position(1, 13),
+                            ),
+                        ),
+                        Leaf(
+                            Token(
+                                Types.LITERAL,
+                                "world!",
+                                Position(1, 17),
+                                Position(1, 23),
+                            ),
+                        ),
+                    ),
+            )
+        val result = formatter.execute(tree)
+        assertEquals("println Hello + world!", result)
+    }
 }
