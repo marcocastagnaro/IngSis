@@ -8,10 +8,10 @@ class ReadSpacesFormat : FormatRule {
     private fun findSpaces(tokenList: List<Token>): List<Token> {
         var index = 1
         val newTokenList: MutableList<Token> = listOf<Token>().toMutableList()
+        newTokenList.add(tokenList[0])
         while (index < tokenList.size) {
             val currentToken = tokenList[index]
             val previousToken = tokenList[index - 1]
-            newTokenList.addLast(previousToken)
             if (hasSpaceSeparation(currentToken, previousToken)) {
                 newTokenList.addLast(addSpaceTokens(previousToken, currentToken))
             }
