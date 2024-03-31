@@ -1,5 +1,4 @@
 package org.example
-import org.example.Token.Token
 
 class CompositeAbstractSyntaxTree(
     private var token: Token,

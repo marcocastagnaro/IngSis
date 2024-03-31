@@ -1,5 +1,4 @@
-import org.example.Lexer
-import org.example.ValueMapper
+package org.example
 
 class ValueMapperTest {
     val valueMapper = ValueMapper()

@@ -1,8 +1,5 @@
 package org.example
 
-import org.example.Token.Position
-import org.example.Token.Token
-
 class Lexer(private var map: ValueMapper) {
     fun execute(string: String): List<Token> {
         val rows = splitRows(string)

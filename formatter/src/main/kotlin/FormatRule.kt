@@ -1,4 +1,4 @@
-import org.example.Token.Token
+package org.example
 
 interface FormatRule {
     fun applyRule(tokenList: List<Token>): List<Token> // Returns a token List and applies the rules in tokens

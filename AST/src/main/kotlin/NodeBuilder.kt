@@ -1,7 +1,5 @@
 package org.example
 
-import org.example.Token.Token
-
 class NodeBuilder {
     private var value: Token? = null
     private var left: AbstractSyntaxTree? = null

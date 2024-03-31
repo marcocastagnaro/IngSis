@@ -1,7 +1,5 @@
 package org.example
 
-import org.example.Token.Position
-
 class SplitTokenBuilder {
     companion object {
         fun createToken(

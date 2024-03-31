@@ -1,4 +1,4 @@
-package org.example.Token
+package org.example
 
 class Token(
     private var type: Types,

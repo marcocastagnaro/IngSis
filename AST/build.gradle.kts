@@ -1,22 +1,7 @@
 plugins {
-    kotlin("jvm")
-}
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    id("org.example.basic-plugin")
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation(project(":Token"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
 }

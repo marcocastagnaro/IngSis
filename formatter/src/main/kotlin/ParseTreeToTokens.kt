@@ -1,5 +1,4 @@
-import org.example.AbstractSyntaxTree
-import org.example.Token.Token
+package org.example
 
 class ParseTreeToTokens {
     fun parseToString(root: AbstractSyntaxTree): List<Token> {

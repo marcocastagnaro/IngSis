@@ -1,9 +1,7 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports")
-
 package org.example
 
-import org.example.Token.Token
-import org.example.splittingStrategy.*
+import org.example.splittingStrategy.SplittingState
+import org.example.splittingStrategy.StrategyMapper
 
 class Lexer2(private var map: ValueMapper, private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
     fun execute(string: String): List<Token> {
