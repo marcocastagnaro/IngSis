@@ -60,13 +60,31 @@ class LexerTest {
             """.trimIndent()
         val result = lexer.execute(input)
         System.out.println(result.map { it.getValue() })
-        Assertions.assertEquals(7, result.size)
+        Assertions.assertEquals(10, result.size)
         Assertions.assertEquals(Types.KEYWORD, result[0].getType())
         Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
         Assertions.assertEquals(Types.OPERATOR, result[2].getType())
         Assertions.assertEquals(Types.LITERAL, result[3].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
         Assertions.assertEquals(Types.FUNCTION, result[5].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[6].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[7].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[8].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[9].getType())
+    }
+
+    @Test
+    fun testCompositeLexer() {
+        val input = "println(\"Hello\" + \"World\");"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+        Assertions.assertEquals(7, result.size)
+        Assertions.assertEquals(Types.FUNCTION, result[0].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[1].getType())
+        Assertions.assertEquals(Types.LITERAL, result[2].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[3].getType())
+        Assertions.assertEquals(Types.LITERAL, result[4].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[5].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[6].getType())
     }
 }

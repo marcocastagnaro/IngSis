@@ -16,7 +16,6 @@ class QuoteSplittingStrategy : SplittingStrategy {
             val wordStart = state.lastSpaceIndex + 1
             tokens.add(SplitTokenBuilder.createToken(string.substring(wordStart, index + 1), row, wordStart, index))
             state.lastSpaceIndex = index
-            state.readingString = false
         }
     }
 }

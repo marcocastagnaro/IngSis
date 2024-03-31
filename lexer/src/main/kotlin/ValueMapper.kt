@@ -18,14 +18,14 @@ class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = d
         val default =
             listOf(
                 RegexAssignator("(if|else|for|while|when|fun|class|object|return|break|continue|let)".toRegex()) to Types.KEYWORD,
+                RegexAssignator("println".toRegex()) to Types.FUNCTION,
                 RegexAssignator("(string|number)".toRegex()) to Types.DATA_TYPE,
                 RegexAssignator("(:)".toRegex()) to Types.ASSIGNATOR,
                 RegexAssignator("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
-                RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
                 RegexAssignator("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
                 RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
+                RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
                 RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
-                RegexAssignator("println\\((.*)\\)".toRegex()) to Types.FUNCTION,
             )
     }
 

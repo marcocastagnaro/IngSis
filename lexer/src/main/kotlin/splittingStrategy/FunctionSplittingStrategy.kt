@@ -12,9 +12,16 @@ class FunctionSplittingStrategy : SplittingStrategy {
         index: Int,
         char: Char,
     ) {
-        if (!state.readingString) {
+        if (!state.readingString || (state.readingString && state.insideFunction)) {
             val wordStart = state.lastSpaceIndex + 1
-            tokens.add(SplitTokenBuilder.createToken(string.substring(wordStart, index + 1), row, wordStart, index))
+            /*if (!state.insideFunction) {
+                tokens.add(SplitTokenBuilder.createToken(string.substring(wordStart, index), row, wordStart, index))
+            }*/
+            if (wordStart != index) {
+                tokens.add(SplitTokenBuilder.createToken(string.substring(wordStart, index), row, wordStart, index))
+            }
+            tokens.add(SplitTokenBuilder.createToken(string.substring(index, index + 1), row, index, index))
+            state.insideFunction = !state.insideFunction
             state.lastSpaceIndex = index
             state.readingString = false
         }

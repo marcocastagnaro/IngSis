@@ -24,13 +24,15 @@ class Lexer2(private var map: ValueMapper, private val splitStrategyMapper: Stra
         row: Int,
     ): List<SplitToken> {
         val tokens = ArrayList<SplitToken>()
-        val splittingState = SplittingState(-1, false)
+        val splittingState = SplittingState(-1, false, false)
 
         string.forEachIndexed { index, char ->
-            val strategy = splitStrategyMapper.getStrategy(char)
-            strategy?.split(string, row, tokens, splittingState, index, char)
-            if (char == '"') {
-                splittingState.readingString = !splittingState.readingString
+            val strategy = splitStrategyMapper.getStrategy(char.toString())
+            if (strategy != null) {
+                strategy.split(string, row, tokens, splittingState, index, char)
+                if (char == '"') {
+                    splittingState.readingString = !splittingState.readingString
+                }
             }
         }
         return tokens
