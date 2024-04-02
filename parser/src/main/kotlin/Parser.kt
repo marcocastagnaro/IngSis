@@ -41,7 +41,7 @@ class Parser {
     }
 
     private fun hasPrintln(tokens: List<Token>): Boolean {
-        return tokens.any { it.getType() == Types.FUNCTION}
+        return tokens.any { it.getType() == Types.FUNCTION }
     }
 
     private fun variableAssignation(tokens: List<Token>): AbstractSyntaxTree {

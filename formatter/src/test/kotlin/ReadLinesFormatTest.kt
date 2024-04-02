@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class ReadLinesFormatTest {
     @Test
-    fun `test 001 two lines simple formatting`()  {
+    fun `test 001 two lines simple formatting`() {
         val tokenList =
             listOf(
                 Token(Types.LITERAL, "Hello", Position(1, 1), Position(1, 5)),
