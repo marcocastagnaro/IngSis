@@ -2,7 +2,8 @@ package org.example
 
 class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     private val mapValuesAndVariables = mutableMapOf<Pair<String, String>, String>()
-//el Pair de string,string es para guardar el nombre de la variable y su tipo, luego el value es el valor de la variable
+
+// el Pair de string,string es para guardar el nombre de la variable y su tipo, luego el value es el valor de la variable
     fun execute(): Output {
         val output: Output = Output()
 
@@ -29,7 +30,8 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
             val variableName = tree.getToken().getValue()
             val value = testingVariables(variableName)
             if (value == null) {
-                println("Error! Not Valid Variable")
+                throw Exception("Error! Not Valid Variable")
+//                println("Error! Not Valid Variable")
             } else {
                 output.buildOutput(value)
             }
@@ -88,9 +90,9 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
             mapValuesAndVariables[variable to type] = rightValue
         }
     }
+
     public fun testingVariables(variable: String): String? {
         val entry = mapValuesAndVariables.entries.find { it.key.first == variable }
         return entry?.value
     }
-
 }

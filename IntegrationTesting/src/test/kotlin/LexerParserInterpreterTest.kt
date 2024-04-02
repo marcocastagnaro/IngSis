@@ -16,8 +16,9 @@ class LexerParserInterpreterTest {
         val interpreter = Interpreter(abstractSyntaxTrees)
         assertEquals("\"Hello world!\"", interpreter.execute().string)
     }
+
     @Test
-    fun `test 002 test assignation from lexer to interpreter` (){
+    fun `test 002 assignation from lexer to interpreter`() {
         val input = "let x : number = 10;"
         val lexer = Lexer2(ValueMapper())
         val tokens = lexer.execute(input)
@@ -28,5 +29,52 @@ class LexerParserInterpreterTest {
         val interpreter = Interpreter(abstractSyntaxTrees)
         val result = interpreter.execute()
         assertEquals("10", interpreter.testingVariables("x"))
+    }
+
+    @Test
+    fun `test 003 declaring a variable and then printing it`() {
+        val input = "let x : number = 10;\nprintln(x);"
+        val lexer = Lexer2(ValueMapper())
+        val tokens = lexer.execute(input)
+        assertEquals(12, tokens.size)
+        val parser = Parser()
+        val abstractSyntaxTrees = parser.execute(tokens)
+        assertEquals(2, abstractSyntaxTrees.size)
+        val interpreter = Interpreter(abstractSyntaxTrees)
+        val result = interpreter.execute()
+        assertEquals("10", result.string)
+    }
+
+    @Test
+    fun `test 004 printing a non existing variable`() {
+        val input = "println(x);"
+        val lexer = Lexer2(ValueMapper())
+        val tokens = lexer.execute(input)
+//        assertEquals(3, tokens.size)
+        val parser = Parser()
+        val abstractSyntaxTrees = parser.execute(tokens)
+        assertEquals(1, abstractSyntaxTrees.size)
+        val interpreter = Interpreter(abstractSyntaxTrees)
+        try {
+            val result = interpreter.execute()
+        } catch (e: Exception) {
+            assertEquals("Error! Not Valid Variable", e.message)
+        }
+    }
+
+    @Test
+    fun `test 005 declaring a variable and then adding one to it`() {
+        val input = "let x : number = 10;\nx = x + 1;\nprintln(x);"
+        val lexer = Lexer2(ValueMapper())
+        val tokens = lexer.execute(input)
+//        assertEquals(18, tokens.size)
+        val parser = Parser()
+        val abstractSyntaxTrees = parser.execute(tokens)
+        assertEquals(3, abstractSyntaxTrees.size)
+        val interpreter = Interpreter(abstractSyntaxTrees)
+        val result = interpreter.execute()
+        assertEquals("11", result.string)
+
+        // TODO : this case is not yet implemented
     }
 }
