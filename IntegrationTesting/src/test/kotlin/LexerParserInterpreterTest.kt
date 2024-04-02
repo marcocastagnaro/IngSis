@@ -1,5 +1,6 @@
 package org.example
 
+import Parser
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -27,7 +28,7 @@ class LexerParserInterpreterTest {
         val abstractSyntaxTrees = parser.execute(tokens)
         assertEquals(1, abstractSyntaxTrees.size)
         val interpreter = Interpreter(abstractSyntaxTrees)
-        val result = interpreter.execute()
+        interpreter.execute()
         assertEquals("10", interpreter.testingVariables("x"))
     }
 

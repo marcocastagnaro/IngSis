@@ -31,7 +31,6 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
             val value = testingVariables(variableName)
             if (value == null) {
                 throw Exception("Error! Not Valid Variable")
-//                println("Error! Not Valid Variable")
             } else {
                 output.buildOutput(value)
             }
