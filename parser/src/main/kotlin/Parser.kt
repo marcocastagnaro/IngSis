@@ -3,7 +3,6 @@ package org.example
 class Parser {
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         return getSameLineTokens(tokens)
-            .filter { it.isNotEmpty() }
             .flatMap { row ->
                 when {
                     hasAssignation(row) -> listOf(variableAssignation(row))
@@ -27,7 +26,7 @@ class Parser {
         val sumIndex = tokens.indexOfFirst { it.getValue() == ("+") }
 
         if (sumIndex == -1) {
-            return NodeBuilder().setValue(tokens[0]).build()
+            return root.setRight(NodeBuilder().setValue(tokens[0]).build()).build()
         } else {
             val leftTokens = tokens.subList(0, sumIndex)
             val rightTokens = tokens.subList(sumIndex + 1, tokens.size)
@@ -42,7 +41,7 @@ class Parser {
     }
 
     private fun hasPrintln(tokens: List<Token>): Boolean {
-        return tokens.any { it.getValue() == "println" }
+        return tokens.any { it.getType() == Types.FUNCTION}
     }
 
     private fun variableAssignation(tokens: List<Token>): AbstractSyntaxTree {

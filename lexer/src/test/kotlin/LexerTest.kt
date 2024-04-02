@@ -16,6 +16,18 @@ class LexerTest {
     }
 
     @Test
+    fun lexingWithTypes (){
+        val result = lexer.execute("let x : number = 10;")
+        Assertions.assertEquals(7, result.size)
+        Assertions.assertEquals(Types.KEYWORD, result[0].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
+        Assertions.assertEquals(Types.ASSIGNATOR, result[2].getType())
+        Assertions.assertEquals(Types.DATA_TYPE, result[3].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[4].getType())
+        Assertions.assertEquals(Types.LITERAL, result[5].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[6].getType())
+    }
+    @Test
     fun emptyInput() {
         val result = lexer.execute("")
         Assertions.assertTrue(result.isEmpty())

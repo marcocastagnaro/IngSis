@@ -1,8 +1,8 @@
 package org.example
 
 class Interpreter(private var trees: List<AbstractSyntaxTree>) {
-    private val mapValuesAndVariables = mutableMapOf<String, String>()
-
+    private val mapValuesAndVariables = mutableMapOf<Pair<String, String>, String>()
+//el Pair de string,string es para guardar el nombre de la variable y su tipo, luego el value es el valor de la variable
     fun execute(): Output {
         val output: Output = Output()
 
@@ -26,9 +26,10 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         output: Output,
     ) {
         if (tree.getToken().getType() == Types.IDENTIFIER) {
-            val value = mapValuesAndVariables[tree.getToken().getValue()]
+            val variableName = tree.getToken().getValue()
+            val value = testingVariables(variableName)
             if (value == null) {
-                System.out.println("Error! Not Valid Variable")
+                println("Error! Not Valid Variable")
             } else {
                 output.buildOutput(value)
             }
@@ -78,11 +79,18 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        val variable = tree.getLeft()?.getToken()?.getValue()
-        val rightValue = tree.getRight()?.getToken()?.getValue() // esto si es un string tipo x = "hola"
+        val variable = tree.getLeft()?.getLeft()?.getToken()?.getValue()
+        val type = tree.getLeft()?.getRight()?.getToken()?.getValue()
+        val rightValue = tree.getRight()?.getToken()?.getValue()
+
         // TODO : si es una suma o conjunto de numeros esto no es valido
-        if (variable != null && rightValue != null) {
-            mapValuesAndVariables[variable] = rightValue
+        if (variable != null && rightValue != null && (type == "number" || type == "string")) {
+            mapValuesAndVariables[variable to type] = rightValue
         }
     }
+    public fun testingVariables(variable: String): String? {
+        val entry = mapValuesAndVariables.entries.find { it.key.first == variable }
+        return entry?.value
+    }
+
 }
