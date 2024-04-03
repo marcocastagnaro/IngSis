@@ -1,4 +1,6 @@
-import org.example.*
+package org.example
+
+import ASTFactory
 
 class PrintlnASTfactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
@@ -7,15 +9,20 @@ class PrintlnASTfactory : ASTFactory {
         return root
     }
 
-    private fun getSumPrintln(tokens: List<Token>, root: NodeBuilder? = null): AbstractSyntaxTree {
-        val sumIndex = tokens.indexOfFirst { it.getValue() == "+" }
+    private fun getSumPrintln(
+        tokens: List<Token>,
+        root: NodeBuilder? = null,
+    ): AbstractSyntaxTree {
+        val sumIndex =
+            tokens.indexOfFirst { it.getValue() == "+" }
 
         return if (sumIndex == -1) {
             root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build() ?: NodeBuilder().setValue(tokens[0]).build()
         } else {
-            val currentRoot = root ?: NodeBuilder().setValue(tokens[sumIndex]).apply {
-                setRight(getSumPrintln(tokens.drop(sumIndex + 1)))
-            }
+            val currentRoot =
+                root ?: NodeBuilder().setValue(tokens[sumIndex]).apply {
+                    setRight(getSumPrintln(tokens.drop(sumIndex + 1)))
+                }
             val leftTokens = tokens.subList(0, sumIndex)
             val leftSubtree = getSumPrintln(leftTokens)
             currentRoot.setLeft(leftSubtree)

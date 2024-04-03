@@ -93,5 +93,4 @@ class ParserTest {
         assertEquals("!", rightNode?.getRight()?.getRight()?.getToken()?.getValue())
         assertEquals("world", rightNode?.getRight()?.getLeft()?.getToken()?.getValue())
     }
-
 }

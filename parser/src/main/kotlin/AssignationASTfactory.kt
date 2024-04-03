@@ -3,9 +3,8 @@ import org.example.NodeBuilder
 import org.example.Token
 import org.example.Types
 
-class AssignationASTfactory : ASTFactory{
-
-     public override fun createAST (tokens : List<Token>) : AbstractSyntaxTree {
+class AssignationASTfactory : ASTFactory {
+    public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getValue() == "=" }!!)
         val leftTokens = tokens.takeWhile { it.getValue() != "=" }
@@ -24,6 +23,7 @@ class AssignationASTfactory : ASTFactory{
         }
         return root.build()
     }
+
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val nodes = tokens.stream().map { NodeBuilder().setValue(it) }.toList().toMutableList()
         var j = 0
@@ -48,6 +48,7 @@ class AssignationASTfactory : ASTFactory{
         }
         return nodes[0].build()
     }
+
     private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
         val letToken = tokens.find { it.getValue() == "let" }
         val root = NodeBuilder()

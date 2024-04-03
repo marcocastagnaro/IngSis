@@ -15,7 +15,8 @@ class PrintNode(
     override fun getRight(): AbstractSyntaxTree? {
         return this.right
     }
-    public fun setRight (ast : AbstractSyntaxTree) {
+
+    public fun setRight(ast: AbstractSyntaxTree) {
         this.right = ast
     }
 }

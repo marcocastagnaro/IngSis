@@ -1,4 +1,5 @@
 import org.example.AbstractSyntaxTree
+import org.example.PrintlnASTfactory
 import org.example.Token
 import org.example.Types
 
@@ -12,7 +13,7 @@ class Parser {
             if (astFactory != null) {
                 result.add(astFactory.createAST(tokenList))
             } else {
-                println("Error ...") //TODO : throw exception
+                println("Error ...") // TODO : throw exception
             }
         }
 

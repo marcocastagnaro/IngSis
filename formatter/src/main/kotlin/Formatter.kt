@@ -2,7 +2,7 @@ package org.example
 
 class Formatter(private val formatRules: List<FormatRule> = default) {
     companion object {
-        val default = listOf(ReadSpacesFormat())
+        val default = listOf(ReadSpacesFormat(), ReadLinesFormat())
     }
 
     fun execute(input: AbstractSyntaxTree): String {
