@@ -3,7 +3,7 @@
 git stash -q --keep-index
 
 ./gradlew build
-./gradlew ktlintFormat
+./gradlew ktlintCheck
 if [ $? -ne 0 ]; then
     echo "Build failed. Fix the issues and try committing again."
     git stash pop -q

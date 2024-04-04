@@ -1,3 +1,4 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     kotlin("jvm")
@@ -27,4 +28,12 @@ tasks.test {
 
 kotlin {
     jvmToolchain(21)
+}
+
+ktlint{
+    ignoreFailures = false
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.HTML)
+    }
 }
