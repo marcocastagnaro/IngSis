@@ -68,13 +68,13 @@ class LexerParserInterpreterTest {
         val input = "let x : number = 10;\nx = x + 1;\nprintln(x);"
         val lexer = Lexer2(ValueMapper())
         val tokens = lexer.execute(input)
-//        assertEquals(18, tokens.size)
+        assertEquals(18, tokens.size)
         val parser = Parser()
         val abstractSyntaxTrees = parser.execute(tokens)
         assertEquals(3, abstractSyntaxTrees.size)
         val interpreter = Interpreter(abstractSyntaxTrees)
         val result = interpreter.execute()
-//        assertEquals("11", result.string)
+        assertEquals("11", result.string)
 
         // TODO : this case is not yet implemented
     }

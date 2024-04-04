@@ -7,12 +7,13 @@ class LexerTest {
 
     @Test
     fun simpleLexing() {
-        val result = lexer.execute("let     name  = \"Pe  dro \"")
-        Assertions.assertEquals(4, result.size)
+        val result = lexer.execute("let     name  = \"Pe  dro \";")
+        Assertions.assertEquals(5, result.size)
         Assertions.assertEquals(Types.KEYWORD, result[0].getType())
         Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
         Assertions.assertEquals(Types.OPERATOR, result[2].getType())
         Assertions.assertEquals(Types.LITERAL, result[3].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
     }
 
     @Test
@@ -96,5 +97,18 @@ class LexerTest {
         Assertions.assertEquals(Types.LITERAL, result[4].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[5].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[6].getType())
+    }
+
+    @Test
+    fun testWithLotOfSpaces() {
+        val input = "let\n x\n =\n 10;"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+        Assertions.assertEquals(5, result.size)
+        Assertions.assertEquals(Types.KEYWORD, result[0].getType())
+        Assertions.assertEquals(Types.IDENTIFIER, result[1].getType())
+        Assertions.assertEquals(Types.OPERATOR, result[2].getType())
+        Assertions.assertEquals(Types.LITERAL, result[3].getType())
+        Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
     }
 }
