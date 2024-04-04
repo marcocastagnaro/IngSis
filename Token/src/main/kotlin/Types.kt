@@ -8,7 +8,8 @@ enum class Types {
     LITERAL,
     COMMENT,
     DATA_TYPE,
-    ASSIGNATOR,
+    DECLARATOR,
     OUTPUT,
     FUNCTION,
+    ASSIGNATION,
 }

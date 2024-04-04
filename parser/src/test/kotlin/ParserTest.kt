@@ -12,7 +12,7 @@ class ParserTest {
                 Token(Types.IDENTIFIER, "var", Position(0, 4), Position(1, 9)),
                 Token(Types.PUNCTUATOR, ":", Position(0, 10), Position(1, 11)),
                 Token(Types.DATA_TYPE, "string", Position(0, 12), Position(1, 18)),
-                Token(Types.ASSIGNATOR, "=", Position(0, 19), Position(1, 20)),
+                Token(Types.DECLARATOR, "=", Position(0, 19), Position(1, 20)),
                 Token(Types.LITERAL, "hola", Position(0, 21), Position(1, 27)),
                 Token(Types.OPERATOR, "+", Position(0, 213), Position(1, 27)),
                 Token(Types.LITERAL, "1", Position(0, 21234), Position(1, 27)),
