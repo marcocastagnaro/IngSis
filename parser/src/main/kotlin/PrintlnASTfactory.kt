@@ -8,7 +8,9 @@ class PrintlnASTfactory : ASTFactory {
         root.setRight(getSumPrintln(tokens.drop(2).dropLast(1)))
         return root
     }
-
+    public override fun canHandle(tokens: List<Token>): Boolean {
+        return tokens.any { it.getType() == Types.FUNCTION}
+    }
     private fun getSumPrintln(
         tokens: List<Token>,
         root: NodeBuilder? = null,

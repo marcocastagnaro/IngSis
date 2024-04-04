@@ -4,7 +4,7 @@ class Interpreter(private var trees: List<AbstractSyntaxTree>) {
     private val mapValuesAndVariables = mutableMapOf<Pair<String, String>, String>()
 
 // el Pair de string,string es para guardar el nombre de la variable y su tipo, luego el value es el valor de la variable
-    fun execute(): Output {
+    fun execute(): Output {//lintern test
         val output: Output = Output()
 
         for (tree in trees) {

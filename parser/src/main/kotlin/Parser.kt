@@ -1,9 +1,10 @@
 import org.example.AbstractSyntaxTree
 import org.example.PrintlnASTfactory
 import org.example.Token
-import org.example.Types
 
 class Parser {
+    val factories = listOf(PrintlnASTfactory(), DeclarationASTfactory(), AssignationASTFactory())
+
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)
         val result = mutableListOf<AbstractSyntaxTree>()
@@ -21,19 +22,12 @@ class Parser {
     }
 
     private fun determineFactory(tokens: List<Token>): ASTFactory? {
-        return when {
-            hasPrintln(tokens) -> PrintlnASTfactory()
-            hasAssignation(tokens) -> AssignationASTfactory()
-            else -> null
+        for (factory in factories) {
+            if (factory.canHandle(tokens)) {
+                return factory
+            }
         }
-    }
-
-    private fun hasPrintln(tokens: List<Token>): Boolean {
-        return tokens.any { it.getType() == Types.FUNCTION && it.getValue() == "println" }
-    }
-
-    private fun hasAssignation(tokens: List<Token>): Boolean {
-        return tokens.any { it.getValue() == "=" }
+        return null;
     }
 
     private fun getSameLineTokens(tokenList: List<Token>): List<List<Token>> {
