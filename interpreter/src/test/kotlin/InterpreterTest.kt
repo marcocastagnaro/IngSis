@@ -10,7 +10,7 @@ class InterpreterTest {
             listOf(
                 PrintNode(
                     Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
-                    right =
+                    child =
                         Leaf(
                             Token(
                                 Types.LITERAL,
@@ -21,9 +21,9 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter(trees)
+        val interpreter = Interpreter()
 
-        assertEquals("Hello world!", interpreter.execute().string)
+        assertEquals("Hello world!", interpreter.execute(trees).string)
     }
 
     @Test
@@ -32,7 +32,7 @@ class InterpreterTest {
             listOf(
                 PrintNode(
                     Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
-                    right =
+                    child =
                         CompositeAbstractSyntaxTree(
                             Token(
                                 Types.OPERATOR,
@@ -59,9 +59,9 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter(trees)
+        val interpreter = Interpreter()
 
-        assertEquals("Hello world!", interpreter.execute().string)
+        assertEquals("Hello world!", interpreter.execute(trees).string)
     }
 
 //    @Test

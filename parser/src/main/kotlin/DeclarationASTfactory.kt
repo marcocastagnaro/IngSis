@@ -25,7 +25,7 @@ class DeclarationASTfactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if(tokens.any { it.getType() == Types.OPERATOR } && tokens.any {it.getType() == Types.KEYWORD}){
+        if(tokens.any { it.getType() == Types.ASSIGNATION } && tokens.any {it.getType() == Types.KEYWORD}){
             return true
         }
         return false

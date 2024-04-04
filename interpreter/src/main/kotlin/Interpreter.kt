@@ -1,22 +1,16 @@
 package org.example
 
-class Interpreter(private var trees: List<AbstractSyntaxTree>) {
+class Interpreter() {
     private val mapValuesAndVariables = mutableMapOf<Pair<String, String>, String>()
 
-// el Pair de string,string es para guardar el nombre de la variable y su tipo, luego el value es el valor de la variable
-    fun execute(): Output {//lintern test
+    fun execute(trees: List<AbstractSyntaxTree>): Output {
         val output: Output = Output()
 
         for (tree in trees) {
-            when (tree.getToken().getValue()) {
-                "=" -> { // si es una asignacion. ASUMIENDO QUE NO HAY ERRORES
-                    // TODO (Falta el coso eso que busca errores y formatea)
-                    getValues(tree, output)
-                }
-
-                "println" -> { // si es un println
-                    getPrintOutput(tree.getRight()!!, output)
-                }
+            when (tree.getToken().getType()) {
+                Types.ASSIGNATION -> getValues(tree, output)
+                Types.FUNCTION -> getPrintOutput(tree.getRight()!!, output)
+                else -> continue
             }
         }
         return output

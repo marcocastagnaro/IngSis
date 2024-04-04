@@ -6,7 +6,7 @@ import org.example.Types
 class AssignationASTFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder();
-        root.setValue(tokens.find { it.getType() == Types.OPERATOR}!!)
+        root.setValue(tokens.find { it.getType() == Types.ASSIGNATION}!!)
         val leftTokens = tokens.takeWhile { it.getValue() != "=" }
         root.setLeft(NodeBuilder().setValue(leftTokens.first()).build()) //Agarro el primero ya que va a ser un unico valor
         val rightTokens = tokens.drop(leftTokens.size + 1)
@@ -43,7 +43,7 @@ class AssignationASTFactory : ASTFactory {
         return nodes[0].build()
     }
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any { it.getType() == Types.OPERATOR } && tokens.any {it.getType() != Types.KEYWORD}){
+        if (tokens.any { it.getType() == Types.ASSIGNATION } && tokens.any {it.getType() != Types.KEYWORD}){
             return true
         }
         return false;
