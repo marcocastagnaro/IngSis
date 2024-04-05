@@ -3,7 +3,7 @@ import org.example.NodeBuilder
 import org.example.Token
 import org.example.Types
 
-class AssignationASTfactory : ASTFactory {
+class DeclarationASTfactory : ASTFactory {
     public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getValue() == "=" }!!)
@@ -22,6 +22,13 @@ class AssignationASTfactory : ASTFactory {
             root.setRight(NodeBuilder().setValue(rightTokens[0]).build())
         }
         return root.build()
+    }
+
+    override fun canHandle(tokens: List<Token>): Boolean {
+        if(tokens.any { it.getType() == Types.ASSIGNATION } && tokens.any {it.getType() == Types.KEYWORD}){
+            return true
+        }
+        return false
     }
 
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
@@ -50,7 +57,7 @@ class AssignationASTfactory : ASTFactory {
     }
 
     private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
-        val letToken = tokens.find { it.getValue() == "let" }
+        val letToken = tokens.find { it.getType() == Types.KEYWORD }
         val root = NodeBuilder()
         if (letToken != null) {
             root.setValue(letToken)

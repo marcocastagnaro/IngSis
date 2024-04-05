@@ -8,13 +8,14 @@ class Lexer2(private var map: ValueMapper, private val splitStrategyMapper: Stra
         val rows = splitRows(string)
         val tokens = ArrayList<SplitToken>()
         for ((index, row) in rows.withIndex()) {
+            if (row.isBlank()) continue
             tokens.addAll(splitRow(row, index))
         }
         return map.assigningTypesToTokenValues(tokens)
     }
 
     private fun splitRows(string: String): List<String> {
-        return string.split("\n")
+        return string.split(";")
     }
 
     private fun splitRow(
@@ -23,7 +24,6 @@ class Lexer2(private var map: ValueMapper, private val splitStrategyMapper: Stra
     ): List<SplitToken> {
         val tokens = ArrayList<SplitToken>()
         val splittingState = SplittingState(-1, false, false)
-
         string.forEachIndexed { index, char ->
             val strategy = splitStrategyMapper.getStrategy(char.toString())
             if (strategy != null) {
@@ -33,6 +33,7 @@ class Lexer2(private var map: ValueMapper, private val splitStrategyMapper: Stra
                 }
             }
         }
+        splitStrategyMapper.getStrategy(";")?.split(string, row, tokens, splittingState, string.length, ';')
         return tokens
     }
 }
