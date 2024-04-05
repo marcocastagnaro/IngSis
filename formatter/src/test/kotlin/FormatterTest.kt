@@ -9,7 +9,7 @@ class FormatterTest {
         val formatter = Formatter(emptyList())
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                 child =
                     CompositeAbstractSyntaxTree(
                         Token(
@@ -45,7 +45,7 @@ class FormatterTest {
         val formatter = Formatter(listOf(ReadSpacesFormat()))
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                 child =
                     CompositeAbstractSyntaxTree(
                         Token(
@@ -81,7 +81,7 @@ class FormatterTest {
         val formatter = Formatter(listOf(ReadSpacesFormat(), ReadLinesFormat()))
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                 child =
                     CompositeAbstractSyntaxTree(
                         Token(

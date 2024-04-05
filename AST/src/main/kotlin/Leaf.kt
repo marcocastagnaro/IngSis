@@ -8,4 +8,5 @@ class Leaf(private var token: Token) : AbstractSyntaxTree {
     override fun getToken(): Token {
         return this.token
     }
+
 }

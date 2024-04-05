@@ -9,7 +9,6 @@ enum class Types {
     COMMENT,
     DATA_TYPE,
     DECLARATOR,
-    OUTPUT,
     FUNCTION,
     ASSIGNATION,
 }

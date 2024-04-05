@@ -9,7 +9,7 @@ class ParseTreeToTokensTest {
         val parser = ParseTreeToTokens()
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                 child =
                     Leaf(
                         Token(
@@ -31,7 +31,7 @@ class ParseTreeToTokensTest {
         val parser = ParseTreeToTokens()
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                 child =
                     CompositeAbstractSyntaxTree(
                         Token(
