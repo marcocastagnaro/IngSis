@@ -74,8 +74,8 @@ class Interpreter() {
         tree: AbstractSyntaxTree,
         output: Output,
     ) {
-        val variable = tree.getLeft()?.getLeft()?.getToken()?.getValue()
-        val type = tree.getLeft()?.getRight()?.getToken()?.getValue()
+        val variable = tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()
+        val type = tree.getLeft()?.getRight()?.getRight()?.getToken()?.getValue()
         val rightValue = tree.getRight()?.getToken()?.getValue()
 
         // TODO : si es una suma o conjunto de numeros esto no es valido
