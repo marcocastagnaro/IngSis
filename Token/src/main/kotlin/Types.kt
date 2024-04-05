@@ -12,4 +12,5 @@ enum class Types {
     OUTPUT,
     FUNCTION,
     ASSIGNATION,
+    SPACE,
 }

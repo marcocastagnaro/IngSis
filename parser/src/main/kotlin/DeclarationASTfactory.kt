@@ -1,7 +1,4 @@
-import org.example.AbstractSyntaxTree
-import org.example.NodeBuilder
-import org.example.Token
-import org.example.Types
+package org.example
 
 class DeclarationASTfactory : ASTFactory {
     public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
@@ -25,9 +22,10 @@ class DeclarationASTfactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if(tokens.any { it.getType() == Types.ASSIGNATION } && tokens.any {it.getType() == Types.KEYWORD}){
-            return true
-        }
+        if (tokens.any { it.getType() == Types.ASSIGNATION } && tokens.any { it.getType() == Types.KEYWORD })
+            {
+                return true
+            }
         return false
     }
 

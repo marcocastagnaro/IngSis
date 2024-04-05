@@ -111,4 +111,11 @@ class LexerTest {
         Assertions.assertEquals(Types.LITERAL, result[3].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
     }
+
+    @Test
+    fun `test 007 only declarate a variable`() {
+        val input = "let x : number;"
+        val result = lexer.execute(input)
+        Assertions.assertEquals(5, result.size)
+    }
 }
