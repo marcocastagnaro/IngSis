@@ -26,8 +26,7 @@ class AssignationASTFactory : ASTFactory {
             } else {
                 root.setLeft(NodeBuilder().setValue(leftTokens[0]).build())
             }
-            if (rightTokens.isEmpty())
-                {
+            if (rightTokens.isEmpty()) {
                     return root.build()
                 }
             if (rightTokens.size > 1) {
@@ -66,8 +65,7 @@ class AssignationASTFactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any { it.getType() == Types.ASSIGNATION })
-            {
+        if (tokens.any { it.getType() == Types.ASSIGNATION }) {
                 return true
             }
         return false

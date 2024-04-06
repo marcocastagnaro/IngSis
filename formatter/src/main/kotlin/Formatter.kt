@@ -3,12 +3,13 @@ package org.example
 class Formatter(private val formatRules: List<FormatRule> = default) {
     companion object {
         val default = listOf<FormatRule>()
-        val mandatoryRules =
-            listOf<FormatRule>(
-                AddSemicolonAndNewLinesRule(),
-                EnforceSpaces(1),
-            )
     }
+
+    val mandatoryRules =
+        listOf<FormatRule>(
+            AddSemicolonAndNewLinesRule(),
+            EnforceSpaces(1),
+        )
 
     fun execute(trees: List<AbstractSyntaxTree>): String {
         val formattedCode = mutableListOf<String>()
@@ -16,7 +17,7 @@ class Formatter(private val formatRules: List<FormatRule> = default) {
             val tokens = ParseTreeToTokens().parseToString(tree)
             formattedCode.add(giveFormat(tokens))
         }
-        return formattedCode.joinToString("\n")
+        return formattedCode.joinToString("")
     }
 
     private fun giveFormat(tokens: MutableList<Token>): String {
