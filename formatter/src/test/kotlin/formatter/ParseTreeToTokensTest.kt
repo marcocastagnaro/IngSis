@@ -1,5 +1,6 @@
-package org.example
+package org.example.formatter
 
+import org.example.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

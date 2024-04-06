@@ -1,7 +1,12 @@
-package org.example
+package org.example.formatter
+
+import org.example.Position
+import org.example.Token
+import org.example.Types
 
 class EnforceSpaces(val ammount: Int = 0, val defaultSpaces: Boolean = (ammount == 0)) : FormatRule {
     override fun applyRule(tokenList: MutableList<Token>): List<Token> {
+        if (tokenList[0].getType() == Types.FUNCTION) return tokenList
         if (defaultSpaces) {
             return addNormalTokenSpaces(tokenList)
         } else {

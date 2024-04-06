@@ -1,4 +1,8 @@
-package org.example
+package org.example.formatter
+
+import org.example.Position
+import org.example.Token
+import org.example.Types
 
 class SemicolonRule : FormatRule {
     override fun applyRule(tokenList: MutableList<Token>): List<Token> {

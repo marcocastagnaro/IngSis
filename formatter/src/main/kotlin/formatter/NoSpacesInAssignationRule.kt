@@ -1,4 +1,7 @@
-package org.example
+package org.example.formatter
+
+import org.example.Token
+import org.example.Types
 
 class NoSpacesInAssignationRule : FormatRule {
     override fun applyRule(tokenList: MutableList<Token>): List<Token> {

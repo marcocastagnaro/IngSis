@@ -1,4 +1,7 @@
-package org.example
+package org.example.formatter
+
+import org.example.AbstractSyntaxTree
+import org.example.Token
 
 class Formatter(private val formatRules: List<FormatRule> = default) {
     companion object {
@@ -8,7 +11,9 @@ class Formatter(private val formatRules: List<FormatRule> = default) {
     val mandatoryRules =
         listOf(
             EnforceSpaces(1),
+            AddBrackets(),
             SemicolonRule(),
+
         )
 
     fun execute(trees: List<AbstractSyntaxTree>): String {

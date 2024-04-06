@@ -1,5 +1,6 @@
-package org.example
+package org.example.formatter
 
+import org.example.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -18,8 +19,7 @@ class SpacesInDeclarationRuleTest {
         assertEquals(1, trees.size)
         val formatter = Formatter(listOf(SpacesInDeclarationRule()))
         val result = formatter.execute(trees)
-        // TODO("this test fials becuase token : is not yet implemented")
-        // assertEquals("let x: number", result)
+         assertEquals("let x: number = 8;\n", result)
     }
 
     @Test
