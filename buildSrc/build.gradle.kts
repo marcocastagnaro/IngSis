@@ -1,5 +1,27 @@
 plugins {
     `kotlin-dsl`
+    id("maven-publish")
+}
+
+group = "edu.austral.ingsis"
+version = "1.0.1"
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/austral-ingsis/ci-cd-library")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("gpr") { // Define the publication using create<MavenPublication>
+            from(components["java"])
+        }
+    }
 }
 
 repositories {
