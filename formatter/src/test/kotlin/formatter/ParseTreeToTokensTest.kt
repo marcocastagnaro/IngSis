@@ -1,6 +1,5 @@
 package org.example
 
-
 import org.example.formatter.ParseTreeToTokens
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test

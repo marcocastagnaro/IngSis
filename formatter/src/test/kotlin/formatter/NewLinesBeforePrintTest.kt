@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class NewLinesBeforePrintTest {
-
     val lexer = Lexer(ValueMapper())
     val parser = Parser()
 
