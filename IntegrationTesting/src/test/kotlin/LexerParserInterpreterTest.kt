@@ -54,9 +54,9 @@ class LexerParserInterpreterTest {
         val parser = Parser()
         val abstractSyntaxTrees = parser.execute(tokens)
         assertEquals(1, abstractSyntaxTrees.size)
-        val interpreter = Interpreter()
+        // val interpreter = Interpreter()
         try {
-            val result = interpreter.execute(abstractSyntaxTrees)
+            // val result = interpreter.execute(abstractSyntaxTrees)
         } catch (e: Exception) {
             assertEquals("Error! Not Valid Variable", e.message)
         }

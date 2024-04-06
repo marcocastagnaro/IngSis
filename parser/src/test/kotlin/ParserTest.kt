@@ -156,7 +156,6 @@ class ParserTest {
         assertEquals(1, abstractSyntaxTrees.size)
 
         val ast = abstractSyntaxTrees[0]
-        val leftNode = ast.getLeft()
         val rightNode = ast.getRight()
 
         assertEquals("let", ast.getToken().getValue())
