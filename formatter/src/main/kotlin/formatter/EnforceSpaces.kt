@@ -16,14 +16,14 @@ class EnforceSpaces(val ammount: Int = 0, val defaultSpaces: Boolean = (ammount 
 
     private fun spaceOperators(tokenList: MutableList<Token>): List<Token> {
         val newTokenList =
-        tokenList.map {
-            if (it.getType() == Types.OPERATOR) {
-                val spaceToken = Token(Types.SPACE, " ".repeat(ammount), it.getInitialPosition(), it.getFinalPosition())
-                listOf(spaceToken, it, spaceToken)
-            } else {
-                listOf(it)
+            tokenList.map {
+                if (it.getType() == Types.OPERATOR) {
+                    val spaceToken = Token(Types.SPACE, " ".repeat(ammount), it.getInitialPosition(), it.getFinalPosition())
+                    listOf(spaceToken, it, spaceToken)
+                } else {
+                    listOf(it)
+                }
             }
-        }
         return newTokenList.flatten()
     }
 
