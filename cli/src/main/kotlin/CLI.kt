@@ -1,27 +1,31 @@
-package org.example
 import java.io.File
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
+import org.example.AbstractSyntaxTree
+import org.example.Lexer2
+import org.example.Token
+import org.example.ValueMapper
+import org.example.Interpreter
 import org.example.Parser
+
 class CLI : CliktCommand() {
-    private val fileName by argument(help = "Ruta del archivo")
+    private val fileName by argument(help = "src/main/resources/test.txt")
     override fun  run () { //El filename es el path
         val string = getFile(fileName)
-
         val tokens =executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         executeInterpreter(abstractSyntaxTrees)
 
     }
-    fun executeInterpreter (abstractSyntaxTrees : List<AbstractSyntaxTree>) {
+    private fun executeInterpreter (abstractSyntaxTrees : List<AbstractSyntaxTree>) {
         val interpreter = Interpreter()
         interpreter.execute(abstractSyntaxTrees)
     }
-    fun executeLexing (string : String ) : List<Token> {
+    private fun executeLexing (string : String ) : List<Token> {
         val lexer = Lexer2(ValueMapper())
         return lexer.execute(string)
     }
-    fun executeParsing (tokens : List<Token>) : List<AbstractSyntaxTree> {
+    private fun executeParsing (tokens : List<Token>) : List<AbstractSyntaxTree> {
         val parser = Parser()
         return parser.execute(tokens)
     }
