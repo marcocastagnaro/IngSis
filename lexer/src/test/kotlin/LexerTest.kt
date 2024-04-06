@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
 class LexerTest {
-    private val lexer = Lexer2(ValueMapper())
+    private val lexer = Lexer(ValueMapper())
 
     @Test
     fun simpleLexing() {

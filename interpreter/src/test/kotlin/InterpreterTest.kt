@@ -86,29 +86,34 @@ class InterpreterTest {
                                 value = "let",
                                 Position(1, 1),
                                 Position(1, 1),
-                            ), right = CompositeAbstractSyntaxTree(
-                                Token(
-                                    Types.DECLARATOR,
-                                    value = ":",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ), right = Leaf(
-                                    Token(
-                                        Types.DATA_TYPE,
-                                        value = "string",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                ),
-                                left = Leaf(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = "x",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                ),
                             ),
+                            right =
+                                CompositeAbstractSyntaxTree(
+                                    Token(
+                                        Types.DECLARATOR,
+                                        value = ":",
+                                        Position(1, 1),
+                                        Position(1, 1),
+                                    ),
+                                    right =
+                                        Leaf(
+                                            Token(
+                                                Types.DATA_TYPE,
+                                                value = "string",
+                                                Position(1, 1),
+                                                Position(1, 1),
+                                            ),
+                                        ),
+                                    left =
+                                        Leaf(
+                                            Token(
+                                                Types.IDENTIFIER,
+                                                value = "x",
+                                                Position(1, 1),
+                                                Position(1, 1),
+                                            ),
+                                        ),
+                                ),
                         ),
                 ),
                 PrintNode(

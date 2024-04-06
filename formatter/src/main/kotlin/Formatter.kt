@@ -2,8 +2,12 @@ package org.example
 
 class Formatter(private val formatRules: List<FormatRule> = default) {
     companion object {
-        val default = listOf(SpacesInDeclarationRule())
-        val mandatoryRules = listOf(EnforceSpaces(1))
+        val default = listOf<FormatRule>()
+        val mandatoryRules =
+            listOf<FormatRule>(
+                AddSemicolonAndNewLinesRule(),
+                EnforceSpaces(1),
+            )
     }
 
     fun execute(trees: List<AbstractSyntaxTree>): String {

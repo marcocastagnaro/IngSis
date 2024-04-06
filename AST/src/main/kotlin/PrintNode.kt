@@ -7,15 +7,14 @@ class PrintNode(
     override fun isLeaf(): Boolean {
         return false
     }
- fun setRight (child: AbstractSyntaxTree){
+
+    fun setRight(child: AbstractSyntaxTree) {
         this.child = child
-}
+    }
 
     override fun getToken(): Token {
         return this.token
     }
-
-
 
     override fun getRight(): AbstractSyntaxTree? {
         return this.child

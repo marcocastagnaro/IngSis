@@ -8,6 +8,4 @@ interface AbstractSyntaxTree {
     fun isLeaf(): Boolean
 
     fun getToken(): Token
-
-
 }

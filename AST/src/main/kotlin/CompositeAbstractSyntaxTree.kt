@@ -13,11 +13,11 @@ class CompositeAbstractSyntaxTree(
         return this.token
     }
 
-     fun setLeft(build: AbstractSyntaxTree) {
+    fun setLeft(build: AbstractSyntaxTree) {
         this.left = build
     }
 
-     fun setRight(build: AbstractSyntaxTree) {
+    fun setRight(build: AbstractSyntaxTree) {
         this.right = build
     }
 

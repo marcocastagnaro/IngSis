@@ -138,6 +138,7 @@ class ParserTest {
         assertEquals("var", leftNode2?.getToken()?.getValue())
         assertEquals("chau", rightNode2?.getToken()?.getValue())
     }
+
     @Test
     fun `test 005 create a declaration tree only`() {
         val tokens =
@@ -163,6 +164,4 @@ class ParserTest {
         assertEquals("x", rightNode?.getLeft()?.getToken()?.getValue())
         assertEquals("number", rightNode?.getRight()?.getToken()?.getValue())
     }
-
-
 }
