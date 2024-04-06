@@ -8,7 +8,7 @@ class Interpreter() {
 
         for (tree in trees) {
             when (tree.getToken().getType()) {
-                Types.ASSIGNATION -> getValues(tree, output)
+                Types.ASSIGNATION -> getValues(tree)
                 Types.FUNCTION -> getPrintOutput(tree.getRight()!!, output)
                 else -> continue
             }
@@ -70,10 +70,7 @@ class Interpreter() {
         getPrintOutput(tree.getRight()!!, output)
     }
 
-    private fun getValues(
-        tree: AbstractSyntaxTree,
-        output: Output,
-    ) {
+    private fun getValues(tree: AbstractSyntaxTree) {
         val variable = tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()
         val type = tree.getLeft()?.getRight()?.getRight()?.getToken()?.getValue()
         val rightValue = tree.getRight()?.getToken()?.getValue()

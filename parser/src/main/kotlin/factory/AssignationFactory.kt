@@ -1,15 +1,18 @@
+package factory
+
+import ASTFactory
 import org.example.AbstractSyntaxTree
 import org.example.NodeBuilder
 import org.example.Token
 import org.example.Types
 
-class AssignationASTFactory : ASTFactory {
+class AssignationFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
-        val root = NodeBuilder();
-        root.setValue(tokens.find { it.getType() == Types.ASSIGNATION}!!)
-        if (tokens.find {it.getType() == Types.KEYWORD} == null) {
+        val root = NodeBuilder()
+        root.setValue(tokens.find { it.getType() == Types.ASSIGNATION }!!)
+        if (tokens.find { it.getType() == Types.KEYWORD } == null) {
             val leftTokens = tokens.takeWhile { it.getValue() != "=" }
-            root.setLeft(NodeBuilder().setValue(leftTokens.first()).build()) //Agarro el primero ya que va a ser un unico valor
+            root.setLeft(NodeBuilder().setValue(leftTokens.first()).build()) // Agarro el primero ya que va a ser un unico valor
             val rightTokens = tokens.drop(leftTokens.size + 1)
             if (rightTokens.size > 1) {
                 val right = operationsDeclarator(rightTokens)
@@ -17,9 +20,8 @@ class AssignationASTFactory : ASTFactory {
             } else {
                 root.setRight(NodeBuilder().setValue(rightTokens[0]).build())
             }
-            return root.build();
-        }
-        else {
+            return root.build()
+        } else {
             val root = NodeBuilder()
             root.setValue(tokens.find { it.getValue() == "=" }!!)
             val leftTokens = tokens.takeWhile { it.getValue() != "=" }
@@ -30,7 +32,7 @@ class AssignationASTFactory : ASTFactory {
             } else {
                 root.setLeft(NodeBuilder().setValue(leftTokens[0]).build())
             }
-            if (rightTokens.isEmpty()){
+            if (rightTokens.isEmpty()) {
                 return root.build()
             }
             if (rightTokens.size > 1) {
@@ -41,8 +43,8 @@ class AssignationASTFactory : ASTFactory {
             }
             return root.build()
         }
-
     }
+
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
         val nodes = tokens.stream().map { NodeBuilder().setValue(it) }.toList().toMutableList()
         var j = 0
@@ -67,15 +69,16 @@ class AssignationASTFactory : ASTFactory {
         }
         return nodes[0].build()
     }
+
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any { it.getType() == Types.ASSIGNATION }){
+        if (tokens.any { it.getType() == Types.ASSIGNATION }) {
             return true
         }
-        return false;
+        return false
     }
-    private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
 
-        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR}
+    private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
+        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
         val root = NodeBuilder()
         if (declarationToken != null) {
             root.setValue(declarationToken)

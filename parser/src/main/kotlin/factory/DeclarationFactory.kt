@@ -1,12 +1,14 @@
+package factory
+
+import ASTFactory
 import org.example.AbstractSyntaxTree
 import org.example.NodeBuilder
 import org.example.Token
 import org.example.Types
 
-class DeclarationASTfactory : ASTFactory {
+class DeclarationFactory : ASTFactory {
     public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
-
-        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR}
+        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
         val root = NodeBuilder()
         if (declarationToken != null) {
             root.setValue(declarationToken)
@@ -26,14 +28,8 @@ class DeclarationASTfactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any {it.getType() == Types.ASSIGNATION}){
-            return false;
-        }
-        if(tokens.any { it.getType() == Types.KEYWORD }){
-            return true
-        }
+        if (tokens.any { it.getType() == Types.ASSIGNATION }) return false
+        if (tokens.any { it.getType() == Types.KEYWORD }) return true
         return false
     }
-
-
 }
