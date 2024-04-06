@@ -13,7 +13,7 @@ class NoSpacesInAssignationRuleTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formater.execute(trees)
-        assertEquals("let variable : string=\"this is a variable\"", result)
+        assertEquals("let variable : string=\"this is a variable\";\n", result)
     }
 
     @Test
@@ -22,6 +22,6 @@ class NoSpacesInAssignationRuleTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formater.execute(trees)
-        assertEquals("let variable : number=7", result)
+        assertEquals("let variable : number=7;\n", result)
     }
 }

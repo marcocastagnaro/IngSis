@@ -53,7 +53,7 @@ class SpacesInDeclarationRuleTest {
         val trees = listOf(tree)
         val formatter = Formatter(listOf(SpacesInDeclarationRule()))
         val result = formatter.execute(trees)
-        assertEquals("let x: number = 8", result)
+        assertEquals("let x: number = 8;\n", result)
     }
 
     @Test
@@ -87,7 +87,7 @@ class SpacesInDeclarationRuleTest {
         val trees = listOf(tree)
         val formatter = Formatter(listOf(SpacesInDeclarationRule(spaceBefore = true, spaceAfter = false)))
         val result = formatter.execute(trees)
-        assertEquals("let x :number = 8", result)
+        assertEquals("let x :number = 8;\n", result)
     }
 
     @Test
@@ -121,6 +121,6 @@ class SpacesInDeclarationRuleTest {
         val trees = listOf(tree)
         val formatter = Formatter(listOf(SpacesInDeclarationRule(spaceBefore = true, spaceAfter = true)))
         val result = formatter.execute(trees)
-        assertEquals("let x : number = 8", result)
+        assertEquals("let x : number = 8;\n", result)
     }
 }

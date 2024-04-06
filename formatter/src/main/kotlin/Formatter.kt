@@ -6,9 +6,9 @@ class Formatter(private val formatRules: List<FormatRule> = default) {
     }
 
     val mandatoryRules =
-        listOf<FormatRule>(
-            AddSemicolonAndNewLinesRule(),
+        listOf(
             EnforceSpaces(1),
+            SemicolonRule(),
         )
 
     fun execute(trees: List<AbstractSyntaxTree>): String {
