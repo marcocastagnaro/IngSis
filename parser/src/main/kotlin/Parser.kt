@@ -1,11 +1,12 @@
+package org.example
+import ASTFactory
 import factory.AssignationFactory
 import factory.DeclarationFactory
 import factory.PrintlnFactory
-import org.example.AbstractSyntaxTree
-import org.example.Token
+
 
 class Parser {
-    val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory())
+    private val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory())
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)
