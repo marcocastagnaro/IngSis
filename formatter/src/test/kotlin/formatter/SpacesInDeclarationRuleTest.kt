@@ -1,6 +1,7 @@
-package org.example.formatter
+package org.example
 
-import org.example.*
+import org.example.formatter.Formatter
+import org.example.formatter.SpacesInDeclarationRule
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -19,7 +20,7 @@ class SpacesInDeclarationRuleTest {
         assertEquals(1, trees.size)
         val formatter = Formatter(listOf(SpacesInDeclarationRule()))
         val result = formatter.execute(trees)
-         assertEquals("let x: number = 8;\n", result)
+        assertEquals("let x: number = 8;\n", result)
     }
 
     @Test

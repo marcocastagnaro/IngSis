@@ -13,7 +13,6 @@ class Formatter(private val formatRules: List<FormatRule> = default) {
             EnforceSpaces(1),
             AddBrackets(),
             SemicolonRule(),
-
         )
 
     fun execute(trees: List<AbstractSyntaxTree>): String {
