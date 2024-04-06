@@ -18,7 +18,7 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("gpr") { // Define the publication using create<MavenPublication>
+        create<MavenPublication>("gpr") {
             from(components["java"])
         }
     }
