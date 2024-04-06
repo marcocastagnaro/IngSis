@@ -1,7 +1,7 @@
 package org.example
 
 class DeclarationFactory : ASTFactory {
-    public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
+    override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
         val root = NodeBuilder()
         if (declarationToken != null) {
@@ -22,8 +22,12 @@ class DeclarationFactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any { it.getType() == Types.ASSIGNATION }) return false
-        if (tokens.any { it.getType() == Types.KEYWORD }) return true
+        if (tokens.any { it.getType() == Types.ASSIGNATION }) {
+            return false
+        }
+        if (tokens.any { it.getType() == Types.KEYWORD }) {
+            return true
+        }
         return false
     }
 }
