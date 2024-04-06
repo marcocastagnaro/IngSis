@@ -1,7 +1,12 @@
 package factory
 
 import ASTFactory
-import org.example.*
+import org.example.AbstractSyntaxTree
+import org.example.CompositeAbstractSyntaxTree
+import org.example.NodeBuilder
+import org.example.PrintNode
+import org.example.Token
+import org.example.Types
 
 class PrintlnFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
