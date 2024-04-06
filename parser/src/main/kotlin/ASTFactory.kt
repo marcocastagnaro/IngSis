@@ -1,5 +1,4 @@
-import org.example.AbstractSyntaxTree
-import org.example.Token
+package org.example
 
 interface ASTFactory {
     fun createAST(tokens: List<Token>): AbstractSyntaxTree

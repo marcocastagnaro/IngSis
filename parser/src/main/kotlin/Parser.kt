@@ -1,8 +1,4 @@
-import factory.AssignationFactory
-import factory.DeclarationFactory
-import factory.PrintlnFactory
-import org.example.AbstractSyntaxTree
-import org.example.Token
+package org.example
 
 class Parser {
     val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory())

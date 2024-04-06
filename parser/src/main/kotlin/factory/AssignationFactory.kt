@@ -1,10 +1,4 @@
-package factory
-
-import ASTFactory
-import org.example.AbstractSyntaxTree
-import org.example.NodeBuilder
-import org.example.Token
-import org.example.Types
+package org.example
 
 class AssignationFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
