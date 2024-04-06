@@ -4,7 +4,7 @@ class Output {
     var string = ""
 
     fun buildOutput(newString: String) {
-        string = string + newString
+        string += newString
     }
 
     fun print() {
