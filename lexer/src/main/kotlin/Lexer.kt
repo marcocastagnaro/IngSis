@@ -7,6 +7,7 @@ class Lexer(private var map: ValueMapper, private val splitStrategyMapper: Strat
     fun execute(string: String): List<Token> {
         val rows = splitRows(string)
         val tokens = ArrayList<SplitToken>()
+        val si = false
         for ((index, row) in rows.withIndex()) {
             if (row.isBlank()) continue
             tokens.addAll(splitRow(row, index))
