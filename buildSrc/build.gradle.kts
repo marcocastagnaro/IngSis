@@ -10,7 +10,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/austral-ingsis/ci-cd-library")
+            url = uri("https://maven.pkg.github.com/marcocastagnaro/IngSis")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
