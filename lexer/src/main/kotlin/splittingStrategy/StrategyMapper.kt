@@ -13,6 +13,7 @@ class StrategyMapper {
             "-" to SpecialChartSplittingStrategy(),
             "*" to SpecialChartSplittingStrategy(),
             "/" to SpecialChartSplittingStrategy(),
+            "=" to SpecialChartSplittingStrategy(),
             "\n" to SpaceSplittingStrategy(),
         )
 
