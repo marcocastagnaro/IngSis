@@ -6,12 +6,25 @@ import org.example.Types
 
 class EnforceSpaces(val ammount: Int = 0, val defaultSpaces: Boolean = (ammount == 0)) : FormatRule {
     override fun applyRule(tokenList: MutableList<Token>): List<Token> {
-        if (tokenList[0].getType() == Types.FUNCTION) return tokenList
+        if (tokenList[0].getType() == Types.FUNCTION) return spaceOperators(tokenList)
         if (defaultSpaces) {
             return addNormalTokenSpaces(tokenList)
         } else {
             return enforceSpacing(tokenList)
         }
+    }
+
+    private fun spaceOperators(tokenList: MutableList<Token>): List<Token> {
+        val newTokenList =
+        tokenList.map {
+            if (it.getType() == Types.OPERATOR) {
+                val spaceToken = Token(Types.SPACE, " ".repeat(ammount), it.getInitialPosition(), it.getFinalPosition())
+                listOf(spaceToken, it, spaceToken)
+            } else {
+                listOf(it)
+            }
+        }
+        return newTokenList.flatten()
     }
 
     private fun enforceSpacing(tokenList: List<Token>): List<Token> {

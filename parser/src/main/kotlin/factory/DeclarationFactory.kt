@@ -1,7 +1,7 @@
 package org.example
 
 class DeclarationFactory : ASTFactory {
-    public override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
+    override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
         val root = NodeBuilder()
         if (declarationToken != null) {
