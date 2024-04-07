@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class AddSemicolonAndNewLinesRule {
     val lexer = Lexer(ValueMapper())
     val parser = Parser()
-    val formater = Formatter(listOf(NoSpacesInAssignationRule()))
+    val formater = Formatter()
 
     @Test
     fun `test 001 add the semicolon with new line`() {
@@ -17,6 +17,6 @@ class AddSemicolonAndNewLinesRule {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formater.execute(trees)
-        assertEquals("let x : number;\n", result)
+        assertEquals("let x: number;\n", result)
     }
 }

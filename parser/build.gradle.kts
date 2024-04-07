@@ -9,5 +9,5 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation(project(":Token"))
     implementation(project(":AST"))
-    implementation (project (":lexer"))
+    implementation(project(":lexer"))
 }
