@@ -1,5 +1,7 @@
 package org.example
 
+import org.example.factory.OperationFactory
+
 class AssignationFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
@@ -40,28 +42,7 @@ class AssignationFactory : ASTFactory {
     }
 
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {
-        val nodes = tokens.stream().map { NodeBuilder().setValue(it) }.toList().toMutableList()
-        var j = 0
-        while (j < nodes.size) {
-            if (nodes[j].getValue()!!.getValue() == "/" || nodes[j].getValue()!!.getValue() == "*") {
-                nodes[j].setLeft(nodes[j - 1].build())
-                nodes[j].setRight(nodes[j + 1].build())
-                nodes.removeAt(j - 1)
-                nodes.removeAt(j)
-            }
-            j++
-        }
-        var i = 0
-        while (i < nodes.size) {
-            if (nodes[i].getValue()!!.getValue() == "+" || nodes[i].getValue()!!.getValue() == "-") {
-                nodes[i].setLeft(nodes[i - 1].build())
-                nodes[i].setRight(nodes[i + 1].build())
-                nodes.removeAt(i - 1)
-                nodes.removeAt(i)
-            }
-            i++
-        }
-        return nodes[0].build()
+        return OperationFactory().createAST(tokens)
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {

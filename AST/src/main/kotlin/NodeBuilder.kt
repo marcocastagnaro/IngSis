@@ -1,10 +1,10 @@
 package org.example
 
-class NodeBuilder {
-    private var value: Token? = null
-    private var left: AbstractSyntaxTree? = null
-    private var right: AbstractSyntaxTree? = null
-
+class NodeBuilder(
+    private var value: Token? = null,
+    private var left: AbstractSyntaxTree? = null,
+    private var right: AbstractSyntaxTree? = null,
+) {
     fun setValue(value: Token): NodeBuilder {
         this.value = value
         return this
