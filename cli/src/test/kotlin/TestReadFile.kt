@@ -7,8 +7,8 @@ class TestReadFile {
     @Test
     fun testReadFile() {
         val cli = CLI()
-        val file = cli.getFile("src/main/resources/test.txt")
+        val file = cli.getFile("src/test/resources/test001.txt")
 
-        assertEquals("Hello, World!", file)
+        assertEquals("println(\"Hello, World!\")", file)
     }
 }
