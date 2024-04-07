@@ -63,4 +63,11 @@ class TestCliInterpreter {
 //        val result = cli.test("execute src/test/resources/test008.txt")
 //        assertEquals("25\n", result.stdout)
 //    }
+
+    @Test
+    fun `test 009 formatter simple format with no json` (){
+        val cli = CLI()
+        val result = cli.test("formatter src/test/resources/test009.txt")
+        assertEquals("let x: number = 8;\n\n", result.stdout)
+    }
 }
