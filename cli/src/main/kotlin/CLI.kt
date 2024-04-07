@@ -4,10 +4,8 @@ import java.io.File
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.help
-import com.github.ajalt.clikt.parameters.options.default
-import com.github.ajalt.clikt.parameters.options.help
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.types.int
+
+import java.util.logging.Formatter
 
 
 class CLI : CliktCommand() {
@@ -27,10 +25,18 @@ class CLI : CliktCommand() {
     private fun optionSelection(option: String) {
         when (option) {
             "execute" ->  echo(execute().string)
+            "formatter" -> echo(formatter())
             else -> {
                 println("Opción inválida")
             }
         }
+    }
+    private fun formatter (filepathJSON : String? = null) {
+        val string = getFile(file)
+        val tokens = executeLexing(string)
+        val abstractSyntaxTrees = executeParsing(tokens)
+        val format = org.example.formatter.Formatter()
+        format.execute(abstractSyntaxTrees)
     }
 
     private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>) : Output {
@@ -40,7 +46,7 @@ class CLI : CliktCommand() {
     }
 
     private fun executeLexing(string: String): List<Token> {
-        val lexer = Lexer2(ValueMapper())
+        val lexer = Lexer(ValueMapper())
         return lexer.execute(string)
     }
 
