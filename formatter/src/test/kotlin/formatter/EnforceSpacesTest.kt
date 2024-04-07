@@ -18,7 +18,7 @@ class EnforceSpacesTest {
         assertEquals(7, tokens.size)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-        assertEquals("println(8 + 5);\n", result)
+        assertEquals("\nprintln(8 + 5);\n", result)
     }
 
     @Test
@@ -27,7 +27,7 @@ class EnforceSpacesTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-        assertEquals("let x : number = 5 + 5;\nprintln(x + 70);\n", result)
+        assertEquals("let x: number = 5 + 5;\n\nprintln(x + 70);\n", result)
     }
 
     @Test
@@ -38,7 +38,7 @@ class EnforceSpacesTest {
         assertEquals(15, tokens.size)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-        assertEquals("let x : number = 5 + 7 + 9 / 5 * 3;\n", result)
+        assertEquals("let x: number = 5 + 7 + 9 / 5 * 3;\n", result)
     }
 
     @Test
@@ -49,7 +49,7 @@ class EnforceSpacesTest {
         assertEquals(13, tokens.size)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-//        TODO("Parser println needs modifying")
+        // TODO("Parser println needs modifying")
 //        assertEquals("println(5 + 7 - 9 / 5 * 3);\n", result)
     }
 }

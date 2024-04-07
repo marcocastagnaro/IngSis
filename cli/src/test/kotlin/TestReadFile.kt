@@ -1,6 +1,5 @@
 import org.example.CLI
 import org.junit.jupiter.api.Assertions.assertEquals
-import java.io.File
 import kotlin.test.Test
 
 class TestReadFile {

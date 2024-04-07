@@ -1,7 +1,6 @@
 package org.example
 
 import org.example.formatter.Formatter
-import org.example.formatter.SpacesInDeclarationRule
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

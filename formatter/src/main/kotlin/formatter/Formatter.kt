@@ -4,7 +4,6 @@ import org.example.AbstractSyntaxTree
 import org.example.Token
 
 class Formatter(val formatPath: String = "src/main/resources/formatter/StandardRules.json") {
-
     private val formatRules: List<FormatRule> = JsonDeserialization().getRulesFromJson(formatPath)
 
     val mandatoryRules =

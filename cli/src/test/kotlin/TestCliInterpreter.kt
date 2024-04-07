@@ -9,20 +9,22 @@ class TestCliInterpreter {
     fun `test 001 test a simple println from lexer to interpreter`() {
         val cli = CLI()
         val result = cli.test("execute src/test/resources/test001.txt")
-        assertEquals("\"Hello, World!\"\n", result.stdout) //wtf porque me funciona el test solo si le salto una linea
+        assertEquals("\"Hello, World!\"\n", result.stdout) // wtf porque me funciona el test solo si le salto una linea
     }
+
     @Test
     fun `test 002 printing an assignation must be empty`() {
         val cli = CLI()
         val result = cli.test("execute src/test/resources/test002.txt")
         assertEquals("\n", result.stdout)
     }
+
     @Test fun `test003 printing variable x with assignation variable before`() {
         val cli = CLI()
         val result = cli.test("execute src/test/resources/test003.txt")
         assertEquals("10\n", result.stdout)
     }
-    //TODO: @PEPE. Estoy sumando dos variables 10 + 5 y en lugar que de 15 da 105
+    // TODO: @PEPE. Estoy sumando dos variables 10 + 5 y en lugar que de 15 da 105
 //    @Test
 //    fun `test 004 testing sum of variables`() {
 //        val cli = CLI()
@@ -30,7 +32,7 @@ class TestCliInterpreter {
 //        assertEquals("15\n", result.stdout)
 //    }
 
-    //TODO : @PEPE. 5*10 NO FUNCIONA.
+    // TODO : @PEPE. 5*10 NO FUNCIONA.
 //    @Test
 //    fun `test 005 testing a varaible with multiplication`() {
 //        val cli = CLI()
@@ -38,7 +40,7 @@ class TestCliInterpreter {
 //        assertEquals("50\n", result.stdout)
 //    }
 
-    //todo : @Pepe no funciona.
+    // todo : @Pepe no funciona.
 //    @Test
 //    fun `test 006 testing a println with concatenation`() {
 //        val cli = CLI()
@@ -54,7 +56,7 @@ class TestCliInterpreter {
 //        assertEquals("10\n", result.stdout)
 //    }
 
-    //todo:
+    // todo:
 //    @Test
 //    fun `test 008 testing a sum of number + string has to return a string concatenated ` (){
 //        val cli = CLI()

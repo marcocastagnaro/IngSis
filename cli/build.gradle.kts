@@ -11,5 +11,4 @@ dependencies {
     implementation(project(":interpreter"))
     implementation(project(":formatter"))
     implementation("com.github.ajalt.clikt:clikt:4.2.0")
-
 }
