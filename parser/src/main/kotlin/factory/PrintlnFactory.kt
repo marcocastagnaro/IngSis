@@ -1,12 +1,4 @@
-package factory
-
-import ASTFactory
-import org.example.AbstractSyntaxTree
-import org.example.CompositeAbstractSyntaxTree
-import org.example.NodeBuilder
-import org.example.PrintNode
-import org.example.Token
-import org.example.Types
+package org.example
 
 class PrintlnFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
@@ -15,7 +7,7 @@ class PrintlnFactory : ASTFactory {
         return root
     }
 
-    public override fun canHandle(tokens: List<Token>): Boolean {
+    override fun canHandle(tokens: List<Token>): Boolean {
         return tokens.any { it.getType() == Types.FUNCTION }
     }
 

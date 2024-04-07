@@ -1,12 +1,7 @@
 package org.example
-import ASTFactory
-import factory.AssignationFactory
-import factory.DeclarationFactory
-import factory.PrintlnFactory
-
 
 class Parser {
-    private val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory())
+    val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory())
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)

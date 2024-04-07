@@ -11,4 +11,5 @@ enum class Types {
     DECLARATOR,
     FUNCTION,
     ASSIGNATION,
+    SPACE,
 }

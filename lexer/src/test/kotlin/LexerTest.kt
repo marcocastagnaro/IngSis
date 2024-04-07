@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
 class LexerTest {
-    private val lexer = Lexer2(ValueMapper())
+    private val lexer = Lexer(ValueMapper())
 
     @Test
     fun simpleLexing() {
@@ -110,5 +110,20 @@ class LexerTest {
         Assertions.assertEquals(Types.ASSIGNATION, result[2].getType())
         Assertions.assertEquals(Types.LITERAL, result[3].getType())
         Assertions.assertEquals(Types.PUNCTUATOR, result[4].getType())
+    }
+
+    @Test
+    fun `test 007 only declarate a variable`() {
+        val input = "let x : number;"
+        val result = lexer.execute(input)
+        Assertions.assertEquals(5, result.size)
+    }
+
+    @Test
+    fun `test 008`() {
+        val input = "let x : number =5+7+9/5*3;"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+        Assertions.assertEquals(15, result.size)
     }
 }
