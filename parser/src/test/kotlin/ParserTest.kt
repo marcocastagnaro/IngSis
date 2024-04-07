@@ -184,6 +184,5 @@ class ParserTest {
         assertEquals("+", firstTree.getRight()?.getToken()?.getValue())
         assertEquals("5", firstTree.getRight()?.getLeft()?.getToken()?.getValue())
         assertEquals("5", firstTree.getRight()?.getRight()?.getToken()?.getValue())
-
     }
 }

@@ -1,17 +1,16 @@
 package org.example
 
-import java.io.File
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.help
-
+import java.io.File
 import java.util.logging.Formatter
-
 
 class CLI : CliktCommand() {
     val execute: String by argument().help("Select execute, linter or formatter")
     val file: String by argument().help("Filepath to execute")
-    internal fun execute() : Output{
+
+    internal fun execute(): Output {
         val string = getFile(file)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
@@ -24,14 +23,15 @@ class CLI : CliktCommand() {
 
     private fun optionSelection(option: String) {
         when (option) {
-            "execute" ->  echo(execute().string)
+            "execute" -> echo(execute().string)
             "formatter" -> echo(formatter())
             else -> {
                 println("Opción inválida")
             }
         }
     }
-    private fun formatter (filepathJSON : String? = null) {
+
+    private fun formatter(filepathJSON: String? = null) {
         val string = getFile(file)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
@@ -39,10 +39,10 @@ class CLI : CliktCommand() {
         format.execute(abstractSyntaxTrees)
     }
 
-    private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>) : Output {
+    private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>): Output {
         val interpreter = Interpreter()
         val result = interpreter.execute(abstractSyntaxTrees)
-        return result;
+        return result
     }
 
     private fun executeLexing(string: String): List<Token> {
@@ -70,5 +70,3 @@ class CLI : CliktCommand() {
         return stringBuilder.toString()
     }
 }
-
-
