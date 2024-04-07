@@ -1,0 +1,6 @@
+{
+  "NewLinesBeforePrintln": 1,
+  "SpacesBeforeDeclaration": true,
+  "SpacesAfterDeclaration": false,
+  "SpacesInAssignation": true
+}

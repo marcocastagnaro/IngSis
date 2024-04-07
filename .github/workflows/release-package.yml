@@ -1,4 +1,4 @@
-name: Continuous Delivery
+name: Continuous Deployment
 
 on:
   push:
@@ -7,31 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Set up JDK 21
         uses: actions/setup-java@v1
         with:
           java-version: 21
 
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Determine version and publish package
-        run: |
-          VERSION=$(./gradlew properties | grep "version:" | awk '{print $2}')
-          if [[ $VERSION == *"SNAPSHOT"* ]]; then
-            echo "Publishing SNAPSHOT version..."
-            ./gradlew publish
-          else
-            echo "Publishing release version..."
-            ./gradlew publish
-          fi
+      - name: Publish to GitHub Packages
+        run: gradle publish
         env:
-          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ env.PUBLISH_USER }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}

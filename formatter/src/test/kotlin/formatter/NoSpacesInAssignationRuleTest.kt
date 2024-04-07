@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 class NoSpacesInAssignationRuleTest {
     val lexer = Lexer(ValueMapper())
     val parser = Parser()
-    val formater = Formatter(listOf(NoSpacesInAssignationRule()))
+    val formater = Formatter("src/main/resources/formatter/NoSpacesInAssignation.json")
 
     @Test
     fun `test 001 taking out spaces`() {
@@ -16,7 +16,7 @@ class NoSpacesInAssignationRuleTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formater.execute(trees)
-        assertEquals("let variable : string=\"this is a variable\";\n", result)
+        assertEquals("let variable: string=\"this is a variable\";\n", result)
     }
 
     @Test
@@ -25,6 +25,6 @@ class NoSpacesInAssignationRuleTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formater.execute(trees)
-        assertEquals("let variable : number=7;\n", result)
+        assertEquals("let variable: number=7;\n", result)
     }
 }

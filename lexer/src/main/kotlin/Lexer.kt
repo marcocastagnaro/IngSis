@@ -15,6 +15,7 @@ class Lexer(private var map: ValueMapper, private val splitStrategyMapper: Strat
     }
 
     private fun splitRows(string: String): List<String> {
+        System.out.println("Hello, World!")
         return string.split(";")
     }
 

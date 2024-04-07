@@ -3,10 +3,8 @@ package org.example.formatter
 import org.example.AbstractSyntaxTree
 import org.example.Token
 
-class Formatter(private val formatRules: List<FormatRule> = default) {
-    companion object {
-        val default = listOf<FormatRule>()
-    }
+class Formatter(val formatPath: String = "src/main/resources/formatter/StandardRules.json") {
+    private val formatRules: List<FormatRule> = JsonDeserialization().getRulesFromJson(formatPath)
 
     val mandatoryRules =
         listOf(

@@ -149,4 +149,58 @@ class InterpreterTest {
 
         assertEquals("Hello world!", interpreter.execute(trees).string)
     }
+
+    @Test
+    fun testArithmeticOperations() {
+        val trees =
+            listOf(
+                PrintNode(
+                    Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
+                    child =
+                        CompositeAbstractSyntaxTree(
+                            Token(
+                                Types.OPERATOR,
+                                value = "+",
+                                Position(2, 2),
+                                Position(3, 3),
+                            ),
+                            Leaf(
+                                Token(
+                                    Types.LITERAL,
+                                    "Result: ",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
+                            CompositeAbstractSyntaxTree(
+                                Token(
+                                    Types.OPERATOR,
+                                    value = "*",
+                                    Position(2, 2),
+                                    Position(3, 3),
+                                ),
+                                Leaf(
+                                    Token(
+                                        Types.LITERAL,
+                                        "2",
+                                        Position(1, 1),
+                                        Position(1, 1),
+                                    ),
+                                ),
+                                Leaf(
+                                    Token(
+                                        Types.LITERAL,
+                                        "3",
+                                        Position(1, 1),
+                                        Position(1, 1),
+                                    ),
+                                ),
+                            ),
+                        ),
+                ),
+            )
+        val interpreter = Interpreter()
+
+        assertEquals("Result: 6", interpreter.execute(trees).string)
+    }
 }

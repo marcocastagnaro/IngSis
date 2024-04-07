@@ -1,7 +1,6 @@
 package org.example
 
 import org.example.formatter.Formatter
-import org.example.formatter.SpacesInDeclarationRule
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -18,7 +17,7 @@ class SpacesInDeclarationRuleTest {
         assertEquals(7, tokens.size)
         val trees = Parser().execute(tokens)
         assertEquals(1, trees.size)
-        val formatter = Formatter(listOf(SpacesInDeclarationRule()))
+        val formatter = Formatter()
         val result = formatter.execute(trees)
         assertEquals("let x: number = 8;\n", result)
     }
@@ -52,7 +51,7 @@ class SpacesInDeclarationRuleTest {
             )
         )
         val trees = listOf(tree)
-        val formatter = Formatter(listOf(SpacesInDeclarationRule()))
+        val formatter = Formatter()
         val result = formatter.execute(trees)
         assertEquals("let x: number = 8;\n", result)
     }
@@ -86,7 +85,7 @@ class SpacesInDeclarationRuleTest {
             )
         )
         val trees = listOf(tree)
-        val formatter = Formatter(listOf(SpacesInDeclarationRule(spaceBefore = true, spaceAfter = false)))
+        val formatter = Formatter("src/main/resources/formatter/SpaceBeforeNoSpaceAfterDeclaration.json")
         val result = formatter.execute(trees)
         assertEquals("let x :number = 8;\n", result)
     }
@@ -120,7 +119,7 @@ class SpacesInDeclarationRuleTest {
             )
         )
         val trees = listOf(tree)
-        val formatter = Formatter(listOf(SpacesInDeclarationRule(spaceBefore = true, spaceAfter = true)))
+        val formatter = Formatter("src/main/resources/formatter/SpaceBeforeAndAfterDeclaration.json")
         val result = formatter.execute(trees)
         assertEquals("let x : number = 8;\n", result)
     }
