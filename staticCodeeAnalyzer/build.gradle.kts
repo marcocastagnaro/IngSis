@@ -11,4 +11,6 @@ dependencies {
     testImplementation(project(":parser"))
     implementation(project(":formatter"))
     testImplementation(project(":formatter"))
+    testImplementation(project(":Token"))
+    testImplementation(project(":AST"))
 }

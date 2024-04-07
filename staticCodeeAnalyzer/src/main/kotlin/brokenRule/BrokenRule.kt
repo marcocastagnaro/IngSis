@@ -11,5 +11,13 @@ class BrokenRule {
         this.ErrorPosition = position
     }
 
+    fun getBrokenRule(): String {
+        return brokenRule
+    }
+
+    fun getErrorPosition(): Position {
+        return ErrorPosition
+    }
+
 
 }

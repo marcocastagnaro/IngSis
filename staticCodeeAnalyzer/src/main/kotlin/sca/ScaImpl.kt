@@ -1,22 +1,17 @@
 package org.example.sca
 
 import org.example.AbstractSyntaxTree
-import org.example.rules.RuleFactory
 import org.example.rules.Rules
 import org.example.Token
+import org.example.brokenRule.BrokenRule
 import org.example.formatter.ParseTreeToTokens
+import sca.JsonReader
+import java.io.File
 
 
 class ScaImpl : Sca {
     private var rules : List<Rules> = listOf()
-
-    private fun setUpRules(json: List<String>) {
-        var ruleFactory = RuleFactory()
-        for (rule in json) {
-            var rule = ruleFactory.createRule(rule)
-            rules.addLast(rule)
-        }
-    }
+    private val jsonReader = JsonReader()
 
     private fun createTokens(trees: List<AbstractSyntaxTree>): List<List<Token>> {
         var tokens = mutableListOf<List<Token>>()
@@ -27,18 +22,60 @@ class ScaImpl : Sca {
         return tokens
     }
 
-    override fun readJson(json: List<String>) {
-        rules = listOf<Rules>()
-        this.setUpRules(json)
+    override fun readJson(rulesPath: String) {
+        rules = jsonReader.getRulesFromJson(rulesPath)
+    }
+
+    override fun check(trees: List<AbstractSyntaxTree>) {
+        var tokens = createTokens(trees)
+        var brokenRules = mutableListOf<BrokenRule>()
+        for (rule in rules) {
+            getBrkRls(rule.applyRule(tokens), brokenRules)
         }
 
-    override fun applyUpRules(trees: List<AbstractSyntaxTree>) {
-        var tokens = createTokens(trees)
-        for (rule in rules) {
-            rule.applyRule(tokens)
+        val txtContent = generateTxtContent(brokenRules)
+        val htmlContent = generateHtmlContent(brokenRules)
+        writeReports(txtContent, htmlContent)
+    }
+
+    private fun getBrkRls(applyRule: List<BrokenRule>, rules: List<BrokenRule>) {
+        for (brokenRule in applyRule){
+            rules.addLast(brokenRule)
         }
     }
 
+
+    fun getRules(): List<Rules> {
+        return rules
+    }
+
+    private fun writeToFile(content: String, filePath: String) {
+        val file = File(filePath)
+        file.writeText(content)
+    }
+
+    fun writeReports(txtContent: String, htmlContent: String) {
+        writeToFile(txtContent, "src/main/resources/broken_rules_report.txt")
+        writeToFile(htmlContent, "src/main/resources/broken_rules_report.html")
+    }
+
+    private fun generateTxtContent(brokenRules: List<BrokenRule>): String {
+        val sb = StringBuilder()
+        for (brokenRule in brokenRules) {
+            sb.append("${brokenRule.getBrokenRule()} in line: ${brokenRule.getErrorPosition().getRow()}\n")
+        }
+        return sb.toString()
+    }
+
+    private fun generateHtmlContent(brokenRules: List<BrokenRule>): String {
+        val sb = StringBuilder()
+        sb.append("<html><head><title>Broken Rules Report</title></head><body><h1>Broken Rules</h1><ul>")
+        for (brokenRule in brokenRules) {
+            sb.append("<li>${brokenRule.getBrokenRule()} in line: ${brokenRule.getErrorPosition().getRow()}</li>")
+        }
+        sb.append("</ul></body></html>")
+        return sb.toString()
+    }
 
 
 

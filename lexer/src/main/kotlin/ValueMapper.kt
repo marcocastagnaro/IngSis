@@ -22,7 +22,7 @@ class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = d
                 RegexAssignator("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
                 RegexAssignator("[,;(){}\\[\\]].*".toRegex()) to Types.PUNCTUATOR,
                 RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
-                RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
+                RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9_]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
                 RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
             )
     }

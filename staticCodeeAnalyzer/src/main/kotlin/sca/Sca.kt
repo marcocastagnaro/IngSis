@@ -4,9 +4,9 @@ import org.example.AbstractSyntaxTree
 
 interface Sca {
 
-    fun readJson(json: List<String>)
+    fun readJson(rulesPath: String)
 
-    fun applyUpRules(trees: List<AbstractSyntaxTree>)
+    fun check(trees: List<AbstractSyntaxTree>)
 
 
 }

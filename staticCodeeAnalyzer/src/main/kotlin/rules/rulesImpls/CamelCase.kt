@@ -9,14 +9,15 @@ class CamelCase(private var errorMessage: String = "The following identifier mus
     private val brokenRules = mutableListOf<BrokenRule>()
 
     private fun isCamelCase(token: Token): Boolean {
-        return token.getValue().matches(Regex("^[a-z]+[a-zA-Z0-9]*$"))
+        val parts = token.getValue().split("_")
+        return parts.size <= 1
     }
 
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (line in tokens) {
             for (token in line) {
                 if (token.getType() == Types.IDENTIFIER) {
-                    if (isCamelCase(token)) {
+                    if (!isCamelCase(token)) {
                         brokenRules.add(BrokenRule(errorMessage, token.getInitialPosition()))
 
                     }
