@@ -27,6 +27,23 @@
             <option value="$PROJECT_DIR$/interpreter" />
             <option value="$PROJECT_DIR$/lexer" />
             <option value="$PROJECT_DIR$/parser" />
+            <option value="$PROJECT_DIR$/staticCodeeAnalyzer" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/staticCodeAnalyzer/src/main" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/staticCodeAnalyzer/src/main" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/staticCodeAnalyzer/src/test" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/staticCodeAnalyzer/src/test" />
           </set>
         </option>
       </GradleProjectSettings>

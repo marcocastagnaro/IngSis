@@ -29,4 +29,8 @@ class NodeBuilder {
         if (value != null && left == null) return PrintNode(value!!, right!!)
         return CompositeAbstractSyntaxTree(value!!, left, right)
     }
+
+    fun getRight(): AbstractSyntaxTree? {
+        return this.right
+    }
 }

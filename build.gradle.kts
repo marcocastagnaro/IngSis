@@ -14,6 +14,8 @@ publishing {
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
+                println("GITHUB_ACTOR: " + System.getenv("GITHUB_ACTOR"))
+                println("GITHUB_TOKEN: " + System.getenv("GITHUB_TOKEN"))
             }
         }
     }

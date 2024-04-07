@@ -1,6 +1,7 @@
-import org.example.AbstractSyntaxTree
-import org.example.Token
+package org.example
 
 interface ASTFactory {
     fun createAST(tokens: List<Token>): AbstractSyntaxTree
+
+    fun canHandle(tokens: List<Token>): Boolean
 }

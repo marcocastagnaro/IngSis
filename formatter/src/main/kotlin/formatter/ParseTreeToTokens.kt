@@ -1,7 +1,10 @@
-package org.example
+package org.example.formatter
+
+import org.example.AbstractSyntaxTree
+import org.example.Token
 
 class ParseTreeToTokens {
-    fun parseToString(root: AbstractSyntaxTree): List<Token> {
+    fun parseToString(root: AbstractSyntaxTree): MutableList<Token> {
         val tokenList: MutableList<Token> = mutableListOf()
         getTokens(root, tokenList)
         return tokenList

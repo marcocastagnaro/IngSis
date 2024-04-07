@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.formatter.ParseTreeToTokens
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
@@ -9,8 +10,8 @@ class ParseTreeToTokensTest {
         val parser = ParseTreeToTokens()
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
-                right =
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
+                child =
                     Leaf(
                         Token(
                             Types.LITERAL,
@@ -31,8 +32,8 @@ class ParseTreeToTokensTest {
         val parser = ParseTreeToTokens()
         val tree =
             PrintNode(
-                Token(Types.OUTPUT, "println", Position(1, 1), Position(1, 6)),
-                right =
+                Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
+                child =
                     CompositeAbstractSyntaxTree(
                         Token(
                             Types.OPERATOR,

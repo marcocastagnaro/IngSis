@@ -1,12 +1,14 @@
 package org.example
 
-import ASTFactory
-
-class PrintlnASTfactory : ASTFactory {
+class PrintlnFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = PrintNode(tokens.find { it.getValue() == "println" }!!)
         root.setRight(getSumPrintln(tokens.drop(2).dropLast(1)))
         return root
+    }
+
+    override fun canHandle(tokens: List<Token>): Boolean {
+        return tokens.any { it.getType() == Types.FUNCTION }
     }
 
     private fun getSumPrintln(
