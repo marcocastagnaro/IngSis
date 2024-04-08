@@ -78,16 +78,17 @@ class TestCliInterpreter {
         val result = cli.test("formatter src/test/resources/test010.txt src/test/resources/MyRules.json")
         assertEquals("let variable: string=\"this is a variable\";\n\n", result.stdout)
     }
-    //Formatter funciona el resto de los tests estan en su clase
+    // Formatter funciona el resto de los tests estan en su clase
 
     @Test
-    fun `test weird txt with words separate` (){
+    fun `test weird txt with words separate`() {
         val cli = CLI()
         val result = cli.test("execute src/test/resources/test011.txt")
         assertEquals("10\n", result.stdout)
     }
+
     @Test
-    fun `test formatter a weird text` (){
+    fun `test formatter a weird text`() {
         val cli = CLI()
         val result = cli.test("formatter src/test/resources/test011.txt")
         assertEquals("let variable: number = 10;\n\nprintln(variable);\n\n", result.stdout)
