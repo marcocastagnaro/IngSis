@@ -39,7 +39,7 @@ class ScaImpl : Sca {
 
     private fun getBrkRls(
         applyRule: List<BrokenRule>,
-        rules: List<BrokenRule>,
+        rules: MutableList<BrokenRule>,
     ) {
         for (brokenRule in applyRule) {
             rules.addLast(brokenRule)
