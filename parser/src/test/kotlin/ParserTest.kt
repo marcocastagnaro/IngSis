@@ -174,7 +174,6 @@ class ParserTest {
 
         assertEquals(2, trees.size)
         val firstTree = trees[0]
-        val secondTree = trees[1]
 
         assertEquals("=", firstTree.getToken().getValue())
         assertEquals("let", firstTree.getLeft()?.getToken()?.getValue())
@@ -184,6 +183,5 @@ class ParserTest {
         assertEquals("+", firstTree.getRight()?.getToken()?.getValue())
         assertEquals("5", firstTree.getRight()?.getLeft()?.getToken()?.getValue())
         assertEquals("5", firstTree.getRight()?.getRight()?.getToken()?.getValue())
-
     }
 }

@@ -118,4 +118,12 @@ class LexerTest {
         val result = lexer.execute(input)
         Assertions.assertEquals(5, result.size)
     }
+
+    @Test
+    fun `test 008`() {
+        val input = "let x : number =5+7+9/5*3;"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+        Assertions.assertEquals(15, result.size)
+    }
 }

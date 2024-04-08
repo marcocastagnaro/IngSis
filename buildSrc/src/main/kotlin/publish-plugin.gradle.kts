@@ -2,8 +2,6 @@ plugins {
     id("maven-publish")
 }
 
-group = "edu.austral.ingsis"
-
 publishing {
     repositories {
         maven {
