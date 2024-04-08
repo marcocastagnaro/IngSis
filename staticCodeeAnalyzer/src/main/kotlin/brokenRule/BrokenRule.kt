@@ -1,14 +1,13 @@
 package org.example.brokenRule
 import org.example.Position
 
-
 class BrokenRule {
     private val brokenRule: String
-    private val ErrorPosition: Position
+    private val errorPosition: Position
 
     constructor(rule: String, position: Position) {
         this.brokenRule = rule
-        this.ErrorPosition = position
+        this.errorPosition = position
     }
 
     fun getBrokenRule(): String {
@@ -16,8 +15,6 @@ class BrokenRule {
     }
 
     fun getErrorPosition(): Position {
-        return ErrorPosition
+        return errorPosition
     }
-
-
 }

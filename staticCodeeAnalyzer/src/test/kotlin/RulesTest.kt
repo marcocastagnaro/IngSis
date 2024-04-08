@@ -8,13 +8,10 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-
-
 class RulesTest {
     val lexer = Lexer(ValueMapper())
     val parser = Parser()
     val parseTreeToTokens = ParseTreeToTokens()
-
 
     @Test
     fun test001_testNotInCamelCase() {
@@ -26,9 +23,7 @@ class RulesTest {
         val brokenRules = camelCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
         assertEquals("The following identifier must be in camelCase", brokenRules[0].getBrokenRule())
-        assertEquals(Position(0,4), brokenRules[0].getErrorPosition())
-
-
+        assertEquals(Position(0, 4), brokenRules[0].getErrorPosition())
     }
 
     @Test
@@ -52,8 +47,7 @@ class RulesTest {
         val brokenRules = snakeCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
         assertEquals("The following identifier must be in snake_case", brokenRules[0].getBrokenRule())
-        assertEquals(Position(0,4), brokenRules[0].getErrorPosition())
-
+        assertEquals(Position(0, 4), brokenRules[0].getErrorPosition())
     }
 
     @Test
@@ -77,7 +71,7 @@ class RulesTest {
         val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
         assertEquals("Printlns must not be called with an expresion", brokenRules[0].getBrokenRule())
-        assertEquals(Position(0,0), brokenRules[0].getErrorPosition())
+        assertEquals(Position(0, 0), brokenRules[0].getErrorPosition())
     }
 
     @Test
@@ -90,8 +84,4 @@ class RulesTest {
         val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isEmpty())
     }
-
-
-
-
 }

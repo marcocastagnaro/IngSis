@@ -1,8 +1,8 @@
 package org.example.rules.rulesImpls
 
-import org.example.brokenRule.BrokenRule
 import org.example.Token
 import org.example.Types
+import org.example.brokenRule.BrokenRule
 import org.example.rules.Rules
 
 class CamelCase(private var errorMessage: String = "The following identifier must be in camelCase") : Rules {
@@ -19,16 +19,10 @@ class CamelCase(private var errorMessage: String = "The following identifier mus
                 if (token.getType() == Types.IDENTIFIER) {
                     if (!isCamelCase(token)) {
                         brokenRules.add(BrokenRule(errorMessage, token.getInitialPosition()))
-
                     }
                 }
             }
         }
         return brokenRules
     }
-
-
-
-
-
 }
