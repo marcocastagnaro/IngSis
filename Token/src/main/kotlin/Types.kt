@@ -12,4 +12,5 @@ enum class Types {
     FUNCTION,
     ASSIGNATION,
     SPACE,
+    CONDITIONAL
 }

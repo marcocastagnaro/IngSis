@@ -8,7 +8,10 @@ import org.example.sca.ScaImpl
 import java.io.File
 import java.util.logging.Formatter
 
-class CLI : CliktCommand() { //./cli "execute" "src/main/testmlml,.
+//cli path : src/main/kotlin/CLI.kt
+//./gradlew run --args "execute src/test/resources/test001.txt
+
+class CLI : CliktCommand() {
     val execute: String by argument().help("Select execute, linter or formatter")
     val file: String by argument().help("Filepath to execute")
     val filepathJSON: String? by argument().optional().help("Filepath to execute")
@@ -86,4 +89,7 @@ class CLI : CliktCommand() { //./cli "execute" "src/main/testmlml,.
 
         return stringBuilder.toString()
     }
+
 }
+fun main(args: Array<String>) = CLI().main(args)
+

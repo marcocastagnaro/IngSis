@@ -14,9 +14,9 @@ class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = d
     companion object {
         val default =
             listOf(
-                RegexAssignator("(if|else|for|while|when|fun|function|class|object|return|break|continue|let)".toRegex()) to Types.KEYWORD,
+                RegexAssignator("(const|let)".toRegex()) to Types.KEYWORD,
                 RegexAssignator("println".toRegex()) to Types.FUNCTION,
-                RegexAssignator("(string|number)".toRegex()) to Types.DATA_TYPE,
+                RegexAssignator("(string|number|boolean)".toRegex()) to Types.DATA_TYPE,
                 RegexAssignator("(:)".toRegex()) to Types.DECLARATOR,
                 RegexAssignator("(=)".toRegex()) to Types.ASSIGNATION,
                 RegexAssignator("(\\d+|\"[^\"]*\"|'[^']*')".toRegex()) to Types.LITERAL,
@@ -24,6 +24,7 @@ class ValueMapper(private val assignatorTuple: List<Pair<Assignator, Types>> = d
                 RegexAssignator("[+\\-*/%=><!&|^~]*".toRegex()) to Types.OPERATOR,
                 RegexAssignator("""(?<!['"])[a-zA-Z][a-zA-Z0-9_]*(?!['"])""".toRegex()) to Types.IDENTIFIER,
                 RegexAssignator("(//.*|/\\*(.|\\n)*?\\*/)".toRegex()) to Types.COMMENT,
+                RegexAssignator("(if|else)".toRegex()) to Types.CONDITIONAL,
             )
     }
 
