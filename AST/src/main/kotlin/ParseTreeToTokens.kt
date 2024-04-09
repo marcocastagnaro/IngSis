@@ -1,7 +1,4 @@
-package org.example.formatter
-
-import org.example.AbstractSyntaxTree
-import org.example.Token
+package org.example
 
 class ParseTreeToTokens {
     fun parseToString(root: AbstractSyntaxTree): MutableList<Token> {

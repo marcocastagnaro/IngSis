@@ -1,6 +1,7 @@
 package org.example.formatter
 
 import org.example.AbstractSyntaxTree
+import org.example.ParseTreeToTokens
 import org.example.Token
 
 class Formatter(val formatPath: String = "src/main/resources/formatter/StandardRules.json") {

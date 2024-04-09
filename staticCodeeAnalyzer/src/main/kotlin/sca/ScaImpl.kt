@@ -3,7 +3,7 @@ package org.example.sca
 import org.example.AbstractSyntaxTree
 import org.example.Token
 import org.example.brokenRule.BrokenRule
-import org.example.formatter.ParseTreeToTokens
+import org.example.ParseTreeToTokens
 import org.example.rules.Rules
 import sca.JsonReader
 import java.io.File
