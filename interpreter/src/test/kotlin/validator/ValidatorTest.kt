@@ -13,7 +13,8 @@ class ValidatorTest {
 
     @Test
     fun `test 001 - should return true when the input is valid`() {
-        val input = """"
+        val input =
+            """"
             let values : number = 1 + 2+ 3;
             let literal : string = "hello World";
             """.trimMargin()
@@ -26,10 +27,11 @@ class ValidatorTest {
 
     @Test
     fun `test 002 - should return false when input is invalid`() {
-        val input = """
+        val input =
+            """
             let values : string = "hello World";
             let values : number = 1 + 2+ '3';
-        """.trimMargin()
+            """.trimMargin()
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
@@ -39,10 +41,11 @@ class ValidatorTest {
 
     @Test
     fun `test 003 - should return true when no assignation is present`() {
-        val input = """
+        val input =
+            """
             let values : number;
             let values1 : string;
-        """.trimMargin()
+            """.trimMargin()
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
@@ -52,16 +55,15 @@ class ValidatorTest {
 
     @Test
     fun `test 004 - should return true when no declaration is present`() {
-        val input = """
+        val input =
+            """
             value1 = 1 + 2+ "3";
             value2 = "hello World";
-        """.trimMargin()
+            """.trimMargin()
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
         val result = validator.validate(trees)
         assertEquals(true, result)
     }
-
-
 }

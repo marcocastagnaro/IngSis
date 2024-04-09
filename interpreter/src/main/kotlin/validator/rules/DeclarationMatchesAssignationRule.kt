@@ -23,14 +23,13 @@ class DeclarationMatchesAssignationRule : ValidationRule {
                 return false
             }
         }
-
     }
 
     private fun checkAtLeastOneValueIsString(valueList: List<Token>): Boolean {
         return valueList.any { it.getValue().matches(Regex("(\\d+|\"[^\"]*\"|'[^']*')")) }
     }
 
-    private fun checkValuesAreNumeric(valueList: List<Token>) : Boolean {
+    private fun checkValuesAreNumeric(valueList: List<Token>): Boolean {
         return valueList.all { it.getValue().matches(Regex("[0-9]+")) }
     }
 }

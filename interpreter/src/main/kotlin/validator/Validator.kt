@@ -9,8 +9,8 @@ class Validator(private val rules: List<ValidationRule> = default) {
     }
 
     fun validate(input: List<AbstractSyntaxTree>): Boolean {
-        for (tree in input){
-            rules.forEach({ if (it.validate(tree) == false) return false }  )
+        for (tree in input) {
+            rules.forEach({ if (it.validate(tree) == false) return false })
         }
         return true
     }
