@@ -9,7 +9,7 @@ class `Version1-1-tests` {
     @Test
     fun `test 001- should recognize the const keyword const`() {
         val input = "const"
-        val expected = listOf(Token(Types.KEYWORD, "const", Position(0,0), Position(0,4)))
+        val expected = listOf(Token(Types.KEYWORD, "const", Position(0, 0), Position(0, 4)))
         val result = lexer.execute(input)
         assertEquals(result[0].getType(), expected[0].getType())
     }
@@ -17,14 +17,15 @@ class `Version1-1-tests` {
     @Test
     fun `test 002- should recognize if and else as a keyword and {} as punctuators`() {
         val input = "if { } else { }" // TODO this test fails when there is nos space between brackets {}
-        val expected = listOf(
-            Token(Types.KEYWORD, "if", Position(0,0), Position(0,1)),
-            Token(Types.PUNCTUATOR, "{", Position(0,4), Position(0,4)),
-            Token(Types.PUNCTUATOR, "}", Position(0,5), Position(0,5)),
-            Token(Types.KEYWORD, "else", Position(0,7), Position(0,10)),
-            Token(Types.PUNCTUATOR, "{", Position(0,12), Position(0,12)),
-            Token(Types.PUNCTUATOR, "}", Position(0,13), Position(0,13)),
-        )
+        val expected =
+            listOf(
+                Token(Types.KEYWORD, "if", Position(0, 0), Position(0, 1)),
+                Token(Types.PUNCTUATOR, "{", Position(0, 4), Position(0, 4)),
+                Token(Types.PUNCTUATOR, "}", Position(0, 5), Position(0, 5)),
+                Token(Types.KEYWORD, "else", Position(0, 7), Position(0, 10)),
+                Token(Types.PUNCTUATOR, "{", Position(0, 12), Position(0, 12)),
+                Token(Types.PUNCTUATOR, "}", Position(0, 13), Position(0, 13)),
+            )
         val result = lexer.execute(input)
         assertEquals(result[0].getType(), expected[0].getType())
         assertEquals(result[1].getType(), expected[1].getType())
@@ -37,7 +38,7 @@ class `Version1-1-tests` {
     @Test
     fun `test 003- should recognize readInput as function`() {
         val input = "readInput"
-        val expected = listOf(Token(Types.FUNCTION, "readInput", Position(0,0), Position(0,8)))
+        val expected = listOf(Token(Types.FUNCTION, "readInput", Position(0, 0), Position(0, 8)))
         val result = lexer.execute(input)
         assertEquals(result[0].getType(), expected[0].getType())
     }
