@@ -1,5 +1,17 @@
 package org.example
 
+//1. Get the tree
+//2. Check if it is an assignation or a function
+//3. If it is an assignation, get the variable, the type and the value
+//4. If it is a function:
+//  4.1 Check if it is an identifier or an operator
+//  4.2 If it is an identifier, get the value from the map
+//  4.3 If it is an operator:
+//    4.3.1 Check if both or any of them are leaf or not
+//    4.3.2 If both are leaf, perform the operation
+//    4.3.3 If any of them is not a leaf, call the function recursively
+
+
 class Interpreter2 {
     private val variables = mutableMapOf<Pair<String, String>, String>()
     private val output: Output = Output()
@@ -150,9 +162,9 @@ class Interpreter2 {
             }
         } else {
             if (!leftChild.isLeaf()) {
-                interpretFunction(rightChild)
+                solveOperator(rightChild)
             } else if (!rightChild.isLeaf()) {
-                interpretFunction(leftChild)
+                solveOperator(leftChild)
             }
         }
     }
