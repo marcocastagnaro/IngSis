@@ -1,12 +1,18 @@
 
+
 import org.example.Leaf
+import org.example.Lexer
+import org.example.Parser
 import org.example.Position
 import org.example.PrintNode
 import org.example.Token
 import org.example.Types
+import org.example.ValueMapper
 import org.example.sca.ScaImpl
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ScaTest {
     @Test
@@ -39,5 +45,21 @@ class ScaTest {
             )
         sca.check(trees)
         assertFalse(sca.getRules().isEmpty())
+    }
+
+    @Test
+    fun test003_outputTest() {
+        val sca = ScaImpl()
+        sca.readJson("src/main/resources/linternRules.json")
+        val input = "println(\"hola\" + \"juan\"); "
+        val lexer = Lexer(ValueMapper())
+        val parser = Parser()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+
+        val output = sca.check(trees)
+        assertFalse(output.isOk())
+        assertTrue(output.getBrokenRules().size == 1)
+        assertEquals("Printlns must not be called with an expresion at line 0", output.getBrokenRules()[0])
     }
 }

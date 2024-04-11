@@ -5,6 +5,7 @@ import org.example.ParseTreeToTokens
 import org.example.Token
 import org.example.brokenRule.BrokenRule
 import org.example.rules.Rules
+import output.Output
 import sca.JsonReader
 import java.io.File
 
@@ -25,24 +26,33 @@ class ScaImpl : Sca {
         rules = jsonReader.getRulesFromJson(rulesPath)
     }
 
-    override fun check(trees: List<AbstractSyntaxTree>) {
+    override fun check(trees: List<AbstractSyntaxTree>): Output {
         var tokens = createTokens(trees)
         var brokenRules = mutableListOf<BrokenRule>()
+        var output = Output()
         for (rule in rules) {
-            getBrkRls(rule.applyRule(tokens), brokenRules)
+            getBrkRls(rule, tokens, brokenRules)
+        }
+        if (brokenRules.isNotEmpty()) {
+            for (brokenRule in brokenRules) {
+                output.addBrokenRule(brokenRule)
+            }
         }
 
         val txtContent = generateTxtContent(brokenRules)
         val htmlContent = generateHtmlContent(brokenRules)
         writeReports(txtContent, htmlContent)
+        return output
     }
 
     private fun getBrkRls(
-        applyRule: List<BrokenRule>,
-        rules: List<BrokenRule>,
+        applyRule: Rules,
+        tokens: List<List<Token>>,
+        brokenRules: List<BrokenRule>,
     ) {
-        for (brokenRule in applyRule) {
-            rules.addLast(brokenRule)
+        var brkRules = applyRule.applyRule(tokens)
+        for (brkRule in brkRules) {
+            brokenRules.addLast(brkRule)
         }
     }
 
