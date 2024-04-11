@@ -69,14 +69,14 @@ class TestCliInterpreter {
     @Test
     fun `test 009 formatter simple format with no json`() {
         val printScript = PrintScript()
-        val result = printScript.test("formatter src/test/resources/test009.txt")
+        val result = printScript.test("format src/test/resources/test009.txt")
         assertEquals("let x: number = 8;\n\n", result.stdout)
     }
 
     @Test
     fun `test010 formatter with my own json`() {
         val printScript = PrintScript()
-        val result = printScript.test("formatter src/test/resources/test010.txt src/test/resources/MyRules.json")
+        val result = printScript.test("format src/test/resources/test010.txt src/test/resources/MyRules.json")
         assertEquals("let variable: string=\"this is a variable\";\n\n", result.stdout)
     }
     // Formatter funciona el resto de los tests estan en su clase
@@ -91,7 +91,7 @@ class TestCliInterpreter {
     @Test
     fun `test formatter a weird text`() {
         val printScript = PrintScript()
-        val result = printScript.test("formatter src/test/resources/test011.txt")
+        val result = printScript.test("format src/test/resources/test011.txt")
         assertEquals("let variable: number = 10;\n\nprintln(variable);\n\n", result.stdout)
     }
 }
