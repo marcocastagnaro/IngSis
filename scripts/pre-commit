@@ -2,7 +2,6 @@
 
 git stash -q --keep-index
 
-./gradlew build
 ./gradlew ktlintFormat
 ./gradlew koverhtmlReport
 if [ $? -ne 0 ]; then
