@@ -5,7 +5,6 @@ class Interpreter() {
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
         val output: Output = Output()
-
         for (tree in trees) {
             when (tree.getToken().getType()) {
                 Types.ASSIGNATION -> getValues(tree)
