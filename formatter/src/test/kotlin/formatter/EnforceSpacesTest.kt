@@ -49,7 +49,7 @@ class EnforceSpacesTest {
         assertEquals(13, tokens.size)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-        // TODO("Parser println needs modifying")
+//        TODO("Parser println needs modifying")
 //        assertEquals("println(5 + 7 - 9 / 5 * 3);\n", result)
     }
 }

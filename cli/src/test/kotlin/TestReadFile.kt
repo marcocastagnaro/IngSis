@@ -18,4 +18,12 @@ class TestReadFile {
 
         assertEquals("let x : number = 10;", file)
     }
+
+    @Test
+    fun testReadFile3() {
+        val cli = CLI()
+        val file = cli.getFile("src/test/resources/test003.txt")
+
+        assertEquals("let x : number = 10;println (x);", file)
+    }
 }

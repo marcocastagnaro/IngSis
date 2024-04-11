@@ -3,13 +3,17 @@ package org.example
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.help
+import com.github.ajalt.clikt.parameters.arguments.optional
+import org.example.sca.ScaImpl
 import java.io.File
 import java.util.logging.Formatter
 
-class CLI : CliktCommand() {
+class CLI : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
     val execute: String by argument().help("Select execute, linter or formatter")
     val file: String by argument().help("Filepath to execute")
+    val filepathJSON: String? by argument().optional().help("Filepath to execute")
 
+// Json que se puede usar tanto para el linter como el formatter
     internal fun execute(): Output {
         val string = getFile(file)
         val tokens = executeLexing(string)
@@ -21,22 +25,38 @@ class CLI : CliktCommand() {
         optionSelection(execute)
     }
 
+    private fun analyze() {
+        val string = getFile(file)
+        val tokens = executeLexing(string)
+        val abstractSyntaxTrees = executeParsing(tokens)
+        val linter = ScaImpl()
+        val result = linter.check(abstractSyntaxTrees)
+//        return result
+    }
+
     private fun optionSelection(option: String) {
         when (option) {
             "execute" -> echo(execute().string)
-            "formatter" -> echo(formatter())
+            "formatter" -> echo(formatter(filepathJSON))
+            "linter" -> echo(analyze())
             else -> {
                 println("Opción inválida")
             }
         }
     }
 
-    private fun formatter(filepathJSON: String? = null) {
+    private fun formatter(filepathJSON: String? = "src/test/resources/StandardRules.json"): String {
         val string = getFile(file)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
-        val format = org.example.formatter.Formatter()
-        format.execute(abstractSyntaxTrees)
+        val format: org.example.formatter.Formatter =
+            if (filepathJSON == null) {
+                org.example.formatter.Formatter("src/test/resources/StandardRules.json")
+            } else {
+                org.example.formatter.Formatter(filepathJSON)
+            }
+        val result = format.execute(abstractSyntaxTrees)
+        return result
     }
 
     private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>): Output {

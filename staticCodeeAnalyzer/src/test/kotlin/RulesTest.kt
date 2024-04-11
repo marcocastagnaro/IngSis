@@ -1,6 +1,5 @@
 package org.example
 
-import org.example.formatter.ParseTreeToTokens
 import org.example.rules.rulesImpls.CamelCase
 import org.example.rules.rulesImpls.PrintWithoutExpresion
 import org.example.rules.rulesImpls.SnakeCase

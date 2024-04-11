@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - interpreter
   workflow_dispatch:
 
 jobs:
