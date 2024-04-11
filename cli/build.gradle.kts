@@ -1,5 +1,6 @@
 plugins {
     id("org.example.basic-plugin")
+    id("application")
 }
 
 dependencies {
@@ -12,4 +13,7 @@ dependencies {
     implementation(project(":formatter"))
     implementation(project(":staticCodeeAnalyzer"))
     implementation("com.github.ajalt.clikt:clikt:4.2.0")
+}
+application {
+    mainClass.set("cli.CLIKt")
 }
