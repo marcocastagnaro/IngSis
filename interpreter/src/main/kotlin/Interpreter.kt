@@ -1,6 +1,6 @@
 package org.example
 
-class Interpreter() {
+class Interpreter {
     private val mapValuesAndVariables = mutableMapOf<Pair<String, String>, String>()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
@@ -80,7 +80,7 @@ class Interpreter() {
         }
     }
 
-    public fun testingVariables(variable: String): String? {
+    fun testingVariables(variable: String): String? {
         val entry = mapValuesAndVariables.entries.find { it.key.first == variable }
         return entry?.value
     }

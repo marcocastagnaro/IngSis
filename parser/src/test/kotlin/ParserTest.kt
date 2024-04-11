@@ -97,7 +97,7 @@ class ParserTest {
     }
 
     @Test
-    public fun testAssignationVariable() {
+    fun testAssignationVariable() {
         val tokens =
             listOf(
                 Token(Types.KEYWORD, "let", Position(0, 0), Position(1, 3)),

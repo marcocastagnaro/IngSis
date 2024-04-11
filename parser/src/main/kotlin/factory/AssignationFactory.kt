@@ -46,10 +46,7 @@ class AssignationFactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        if (tokens.any { it.getType() == Types.ASSIGNATION }) {
-            return true
-        }
-        return false
+        return tokens.any { it.getType() == Types.ASSIGNATION }
     }
 
     private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {

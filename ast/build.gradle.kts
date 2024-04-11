@@ -6,5 +6,5 @@ plugins {
 version = "1.0.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":Token"))
+    implementation(project(":token"))
 }

@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    implementation(project(":AST"))
-    implementation(project(":Token"))
+    implementation(project(":ast"))
+    implementation(project(":token"))
     implementation(project(":parser"))
     implementation(project(":lexer"))
     implementation(project(":interpreter"))
