@@ -1,28 +1,28 @@
 package org.example
 
+import cli.PrintScript
 import com.github.ajalt.clikt.testing.test
-import org.example.cli.`PrintScript.kt`
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class TestCliInterpreter {
     @Test
     fun `test 001 test a simple println from lexer to interpreter`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("execute src/test/resources/test001.txt")
         assertEquals("\"Hello, World!\"\n", result.stdout) // wtf porque me funciona el test solo si le salto una linea
     }
 
     @Test
     fun `test 002 printing an assignation must be empty`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("execute src/test/resources/test002.txt")
         assertEquals("\n", result.stdout)
     }
 
     @Test
     fun `test003 printing variable x with assignation variable before`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("execute src/test/resources/test003.txt")
         assertEquals("10\n", result.stdout)
     }
@@ -68,14 +68,14 @@ class TestCliInterpreter {
 
     @Test
     fun `test 009 formatter simple format with no json`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("formatter src/test/resources/test009.txt")
         assertEquals("let x: number = 8;\n\n", result.stdout)
     }
 
     @Test
     fun `test010 formatter with my own json`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("formatter src/test/resources/test010.txt src/test/resources/MyRules.json")
         assertEquals("let variable: string=\"this is a variable\";\n\n", result.stdout)
     }
@@ -83,14 +83,14 @@ class TestCliInterpreter {
 
     @Test
     fun `test weird txt with words separate`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("execute src/test/resources/test011.txt")
         assertEquals("10\n", result.stdout)
     }
 
     @Test
     fun `test formatter a weird text`() {
-        val printScript = `PrintScript.kt`()
+        val printScript = PrintScript()
         val result = printScript.test("formatter src/test/resources/test011.txt")
         assertEquals("let variable: number = 10;\n\nprintln(variable);\n\n", result.stdout)
     }

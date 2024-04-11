@@ -6,13 +6,13 @@ import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.types.choice
 import org.example.AbstractSyntaxTree
-import org.example.Interpreter
+import org.example.Interpreter3
+import org.example.Lexer
 import org.example.Output
+import org.example.Parser
 import org.example.Token
 import org.example.ValueMapper
 import org.example.sca.ScaImpl
-import org.example.Lexer
-import org.example.Parser
 import java.io.File
 
 class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
@@ -68,7 +68,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
     }
 
     private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>): Output {
-        val interpreter = Interpreter()
+        val interpreter = Interpreter3()
         val result = interpreter.execute(abstractSyntaxTrees)
         return result
     }

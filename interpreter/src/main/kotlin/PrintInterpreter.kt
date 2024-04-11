@@ -6,7 +6,6 @@ class PrintInterpreter : InterpreterStrategy {
         variables: Map<VariableToken, String>,
     ): Map<VariableToken, String> {
         val result = evaluateNode(tree.getRight()!!, variables)
-        println("Result: $result")
         return hashMapOf(VariableToken("printResult", TokenType.PRINT) to result.toString())
     }
 
