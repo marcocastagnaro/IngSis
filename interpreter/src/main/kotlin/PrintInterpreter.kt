@@ -1,12 +1,6 @@
-package org.example.validator.interpreterStrategy
-
-import org.example.AbstractSyntaxTree
-import org.example.TokenType
-import org.example.Types
-import org.example.VariableToken
+package org.example
 
 class PrintInterpreter : InterpreterStrategy {
-    val variables = HashMap<VariableToken, String>()
 
     override fun interpret(
         tree: AbstractSyntaxTree,
@@ -53,7 +47,7 @@ class PrintInterpreter : InterpreterStrategy {
         b: String,
         variables: Map<VariableToken, String>,
     ): Any {
-        val isConcatenation = isVariableAString(a, variables) || isVariableAString(b, variables)
+        val isConcatenation = isVariableAString(a, variables) && isVariableAString(b, variables)
         return if (isConcatenation) {
             "$a$b"
         } else {

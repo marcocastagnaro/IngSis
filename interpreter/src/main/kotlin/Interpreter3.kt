@@ -1,8 +1,5 @@
 package org.example
 
-import org.example.validator.interpreterStrategy.AssignationInterpreter
-import org.example.validator.interpreterStrategy.PrintInterpreter
-
 class Interpreter3 {
     private val variables = HashMap<VariableToken, String>()
     private val output: Output = Output()

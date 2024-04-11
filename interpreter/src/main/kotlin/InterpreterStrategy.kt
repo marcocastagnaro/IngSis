@@ -1,7 +1,4 @@
-package org.example.validator.interpreterStrategy
-
-import org.example.AbstractSyntaxTree
-import org.example.VariableToken
+package org.example
 
 interface InterpreterStrategy {
     fun interpret(

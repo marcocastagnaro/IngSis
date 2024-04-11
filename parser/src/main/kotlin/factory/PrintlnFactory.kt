@@ -16,7 +16,7 @@ class PrintlnFactory : ASTFactory {
         root: NodeBuilder? = null,
     ): AbstractSyntaxTree {
         val sumIndex =
-            tokens.indexOfFirst { it.getValue() == "+" }
+            tokens.indexOfFirst { it.getValue() == "+" || it.getValue() == "-" || it.getValue() == "*" || it.getValue() == "/" }
 
         return if (sumIndex == -1) {
             root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build() ?: NodeBuilder().setValue(tokens[0]).build()
