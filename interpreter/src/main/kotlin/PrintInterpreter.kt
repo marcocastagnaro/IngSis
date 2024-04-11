@@ -1,7 +1,6 @@
 package org.example
 
 class PrintInterpreter : InterpreterStrategy {
-
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: Map<VariableToken, String>,
