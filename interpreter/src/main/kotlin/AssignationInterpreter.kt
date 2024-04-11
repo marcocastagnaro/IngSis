@@ -1,7 +1,6 @@
 package org.example
 
-class AssignationInterpreter: InterpreterStrategy {
-
+class AssignationInterpreter : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: Map<VariableToken, String>,
@@ -128,15 +127,15 @@ class AssignationInterpreter: InterpreterStrategy {
         value: String,
         variables: MutableMap<VariableToken, String>,
     ) {
-        val processedValue = if (type == TokenType.STRING) {
-            // Remove leading and trailing quotes from string value
-            value.removeSurrounding("\"")
-        } else {
-            value // For other types, keep the value as it is
-        }
+        val processedValue =
+            if (type == TokenType.STRING) {
+                // Remove leading and trailing quotes from string value
+                value.removeSurrounding("\"")
+            } else {
+                value // For other types, keep the value as it is
+            }
         variables[VariableToken(variable, type)] = processedValue
     }
-
 
     private fun isVariableAString(
         variable: String,

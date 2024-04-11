@@ -610,7 +610,7 @@ class InterpreterTest {
     fun `test 001 -should be able to concatenate a string and a number`() {
         val input =
             """
-            |let x: string = "Hello"; 
+            |let x: string = "Hello";
             |let y: number = 1;
             |println(x + y);
             """.trimMargin()
@@ -619,8 +619,7 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("\"Hello1\"", result.string)
     }
-    */
-
+     */
 
     @Test
     fun `test 002 -should be able to make a complex sum with different terms`() {
@@ -663,5 +662,4 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("4", result.string)
     }
-
 }

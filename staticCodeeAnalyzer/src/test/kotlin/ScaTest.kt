@@ -1,5 +1,9 @@
-package org.example
 
+import org.example.Leaf
+import org.example.Position
+import org.example.PrintNode
+import org.example.Token
+import org.example.Types
 import org.example.sca.ScaImpl
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
