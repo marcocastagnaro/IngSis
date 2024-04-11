@@ -1,19 +1,17 @@
 package org.example
 
-import org.example.validator.InterpreterStrategy.AssignationInterpreter
+import org.example.validator.interpreterStrategy.AssignationInterpreter
+import org.example.validator.interpreterStrategy.PrintInterpreter
 
-
-class Interpreter3{
-
+class Interpreter3 {
     private val variables = HashMap<VariableToken, String>()
     private val output: Output = Output()
-    private val assignationInterpreter = AssignationInterpreter()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
         for (tree in trees) {
             when (tree.getToken().getType()) {
                 Types.ASSIGNATION -> executeAssignation(tree)
-                Types.FUNCTION -> interpretFunction(tree.getRight()!!)
+                Types.FUNCTION -> executePrint(tree)
                 else -> continue
             }
         }
@@ -21,11 +19,11 @@ class Interpreter3{
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
-        variables.putAll(assignationInterpreter.interpret(tree, variables))
+        variables.putAll(AssignationInterpreter().interpret(tree, variables))
     }
 
-
-
+    private fun executePrint(tree: AbstractSyntaxTree) {
+        val mapResult = PrintInterpreter().interpret(tree, variables).entries.first().value
+        output.buildOutput(mapResult)
+    }
 }
-
-//let x: number = 20 + 50
