@@ -1,32 +1,40 @@
-package org.example
+package cli
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.arguments.optional
+import com.github.ajalt.clikt.parameters.types.choice
+import org.example.AbstractSyntaxTree
+import org.example.Interpreter
+import org.example.Output
+import org.example.Token
+import org.example.ValueMapper
 import org.example.sca.ScaImpl
+import org.example.Lexer
+import org.example.Parser
 import java.io.File
-import java.util.logging.Formatter
 
-class CLI : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
-    val execute: String by argument().help("Select execute, linter or formatter")
-    val file: String by argument().help("Filepath to execute")
-    val filepathJSON: String? by argument().optional().help("Filepath to execute")
+class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
+    private val operation by argument(help = "apply operation")
+        .choice("execute", "format", "analyze")
+    private val source by argument(help = "source file path")
+    val filepathJSON by argument().optional().help("Filepath to execute")
 
 // Json que se puede usar tanto para el linter como el formatter
     internal fun execute(): Output {
-        val string = getFile(file)
+        val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         return executeInterpreter(abstractSyntaxTrees)
     }
 
     override fun run() {
-        optionSelection(execute)
+        optionSelection(operation)
     }
 
     private fun analyze() {
-        val string = getFile(file)
+        val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         val linter = ScaImpl()
@@ -46,7 +54,7 @@ class CLI : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
     }
 
     private fun formatter(filepathJSON: String? = "src/test/resources/StandardRules.json"): String {
-        val string = getFile(file)
+        val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         val format: org.example.formatter.Formatter =
@@ -90,3 +98,5 @@ class CLI : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         return stringBuilder.toString()
     }
 }
+
+fun main(args: Array<String>) = PrintScript().main(args)

@@ -2,6 +2,9 @@ plugins {
     id("org.example.basic-plugin")
     id("application")
 }
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -12,8 +15,9 @@ dependencies {
     implementation(project(":interpreter"))
     implementation(project(":formatter"))
     implementation(project(":staticCodeeAnalyzer"))
-    implementation("com.github.ajalt.clikt:clikt:4.2.0")
+    implementation("com.github.ajalt.clikt:clikt:4.3.0")
 }
+
 application {
-    mainClass.set("cli.CLIKt")
+    mainClass.set("cli.PrintScriptKt")
 }
