@@ -6,10 +6,11 @@ enum class Types {
     PUNCTUATOR,
     OPERATOR,
     LITERAL,
-    COMMENT,
     DATA_TYPE,
     DECLARATOR,
     FUNCTION,
     ASSIGNATION,
     SPACE,
+    CONDITIONAL,
+    PARENTHESIS
 }

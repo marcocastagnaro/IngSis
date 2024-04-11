@@ -46,7 +46,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         when (option) {
             "execute" -> echo(execute().string)
             "format" -> echo(formatter(filepathJSON))
-            "linter" -> echo(analyze())
+            "analyze" -> echo(analyze())
             else -> {
                 println("Opción inválida")
             }
