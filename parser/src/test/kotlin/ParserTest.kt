@@ -184,4 +184,27 @@ class ParserTest {
         assertEquals("5", firstTree.getRight()?.getLeft()?.getToken()?.getValue())
         assertEquals("5", firstTree.getRight()?.getRight()?.getToken()?.getValue())
     }
+
+    @Test
+    fun `test 007- should order prioritizing the operations`() {
+        val input = "let x : number = 5+5*5;"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+
+        assertEquals(1, trees.size)
+        val firstTree = trees[0]
+
+        assertEquals("=", firstTree.getToken().getValue())
+        assertEquals("let", firstTree.getLeft()?.getToken()?.getValue())
+        assertEquals(":", firstTree.getLeft()?.getRight()?.getToken()?.getValue())
+        assertEquals("x", firstTree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue())
+        assertEquals("number", firstTree.getLeft()?.getRight()?.getRight()?.getToken()?.getValue())
+        assertEquals("+", firstTree.getRight()?.getToken()?.getValue())
+        assertEquals("5", firstTree.getRight()?.getLeft()?.getToken()?.getValue())
+        assertEquals("*", firstTree.getRight()?.getRight()?.getToken()?.getValue())
+        assertEquals("5", firstTree.getRight()?.getRight()?.getLeft()?.getToken()?.getValue())
+        assertEquals("5", firstTree.getRight()?.getRight()?.getRight()?.getToken()?.getValue())
+    }
 }

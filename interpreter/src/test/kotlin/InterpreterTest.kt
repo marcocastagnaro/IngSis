@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
 class InterpreterTest {
+    val interpreter = Interpreter3()
+    val parser = Parser()
+    val lexer = Lexer(ValueMapper())
+
     @Test
     fun testPrintOutput() {
         val trees =
@@ -599,5 +603,47 @@ class InterpreterTest {
             """.trimIndent()
         val result = Interpreter3().execute(Parser().execute(Lexer(ValueMapper()).execute(input)))
         assertEquals("10", result.string)
+    }
+
+    @Test
+    fun `test 001 -should be able to concatenate a string and a number`() {
+        val input =
+            """
+            |let x: string = "Hello"; 
+            |let y: number = 1;
+            |println(x + y);
+            """.trimMargin()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("\"Hello1\"", result.string)
+    }
+
+    @Test
+    fun `test 002 -should be able to make a complex sum with different terms`() {
+        val input =
+            """
+            let x: number = 4 + 3*2;
+            let y: number = 10;
+            println(x / y);
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("1", result.string)
+    }
+
+    @Test
+    fun `test 003 -should be able to concatenate a string with a number that comes from a product`() {
+        val input =
+            """
+            let x: string = "The result of the operation is: "; 
+            let y: number = 3 * 2;
+            println(x + y);
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("\"The result of the operations is: 6\"", result.string)
     }
 }
