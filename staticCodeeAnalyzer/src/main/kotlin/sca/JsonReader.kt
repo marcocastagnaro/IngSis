@@ -1,11 +1,11 @@
 package sca
 
-import org.example.rules.Rules
-import java.io.File
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.example.rules.Rules
 import org.example.rules.rulesImpls.CamelCase
 import org.example.rules.rulesImpls.PrintWithoutExpresion
 import org.example.rules.rulesImpls.SnakeCase
+import java.io.File
 
 data class FormattingRules(
     val Identifier: String,
@@ -13,7 +13,6 @@ data class FormattingRules(
 )
 
 class JsonReader {
-
     fun getRulesFromJson(path: String): List<Rules> {
         val mapper = jacksonObjectMapper()
         val file = File(path)
@@ -22,7 +21,6 @@ class JsonReader {
         when (rules.Identifier.lowercase()) {
             "camelcase" -> listOfRules.add(CamelCase())
             "snakecase" -> listOfRules.add(SnakeCase())
-
         }
         if (rules.printwithoutexpresion) {
             listOfRules.add(PrintWithoutExpresion())
@@ -30,8 +28,4 @@ class JsonReader {
 
         return listOfRules
     }
-
-
-
 }
-

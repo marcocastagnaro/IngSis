@@ -1,23 +1,22 @@
 package org.example.sca
 
 import org.example.AbstractSyntaxTree
-import org.example.rules.Rules
 import org.example.Token
 import org.example.brokenRule.BrokenRule
 import org.example.formatter.ParseTreeToTokens
+import org.example.rules.Rules
 import sca.JsonReader
 import java.io.File
 
-
 class ScaImpl : Sca {
-    private var rules : List<Rules> = listOf()
+    private var rules: List<Rules> = listOf()
     private val jsonReader = JsonReader()
 
     private fun createTokens(trees: List<AbstractSyntaxTree>): List<List<Token>> {
         var tokens = mutableListOf<List<Token>>()
         for (tree in trees) {
-            val tokens_for_tree = ParseTreeToTokens().parseToString(tree)
-            tokens.add(tokens_for_tree)
+            val tokensForTree = ParseTreeToTokens().parseToString(tree)
+            tokens.add(tokensForTree)
         }
         return tokens
     }
@@ -38,23 +37,31 @@ class ScaImpl : Sca {
         writeReports(txtContent, htmlContent)
     }
 
-    private fun getBrkRls(applyRule: List<BrokenRule>, rules: List<BrokenRule>) {
-        for (brokenRule in applyRule){
+    private fun getBrkRls(
+        applyRule: List<BrokenRule>,
+        rules: List<BrokenRule>,
+    ) {
+        for (brokenRule in applyRule) {
             rules.addLast(brokenRule)
         }
     }
-
 
     fun getRules(): List<Rules> {
         return rules
     }
 
-    private fun writeToFile(content: String, filePath: String) {
+    private fun writeToFile(
+        content: String,
+        filePath: String,
+    ) {
         val file = File(filePath)
         file.writeText(content)
     }
 
-    fun writeReports(txtContent: String, htmlContent: String) {
+    fun writeReports(
+        txtContent: String,
+        htmlContent: String,
+    ) {
         writeToFile(txtContent, "src/main/resources/broken_rules_report.txt")
         writeToFile(htmlContent, "src/main/resources/broken_rules_report.html")
     }
@@ -76,11 +83,4 @@ class ScaImpl : Sca {
         sb.append("</ul></body></html>")
         return sb.toString()
     }
-
-
-
-
 }
-
-
-
