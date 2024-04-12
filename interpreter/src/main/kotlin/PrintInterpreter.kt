@@ -3,7 +3,7 @@ package org.example
 class PrintInterpreter : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
-        variables: Map<VariableToken, String>,
+        variables: HashMap<VariableToken, String?>,
     ): Map<VariableToken, String> {
         val result = evaluateNode(tree.getRight()!!, variables)
         return hashMapOf(VariableToken("printResult", TokenType.PRINT) to result.toString())
@@ -11,7 +11,7 @@ class PrintInterpreter : InterpreterStrategy {
 
     private fun evaluateNode(
         tree: AbstractSyntaxTree,
-        variables: Map<VariableToken, String>,
+        variables: HashMap<VariableToken, String?>,
     ): Any {
         return when (tree.getToken().getType()) {
             Types.OPERATOR -> {
@@ -29,7 +29,7 @@ class PrintInterpreter : InterpreterStrategy {
         operator: String,
         left: String,
         right: String,
-        variables: Map<VariableToken, String>,
+        variables: HashMap<VariableToken, String?>,
     ): Any {
         return when (operator) {
             "+" -> add(left, right, variables)
@@ -43,7 +43,7 @@ class PrintInterpreter : InterpreterStrategy {
     private fun add(
         a: String,
         b: String,
-        variables: Map<VariableToken, String>,
+        variables: HashMap<VariableToken, String?>,
     ): Any {
         val isConcatenation = isVariableAString(a, variables) && isVariableAString(b, variables)
         return if (isConcatenation) {
@@ -98,7 +98,7 @@ class PrintInterpreter : InterpreterStrategy {
     }
 
     private fun getValueForVariable(
-        map: Map<VariableToken, String>,
+        map: HashMap<VariableToken, String?>,
         variable: String,
     ): String? {
         return map.entries.find { it.key.value == variable }?.value
@@ -106,14 +106,8 @@ class PrintInterpreter : InterpreterStrategy {
 
     private fun isVariableAString(
         variable: String,
-        variables: Map<VariableToken, String>,
+        variables: HashMap<VariableToken, String?>,
     ): Boolean {
         return variables.entries.any { it.key.value == variable && it.key.type == TokenType.STRING }
     }
 }
-
-// print(5 * 2 + 3)
-// ((5 * 2) + 3)
-
-// print("Hello" + "x")
-// print("hello" + "12" + "2")
