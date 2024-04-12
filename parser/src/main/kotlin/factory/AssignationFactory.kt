@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.factory.FunctionFactory
 import org.example.factory.OperationFactory
 
 class AssignationFactory : ASTFactory {
@@ -8,7 +9,7 @@ class AssignationFactory : ASTFactory {
         root.setValue(tokens.find { it.getType() == Types.ASSIGNATION }!!)
         if (tokens.find { it.getType() == Types.KEYWORD } == null) {
             val leftTokens = tokens.takeWhile { it.getValue() != "=" }
-            root.setLeft(NodeBuilder().setValue(leftTokens.first()).build()) // Agarro el primero ya que va a ser un unico valor
+            root.setLeft(NodeBuilder().setValue(leftTokens.first()).build()) // Agarro el primero, ya que va a ser un unico valor
             val rightTokens = tokens.drop(leftTokens.size + 1)
             if (rightTokens.size > 1) {
                 val right = operationsDeclarator(rightTokens)
@@ -32,13 +33,20 @@ class AssignationFactory : ASTFactory {
                 return root.build()
             }
             if (rightTokens.size > 1) {
-                val right = operationsDeclarator(rightTokens)
+                val right = createAssignatedTree(rightTokens)
                 root.setRight(right)
             } else {
                 root.setRight(NodeBuilder().setValue(rightTokens[0]).build())
             }
             return root.build()
         }
+    }
+
+    private fun createAssignatedTree(tokens: List<Token>): AbstractSyntaxTree {
+        if (tokens.any { it.getType() == Types.FUNCTION }) {
+            return FunctionFactory().createAST(tokens)
+        }
+        return operationsDeclarator(tokens)
     }
 
     private fun operationsDeclarator(tokens: List<Token>): AbstractSyntaxTree {

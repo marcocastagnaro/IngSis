@@ -8,7 +8,7 @@ class PrintlnFactory : ASTFactory {
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        return tokens.any { it.getType() == Types.FUNCTION }
+        return tokens.any { it.getValue() == "println" }
     }
 
     private fun getSumPrintln(
