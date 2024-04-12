@@ -95,4 +95,16 @@ class TestCliInterpreter {
         val result = printScript.test("analyze src/test/resources/test012.txt src/test/resources/linterRules.json")
         assertEquals("Printlns must not be called with an expresion at line 0\n", result.stdout)
     }
+    @Test
+    fun `013 test read env` (){
+        val printScript = PrintScript()
+        val result = printScript.test("execute src/test/resources/test013.txt")
+        assertEquals("JOAFAC_PUTO\n", result.stdout)
+    }
+    @Test
+    fun `014 test read env with more variables ` () {
+        val printScript = PrintScript()
+        val result = printScript.test("execute src/test/resources/test014.txt")
+        assertEquals("JOAFAC_PUTO Y GAY\n", result.stdout)
+    }
 }
