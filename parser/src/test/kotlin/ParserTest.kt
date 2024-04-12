@@ -237,7 +237,7 @@ class ParserTest {
 
     @Test
     fun `test 009 first test conditional test` () {
-        val input = "if (true) { println(\"hola\") } else { println(\"chau\") }"
+        val input = "if (true) { println(\"hola\"); } else { println(\"chau\") }"
         val lexer = Lexer(ValueMapper())
         val tokens = lexer.execute(input)
         val parser = Parser()

@@ -1,6 +1,5 @@
 package org.example
 
-import org.example.factory.ConditionalFactory
 
 class Parser {
     val factories = listOf(PrintlnFactory(), DeclarationFactory(), AssignationFactory(), ConditionalFactory())

@@ -44,7 +44,7 @@ class `Version1-1-tests` {
     }
     @Test
     fun `test004 test if with conditionand result ` () {
-        val input = "if (\"true\"){ println(\"hola\"); x=5; let n :string = hola } else { (\"chau\"); }"
+        val input = "if (\"true\"){ println(\"hola\"); x=5; let n :string = hola; } else { (\"chau\"); }"
         val result = lexer.execute(input)
         System.out.println(result.map{it.getValue()})
     }
@@ -52,7 +52,7 @@ class `Version1-1-tests` {
 /*
 nodo conditional (if, un else)
 if -> izq
-    izq -> condicion
+    izq -> condicion (true)
     der -> body (println)
         der -> hola
             der -> =
@@ -62,4 +62,9 @@ if -> izq
                         etc (recursivo con el parser)
 
 else -> der
+
+clase conditionalState
+isreading if
+isreading else
+
  */
