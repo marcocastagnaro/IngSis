@@ -689,7 +689,7 @@ class InterpreterTest {
     }
 
     @Test
-    fun `test 008 -should print directly the output from the println`()  {
+    fun `test 008 -should print directly the output from the println`() {
         val input = "println(readInput())"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
