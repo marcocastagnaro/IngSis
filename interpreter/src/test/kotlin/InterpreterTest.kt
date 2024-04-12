@@ -662,6 +662,20 @@ class InterpreterTest {
     }
 
     @Test
+    fun `test declaration and assignation`() {
+        val input =
+            """
+            let x: number;
+            x = 10;
+            println(x);
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("10", result.string)
+    }
+
+    @Test
     fun `test 005 testing red env variables`() {
         val input = "let x : string = readEnv(JOAFAC); println(x)"
         val tokens = lexer.execute(input)

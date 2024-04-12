@@ -7,16 +7,27 @@ import java.nio.file.Paths
 class AssignationInterpreter : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
-        variables: Map<VariableToken, String>,
-    ): Map<VariableToken, String> {
+        variables: HashMap<VariableToken, String?>,
+    ): Map<VariableToken, String?> {
         val tempMap = variables.toMutableMap()
-        addValuesToMap(tree, tempMap)
+        if (tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER) {
+            val variable = tree.getLeft()?.getToken()?.getValue()
+            val value = getTokenValue(tree.getRight()!!, variables)
+            val actualValue = tempMap.entries.firstOrNull { it.key.value == variable }
+            if (actualValue != null) {
+                tempMap[VariableToken(variable!!, actualValue.key.type)] = value
+            } else {
+                throw IllegalArgumentException("Variable $variable no declarada")
+            }
+        } else {
+            addValuesToMap(tree, tempMap)
+        }
         return tempMap
     }
 
     private fun addValuesToMap(
         tree: AbstractSyntaxTree,
-        variables: MutableMap<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ) {
         val variable = getVariable(tree)
         val type = getType(tree)
@@ -39,7 +50,7 @@ class AssignationInterpreter : InterpreterStrategy {
 
     private fun getTokenValue(
         tree: AbstractSyntaxTree,
-        variables: Map<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ): String? {
         val token = tree.getToken()
         return when (token.getType()) {
@@ -90,7 +101,7 @@ class AssignationInterpreter : InterpreterStrategy {
         operator: String,
         left: String,
         right: String,
-        variables: Map<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ): Any {
         return when (operator) {
             "+" -> add(left, right, variables)
@@ -104,7 +115,7 @@ class AssignationInterpreter : InterpreterStrategy {
     private fun add(
         a: String,
         b: String,
-        variables: Map<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ): Any {
         val isConcatenation = isVariableAString(a, variables) || isVariableAString(b, variables)
         return if (isConcatenation) {
@@ -162,21 +173,20 @@ class AssignationInterpreter : InterpreterStrategy {
         variable: String,
         type: TokenType,
         value: String,
-        variables: MutableMap<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ) {
         val processedValue =
             if (type == TokenType.STRING) {
-                // Remove leading and trailing quotes from string value
                 value.removeSurrounding("\"")
             } else {
-                value // For other types, keep the value as it is
+                value
             }
         variables[VariableToken(variable, type)] = processedValue
     }
 
     private fun isVariableAString(
         variable: String,
-        variables: Map<VariableToken, String>,
+        variables: MutableMap<VariableToken, String?>,
     ): Boolean {
         return variables.entries.any { it.key.value == variable && it.key.type == TokenType.STRING }
     }

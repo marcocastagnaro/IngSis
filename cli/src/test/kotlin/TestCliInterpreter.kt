@@ -110,4 +110,11 @@ class TestCliInterpreter {
         val result = printScript.test("execute src/test/resources/test014.txt")
         assertEquals("JOAFAC_PUTO Y GAY\n", result.stdout)
     }
+
+    @Test
+    fun `test 015 testing declaration, assignation and re assignation`() {
+        val cli = PrintScript()
+        val result = cli.test("execute src/test/resources/test0015.txt")
+        assertEquals("15\n", result.stdout)
+    }
 }
