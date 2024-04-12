@@ -8,7 +8,7 @@ import org.example.validator.ValidationRule
 
 class DeclarationMatchesAssignationRule : ValidationRule {
     override fun validate(input: AbstractSyntaxTree): Boolean {
-        val tokens = ParseTreeToTokens().parseToString(input)
+        val tokens = ParseTreeToTokens().parseToTokens(input)
         val declarationToken = tokens.find { it.getType() == Types.DATA_TYPE } ?: return true
         val valueList = tokens.filter { it.getType() == Types.LITERAL }
         if (valueList.isEmpty()) return true
