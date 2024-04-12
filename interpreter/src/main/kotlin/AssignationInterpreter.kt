@@ -10,17 +10,16 @@ class AssignationInterpreter : InterpreterStrategy {
         variables: HashMap<VariableToken, String?>,
     ): Map<VariableToken, String?> {
         val tempMap = variables.toMutableMap()
-        if (tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER)
-            {
-                val variable = tree.getLeft()?.getToken()?.getValue()
-                val value = getTokenValue(tree.getRight()!!, variables)
-                val actualValue = tempMap.entries.firstOrNull { it.key.value == variable }
-                if (actualValue != null) {
-                    tempMap[VariableToken(variable!!, actualValue.key.type)] = value
-                } else {
-                    throw IllegalArgumentException("Variable $variable no declarada")
-                }
+        if (tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER) {
+            val variable = tree.getLeft()?.getToken()?.getValue()
+            val value = getTokenValue(tree.getRight()!!, variables)
+            val actualValue = tempMap.entries.firstOrNull { it.key.value == variable }
+            if (actualValue != null) {
+                tempMap[VariableToken(variable!!, actualValue.key.type)] = value
             } else {
+                throw IllegalArgumentException("Variable $variable no declarada")
+            }
+        } else {
             addValuesToMap(tree, tempMap)
         }
         return tempMap
