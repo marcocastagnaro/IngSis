@@ -33,20 +33,21 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         optionSelection(operation)
     }
 
-    private fun analyze() {
+    private fun analyze(): output.Output {
         val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         val linter = ScaImpl()
+        linter.readJson(filepathJSON!!)
         val result = linter.check(abstractSyntaxTrees)
-//        return result
+        return result
     }
 
     private fun optionSelection(option: String) {
         when (option) {
             "execute" -> echo(execute().string)
             "format" -> echo(formatter(filepathJSON))
-            "linter" -> echo(analyze())
+            "analyze" -> analyze().getBrokenRules().forEach { echo(it) }
             else -> {
                 println("Opción inválida")
             }

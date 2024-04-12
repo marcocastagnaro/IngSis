@@ -25,11 +25,11 @@ class DeclarationMatchesAssignationRule : ValidationRule {
         }
     }
 
-    private fun checkAtLeastOneValueIsString(valueList: List<Token>): Boolean {
+    fun checkAtLeastOneValueIsString(valueList: List<Token>): Boolean {
         return valueList.any { it.getValue().matches(Regex("(\\d+|\"[^\"]*\"|'[^']*')")) }
     }
 
-    private fun checkValuesAreNumeric(valueList: List<Token>): Boolean {
+    fun checkValuesAreNumeric(valueList: List<Token>): Boolean {
         return valueList.all { it.getValue().matches(Regex("[0-9]+")) }
     }
 }

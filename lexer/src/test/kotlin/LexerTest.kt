@@ -135,4 +135,11 @@ class LexerTest {
         assertEquals(Types.FUNCTION, result[5].getType())
         assertEquals("readInput", result[5].getValue())
     }
+
+    @Test
+    fun `test 009 read envirmoment lexer`() {
+        val input = "let x : string = readEnv(\"PATH\");"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+    }
 }

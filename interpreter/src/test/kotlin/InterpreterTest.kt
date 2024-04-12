@@ -662,11 +662,20 @@ class InterpreterTest {
     }
 
     @Test
-    fun `test 005 - with readInput it shouldn't throw error and should ask for an input`() {
+    fun `test 005 testing red env variables`() {
+        val input = "let x : string = readEnv(JOAFAC); println(x)"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
+
+    @Test
+    fun `test 006 - with readInput it shouldn't throw error and should ask for an input`() {
         val input = "let x: number = readInput(\"Please enter a value for x\"); println(x);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-//        val result = interpreter.execute(trees)
-//        assertEquals("Please enter a value for x", result.string)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
     }
 }

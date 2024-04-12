@@ -272,4 +272,14 @@ class ParserTest {
         assertEquals("readInput", treeResult.getRight()?.getToken()?.getValue())
         assertEquals("\"insert number here: \"", treeResult.getRight()?.getRight()?.getToken()?.getValue())
     }
+
+    @Test
+    fun `test 009 read env variable`() {
+        val input = "let x : string = readEnv(\"JOAFAC\");"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+        assertEquals(1, trees.size)
+    }
 }
