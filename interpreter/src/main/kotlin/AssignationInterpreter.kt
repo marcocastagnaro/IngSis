@@ -56,6 +56,7 @@ class AssignationInterpreter : InterpreterStrategy {
         return when (token.getType()) {
             Types.READENV -> readEnvVariables(tree.getRight()!!)
             Types.LITERAL -> token.getValue()
+            Types.FUNCTION -> ReadInputInterpreter().getInput(tree, Types.FUNCTION)
             Types.OPERATOR -> {
                 val leftValue = getTokenValue(tree.getLeft()!!, variables)
                 val rightValue = getTokenValue(tree.getRight()!!, variables)

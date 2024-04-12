@@ -605,7 +605,6 @@ class InterpreterTest {
         assertEquals("10", result.string)
     }
 
-    /*
     @Test
     fun `test 001 -should be able to concatenate a string and a number`() {
         val input =
@@ -617,9 +616,8 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("\"Hello1\"", result.string)
+        assertEquals("Hello1", result.string)
     }
-     */
 
     @Test
     fun `test 002 -should be able to make a complex sum with different terms`() {
@@ -670,6 +668,33 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
         assertEquals("JOAFAC_PUTO", result.string)
+    }
+
+    @Test
+    fun `test 006 - with readInput it shouldn't throw error and should ask for an input`() {
+        val input = "let x: number = readInput(\"Please enter a value for x\"); println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test 007 -should printout the input`() {
+        val input = "let x: string = readInput(); println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test 008 -should print directly the output from the println`() {
+        val input = "println(readInput())"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
     }
 
     @Test

@@ -16,7 +16,7 @@ class ScaImpl : Sca {
     private fun createTokens(trees: List<AbstractSyntaxTree>): List<List<Token>> {
         var tokens = mutableListOf<List<Token>>()
         for (tree in trees) {
-            val tokensForTree = ParseTreeToTokens().parseToString(tree)
+            val tokensForTree = ParseTreeToTokens().parseToTokens(tree)
             tokens.add(tokensForTree)
         }
         return tokens

@@ -21,7 +21,7 @@ class ParseTreeToTokensTest {
                     ),
             )
 
-        val result = parser.parseToString(tree)
+        val result = parser.parseToTokens(tree)
         assertEquals("println", result[0].getValue())
         assertEquals("Hello world!", result[1].getValue())
     }
@@ -59,7 +59,7 @@ class ParseTreeToTokensTest {
                     ),
             )
 
-        val result = parser.parseToString(tree)
+        val result = parser.parseToTokens(tree)
         assertEquals("println", result[0].getValue())
         assertEquals("Hello", result[1].getValue())
         assertEquals("+", result[2].getValue())

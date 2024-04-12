@@ -1,6 +1,7 @@
 package org.example
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LexerTest {
     private val lexer = Lexer(ValueMapper())
@@ -128,7 +129,15 @@ class LexerTest {
     }
 
     @Test
-    fun `test 009 read envirmoment lexer`() {
+    fun `test 009 - should recognize readInput as a function`() {
+        val input = "let x: number = readInput();"
+        val result = lexer.execute(input)
+        assertEquals(Types.FUNCTION, result[5].getType())
+        assertEquals("readInput", result[5].getValue())
+    }
+
+    @Test
+    fun `test 010 read envirmoment lexer`() {
         val input = "let x : string = readEnv(\"PATH\");"
         val result = lexer.execute(input)
         System.out.println(result.map { it.getValue() })

@@ -8,7 +8,7 @@ import org.example.validator.ValidationRule
 
 class DeclarationMatchesAssignationRule : ValidationRule {
     override fun validate(input: AbstractSyntaxTree): Boolean {
-        val tokens = ParseTreeToTokens().parseToString(input)
+        val tokens = ParseTreeToTokens().parseToTokens(input)
         val declarationToken = tokens.find { it.getType() == Types.DATA_TYPE } ?: return true
         val valueList = tokens.filter { it.getType() == Types.LITERAL }
         if (valueList.isEmpty()) return true
@@ -25,11 +25,11 @@ class DeclarationMatchesAssignationRule : ValidationRule {
         }
     }
 
-    private fun checkAtLeastOneValueIsString(valueList: List<Token>): Boolean {
+    fun checkAtLeastOneValueIsString(valueList: List<Token>): Boolean {
         return valueList.any { it.getValue().matches(Regex("(\\d+|\"[^\"]*\"|'[^']*')")) }
     }
 
-    private fun checkValuesAreNumeric(valueList: List<Token>): Boolean {
+    fun checkValuesAreNumeric(valueList: List<Token>): Boolean {
         return valueList.all { it.getValue().matches(Regex("[0-9]+")) }
     }
 }

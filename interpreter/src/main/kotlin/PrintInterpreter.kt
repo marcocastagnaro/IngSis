@@ -21,6 +21,7 @@ class PrintInterpreter : InterpreterStrategy {
             }
             Types.IDENTIFIER -> getValueForVariable(variables, tree.getToken().getValue()) ?: 0
             Types.LITERAL -> tree.getToken().getValue()
+            Types.FUNCTION -> ReadInputInterpreter().getInput(tree, Types.FUNCTION)
             else -> throw IllegalArgumentException("Unsupported token type: ${tree.getToken().getType()}")
         }
     }
