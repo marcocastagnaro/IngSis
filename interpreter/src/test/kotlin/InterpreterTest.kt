@@ -662,4 +662,13 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("4", result.string)
     }
+
+    @Test
+    fun `test 005 testing red env variables`() {
+        val input = "let x : string = readEnv(JOAFAC); println(x)"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
 }

@@ -126,4 +126,11 @@ class LexerTest {
         System.out.println(result.map { it.getValue() })
         Assertions.assertEquals(15, result.size)
     }
+
+    @Test
+    fun `test 009 read envirmoment lexer`() {
+        val input = "let x : string = readEnv(\"PATH\");"
+        val result = lexer.execute(input)
+        System.out.println(result.map { it.getValue() })
+    }
 }
