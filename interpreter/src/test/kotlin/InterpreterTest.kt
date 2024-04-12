@@ -678,4 +678,22 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("Falta agregar el readInput en el CLI", result.string)
     }
+
+    @Test
+    fun `test 007 -should printout the input`() {
+        val input = "let x: string = readInput(); println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test 008 -should print directly the output from the println`()  {
+        val input = "println(readInput())"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
 }
