@@ -274,7 +274,7 @@ class ParserTest {
     }
 
     @Test
-    fun `test 009 read env variable`() {
+    fun `test 011 read env variable`() {
         val input = "let x : string = readEnv(\"JOAFAC\");"
         val lexer = Lexer(ValueMapper())
         val tokens = lexer.execute(input)

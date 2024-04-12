@@ -137,7 +137,7 @@ class LexerTest {
     }
 
     @Test
-    fun `test 009 read envirmoment lexer`() {
+    fun `test 010 read envirmoment lexer`() {
         val input = "let x : string = readEnv(\"PATH\");"
         val result = lexer.execute(input)
         System.out.println(result.map { it.getValue() })
