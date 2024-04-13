@@ -5,11 +5,13 @@ import org.example.rules.Rules
 import org.example.rules.rulesImpls.CamelCase
 import org.example.rules.rulesImpls.PrintWithoutExpresion
 import org.example.rules.rulesImpls.SnakeCase
+import rules.rulesImpls.ReadInputWithoutExpresion
 import java.io.File
 
 data class FormattingRules(
-    val Identifier: String,
+    val identifier: String,
     val printwithoutexpresion: Boolean,
+    val readinputwithoutexpresion: Boolean,
 )
 
 class JsonReader {
@@ -18,12 +20,15 @@ class JsonReader {
         val file = File(path)
         val rules = mapper.readValue(file, FormattingRules::class.java)
         val listOfRules = mutableListOf<Rules>()
-        when (rules.Identifier.lowercase()) {
+        when (rules.identifier.lowercase()) {
             "camelcase" -> listOfRules.add(CamelCase())
             "snakecase" -> listOfRules.add(SnakeCase())
         }
         if (rules.printwithoutexpresion) {
             listOfRules.add(PrintWithoutExpresion())
+        }
+        if (rules.readinputwithoutexpresion) {
+            listOfRules.add(ReadInputWithoutExpresion())
         }
 
         return listOfRules
