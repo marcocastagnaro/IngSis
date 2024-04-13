@@ -1,10 +1,13 @@
 package org.example
 
-class ReadInputInterpreter {
+import org.example.inputReader.InputReaderType
+
+class ReadInputInterpreter(val inputReader: InputReaderType) {
     fun getInput(
         ast: AbstractSyntaxTree,
         statementType: Types,
     ): String {
+        print(getMessage(ast))
         if (statementType == Types.FUNCTION) {
             return readInput()
         } else if (statementType == Types.ASSIGNATION) {
@@ -12,6 +15,12 @@ class ReadInputInterpreter {
         } else {
             throw Exception("Error! Not Valid Type")
         }
+    }
+
+    private fun getMessage(ast: AbstractSyntaxTree): String {
+        val tokens = ParseTreeToTokens().parseToTokens(ast)
+        val values = tokens.filter { it.getType() == Types.LITERAL }
+        return values.map { it.getValue() }.toString()
     }
 
     private fun checkInput(ast: AbstractSyntaxTree): String {
@@ -31,7 +40,6 @@ class ReadInputInterpreter {
     }
 
     private fun readInput(): String {
-        // TODO("Quitos tenes que implementarlo vos con el cli")
-        return readLine() ?: "Falta agregar el readInput en el CLI"
+        return inputReader.getInput()
     }
 }

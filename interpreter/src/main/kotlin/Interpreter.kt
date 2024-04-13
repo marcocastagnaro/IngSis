@@ -1,6 +1,9 @@
 package org.example
 
-class Interpreter {
+import org.example.inputReader.InputReaderType
+import org.example.inputReader.ReadInputFromTerminal
+
+class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
     private val output: Output = Output()
 
@@ -17,7 +20,7 @@ class Interpreter {
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
-        variables.putAll(AssignationInterpreter().interpret(tree, variables))
+        variables.putAll(AssignationInterpreter(inputReader).interpret(tree, variables))
     }
 
     private fun executeDeclaration(tree: AbstractSyntaxTree) {
@@ -25,7 +28,7 @@ class Interpreter {
     }
 
     private fun executePrint(tree: AbstractSyntaxTree) {
-        val mapResult = PrintInterpreter().interpret(tree, variables).entries.first().value
+        val mapResult = PrintInterpreter(inputReader).interpret(tree, variables).entries.first().value
         output.buildOutput(mapResult)
     }
 }

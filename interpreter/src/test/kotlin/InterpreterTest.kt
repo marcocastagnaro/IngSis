@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.inputReader.DummyInputReader
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
@@ -672,29 +673,32 @@ class InterpreterTest {
 
     @Test
     fun `test 006 - with readInput it shouldn't throw error and should ask for an input`() {
+        val interpreter = Interpreter(DummyInputReader())
         val input = "let x: number = readInput(\"Please enter a value for x\"); println(x);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("Falta agregar el readInput en el CLI", result.string)
+        assertEquals("dummy input", result.string)
     }
 
     @Test
     fun `test 007 -should printout the input`() {
+        val interpreter = Interpreter(DummyInputReader())
         val input = "let x: string = readInput(); println(x);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("Falta agregar el readInput en el CLI", result.string)
+        assertEquals("dummy input", result.string)
     }
 
     @Test
     fun `test 008 -should print directly the output from the println`() {
+        val interpreter = Interpreter(DummyInputReader())
         val input = "println(readInput())"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("Falta agregar el readInput en el CLI", result.string)
+        assertEquals("dummy input", result.string)
     }
 
     @Test
@@ -721,7 +725,7 @@ class InterpreterTest {
     }
 
     @Test
-    fun `test 010 println(readenv)`()  {
+    fun `test 010 println(readenv)`() {
         val input = "println(readEnv(JOAFAC))"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
