@@ -1,5 +1,9 @@
 package org.example
 
+import org.example.factory.FunctionFactory
+import org.example.factory.OperationFactory
+import org.example.factory.ReadEnvFactory
+
 class PrintlnFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = PrintNode(tokens.find { it.getValue() == "println" }!!)
@@ -15,20 +19,32 @@ class PrintlnFactory : ASTFactory {
         tokens: List<Token>,
         root: NodeBuilder? = null,
     ): AbstractSyntaxTree {
-        val sumIndex =
-            tokens.indexOfFirst { it.getValue() == "+" || it.getValue() == "-" || it.getValue() == "*" || it.getValue() == "/" }
-
-        return if (sumIndex == -1) {
-            root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build() ?: NodeBuilder().setValue(tokens[0]).build()
+        if (tokens[0].getType() === Types.FUNCTION) {
+            val functionNode = FunctionFactory().createAST(tokens)
+            if (root != null) {
+                root.setRight(functionNode)
+            } else {
+                return functionNode
+            }
+        } else if (tokens[0].getType() === Types.READENV) {
+            val readEnvNode = ReadEnvFactory().createAST(tokens)
+            if (root != null) {
+                root.setRight(readEnvNode)
+            } else {
+                return readEnvNode
+            }
         } else {
-            val currentRoot =
-                root ?: NodeBuilder().setValue(tokens[sumIndex]).apply {
-                    setRight(getSumPrintln(tokens.drop(sumIndex + 1)))
+            val sumIndex =
+                tokens.indexOfFirst { it.getValue() == "+" || it.getValue() == "-" || it.getValue() == "*" || it.getValue() == "/" }
+            return if (sumIndex == -1) {
+                root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build()
+                    ?: NodeBuilder().setValue(tokens[0]).build()
+            } else {
+                OperationFactory().createAST(tokens).also {
+                    root?.setRight(it)
                 }
-            val leftTokens = tokens.subList(0, sumIndex)
-            val leftSubtree = getSumPrintln(leftTokens)
-            currentRoot.setLeft(leftSubtree)
-            currentRoot.build() as CompositeAbstractSyntaxTree
+            }
         }
+        return root.build()
     }
 }
