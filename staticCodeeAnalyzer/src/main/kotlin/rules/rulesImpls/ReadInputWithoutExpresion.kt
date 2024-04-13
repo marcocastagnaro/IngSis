@@ -1,16 +1,16 @@
-package org.example.rules.rulesImpls
+package rules.rulesImpls
 
 import org.example.Token
 import org.example.Types
 import org.example.brokenRule.BrokenRule
 import org.example.rules.Rules
 
-class PrintWithoutExpresion(private var errorMessage: String = "Printlns must not be called with an expresion") : Rules {
+class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs must not be called with an expresion") : Rules {
     private val brokenRules = mutableListOf<BrokenRule>()
 
-    private fun checkIsPrintln(tokenList: List<Token>): Boolean {
+    private fun checkIsReadInput(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
-            if (token.getType() == Types.FUNCTION && token.getValue().lowercase() == "println") {
+            if (token.getType() == Types.FUNCTION && token.getValue() == "readInput") {
                 return true
             }
         }
@@ -28,13 +28,22 @@ class PrintWithoutExpresion(private var errorMessage: String = "Printlns must no
 
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (tokenList in tokens) {
-            if (checkIsPrintln(tokenList)) {
-                var tokenSublist = tokenList.subList(1, tokenList.size)
-                if (isAnExpresion(tokenSublist)) {
+            if (checkIsReadInput(tokenList)) {
+                if (isAnExpresion(splitTokens(tokenList))) {
                     brokenRules.add(BrokenRule(errorMessage, tokenList[0].getInitialPosition()))
                 }
             }
         }
         return brokenRules
+    }
+
+    private fun splitTokens(tokens: List<Token>): List<Token> {
+        var readInputPosition = 0
+        for (token in tokens) {
+            if (token.getValue() == "readInput") {
+                readInputPosition = tokens.indexOf(token)
+            }
+        }
+        return tokens.subList(readInputPosition + 1, tokens.size)
     }
 }

@@ -19,9 +19,10 @@ class ScaTest {
     fun test001_readJSON() {
         val sca = ScaImpl()
         sca.readJson("src/main/resources/linternRules.json")
-        assert(sca.getRules().size == 2)
+        assert(sca.getRules().size == 3)
         assert(sca.getRules()[0].javaClass.simpleName == "CamelCase")
         assert(sca.getRules()[1].javaClass.simpleName == "PrintWithoutExpresion")
+        assert(sca.getRules()[2].javaClass.simpleName == "ReadInputWithoutExpresion")
     }
 
     @Test

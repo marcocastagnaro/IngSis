@@ -1,4 +1,5 @@
 {
-  "Identifier":"camelcase",
-  "printwithoutexpresion": true
+  "identifier":"camelcase",
+  "printwithoutexpresion": true,
+  "readinputwithoutexpresion": true
 }
