@@ -685,4 +685,13 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("10", result.string)
     }
+
+    @Test
+    fun `test 006 testing operation in pritnnln` (){
+        val input = "println(2 * 4 + 3 * 4)"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("20", result.string)
+    }
 }
