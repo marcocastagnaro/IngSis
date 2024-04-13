@@ -1,6 +1,8 @@
 package org.example
 
-class AssignationInterpreter : InterpreterStrategy {
+import org.example.inputReader.InputReaderType
+
+class AssignationInterpreter(private val inputReader: InputReaderType) : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
@@ -52,7 +54,7 @@ class AssignationInterpreter : InterpreterStrategy {
         return when (token.getType()) {
             Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
             Types.LITERAL -> token.getValue()
-            Types.FUNCTION -> ReadInputInterpreter().getInput(tree, Types.FUNCTION)
+            Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION)
             Types.OPERATOR -> {
                 val leftValue = getTokenValue(tree.getLeft()!!, variables)
                 val rightValue = getTokenValue(tree.getRight()!!, variables)
