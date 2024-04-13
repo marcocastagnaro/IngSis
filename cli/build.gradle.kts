@@ -5,6 +5,7 @@ plugins {
 repositories {
     mavenCentral()
 }
+version = "1.0.0-SNAPSHOT"
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
