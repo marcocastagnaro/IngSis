@@ -253,4 +253,52 @@ class ParserTest {
         assertEquals("println", firstTree.getRight()?.getRight()?.getLeft()?.getToken()?.getValue())
         assertEquals("chau", firstTree.getRight()?.getRight()?.getRight()?.getLeft()?.getToken()?.getValue())
     }
+
+    @Test
+    fun `test 009 -should add readInput as a leaf node`() {
+        val input = "let x: number = readInput();"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+
+        assertEquals(1, trees.size)
+        val firstTree = trees[0]
+
+        assertEquals("=", firstTree.getToken().getValue())
+        assertEquals("let", firstTree.getLeft()?.getToken()?.getValue())
+        assertEquals(":", firstTree.getLeft()?.getRight()?.getToken()?.getValue())
+        assertEquals("x", firstTree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue())
+        assertEquals("number", firstTree.getLeft()?.getRight()?.getRight()?.getToken()?.getValue())
+        assertEquals("readInput", firstTree.getRight()?.getToken()?.getValue())
+    }
+
+    @Test
+    fun `test 010 -should add readInput as tree with comment as leaf`() {
+        val input = "let x: number = readInput(\"insert number here: \");"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+//        assertEquals(11, tokens.size)
+        assertEquals("\"insert number here: \"", tokens[7].getValue())
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+        val treeResult = trees[0]
+        assertEquals("=", treeResult.getToken().getValue())
+        assertEquals("let", treeResult.getLeft()?.getToken()?.getValue())
+        assertEquals(":", treeResult.getLeft()?.getRight()?.getToken()?.getValue())
+        assertEquals("x", treeResult.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue())
+        assertEquals("number", treeResult.getLeft()?.getRight()?.getRight()?.getToken()?.getValue())
+        assertEquals("readInput", treeResult.getRight()?.getToken()?.getValue())
+        assertEquals("\"insert number here: \"", treeResult.getRight()?.getRight()?.getToken()?.getValue())
+    }
+
+    @Test
+    fun `test 011 read env variable`() {
+        val input = "let x : string = readEnv(\"JOAFAC\");"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+        assertEquals(1, trees.size)
+    }
 }

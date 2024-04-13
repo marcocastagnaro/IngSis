@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
 class InterpreterTest {
-    val interpreter = Interpreter3()
+    val interpreter = Interpreter()
     val parser = Parser()
     val lexer = Lexer(ValueMapper())
 
@@ -25,7 +25,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
 
         assertEquals("Hello world!", interpreter.execute(trees).string)
     }
@@ -63,7 +63,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
 
         assertEquals("Hello world!", interpreter.execute(trees).string)
     }
@@ -149,7 +149,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
 
         assertEquals("Hello world!", interpreter.execute(trees).string)
     }
@@ -167,7 +167,7 @@ class InterpreterTest {
         println(tokens.map { it.getValue() })
         val parser = Parser()
         val trees = parser.execute(tokens)
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
         val result = interpreter.execute(trees)
         assertEquals("5", result.string)
     }
@@ -307,7 +307,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
         val result = interpreter.execute(trees)
         assertEquals("6", result.string)
     }
@@ -447,7 +447,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
         val result = interpreter.execute(trees)
         assertEquals("2", result.string)
     }
@@ -587,7 +587,7 @@ class InterpreterTest {
                         ),
                 ),
             )
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
         val result = interpreter.execute(trees)
         assertEquals("3", result.string)
     }
@@ -601,11 +601,10 @@ class InterpreterTest {
             let z: number = 1;
             println(x + y + z);
             """.trimIndent()
-        val result = Interpreter3().execute(Parser().execute(Lexer(ValueMapper()).execute(input)))
+        val result = Interpreter().execute(Parser().execute(Lexer(ValueMapper()).execute(input)))
         assertEquals("10", result.string)
     }
 
-    /*
     @Test
     fun `test 001 -should be able to concatenate a string and a number`() {
         val input =
@@ -617,9 +616,8 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("\"Hello1\"", result.string)
+        assertEquals("Hello1", result.string)
     }
-     */
 
     @Test
     fun `test 002 -should be able to make a complex sum with different terms`() {
@@ -661,5 +659,55 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
         assertEquals("4", result.string)
+    }
+
+    @Test
+    fun `test 005 testing red env variables`() {
+        val input = "let x : string = readEnv(JOAFAC); println(x)"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
+
+    @Test
+    fun `test 006 - with readInput it shouldn't throw error and should ask for an input`() {
+        val input = "let x: number = readInput(\"Please enter a value for x\"); println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test 007 -should printout the input`() {
+        val input = "let x: string = readInput(); println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test 008 -should print directly the output from the println`() {
+        val input = "println(readInput())"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Falta agregar el readInput en el CLI", result.string)
+    }
+
+    @Test
+    fun `test declaration and assignation`() {
+        val input =
+            """
+            let x: number;
+            x = 10;
+            println(x);
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("10", result.string)
     }
 }

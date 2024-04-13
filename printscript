@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Ejecuta el comando gradlew run con los argumentos proporcionados
+# shellcheck disable=SC2145
+./gradlew run --args="$@"

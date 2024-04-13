@@ -13,5 +13,6 @@ enum class Types {
     SPACE,
     CONDITIONAL,
     PARENTHESIS,
-    BOOLEAN
+    BOOLEAN,
+    READENV,
 }

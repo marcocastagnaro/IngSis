@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.types.choice
 import org.example.AbstractSyntaxTree
-import org.example.Interpreter3
+import org.example.Interpreter
 import org.example.Lexer
 import org.example.Output
 import org.example.Parser
@@ -33,20 +33,21 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         optionSelection(operation)
     }
 
-    private fun analyze() {
+    private fun analyze(): output.Output {
         val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
         val linter = ScaImpl()
+        linter.readJson(filepathJSON!!)
         val result = linter.check(abstractSyntaxTrees)
-//        return result
+        return result
     }
 
     private fun optionSelection(option: String) {
         when (option) {
             "execute" -> echo(execute().string)
             "format" -> echo(formatter(filepathJSON))
-            "analyze" -> echo(analyze())
+            "analyze" -> analyze().getBrokenRules().forEach { echo(it) }
             else -> {
                 println("Opción inválida")
             }
@@ -68,7 +69,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
     }
 
     private fun executeInterpreter(abstractSyntaxTrees: List<AbstractSyntaxTree>): Output {
-        val interpreter = Interpreter3()
+        val interpreter = Interpreter()
         val result = interpreter.execute(abstractSyntaxTrees)
         return result
     }

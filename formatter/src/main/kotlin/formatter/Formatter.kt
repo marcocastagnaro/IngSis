@@ -17,7 +17,7 @@ class Formatter(val formatPath: String = "src/main/resources/formatter/StandardR
     fun execute(trees: List<AbstractSyntaxTree>): String {
         val formattedCode = mutableListOf<String>()
         for (tree in trees) {
-            val tokens = ParseTreeToTokens().parseToString(tree)
+            val tokens = ParseTreeToTokens().parseToTokens(tree)
             formattedCode.add(giveFormat(tokens))
         }
         return formattedCode.joinToString("")

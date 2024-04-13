@@ -17,7 +17,7 @@ class RulesTest {
         val input = "let my_variable:string = \"this is a variable\"; "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val camelCase = CamelCase()
         val brokenRules = camelCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
@@ -30,7 +30,7 @@ class RulesTest {
         val input = "let variableMyString:string = \"this is a variable\"; "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val camelCase = CamelCase()
         val brokenRules = camelCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isEmpty())
@@ -41,7 +41,7 @@ class RulesTest {
         val input = "let variableMyString:string = \"this is a variable\"; "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val snakeCase = SnakeCase()
         val brokenRules = snakeCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
@@ -54,7 +54,7 @@ class RulesTest {
         val input = "let variable_my_string:string = \"this is a variable\"; "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val snakeCase = SnakeCase()
         val brokenRules = snakeCase.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isEmpty())
@@ -65,7 +65,7 @@ class RulesTest {
         val input = "println(\"hola\" + \"juan\"); "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val printWithoutExpresion = PrintWithoutExpresion()
         val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
@@ -78,7 +78,7 @@ class RulesTest {
         val input = "println(\"hola + juan\"); "
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
-        val tokensList = parseTreeToTokens.parseToString(trees[0])
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val printWithoutExpresion = PrintWithoutExpresion()
         val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isEmpty())
