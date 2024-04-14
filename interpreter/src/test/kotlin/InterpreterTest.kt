@@ -678,7 +678,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("dummy input", result.string)
+        assertEquals("Please enter a value for x\ndummy input", result.string)
     }
 
     @Test
