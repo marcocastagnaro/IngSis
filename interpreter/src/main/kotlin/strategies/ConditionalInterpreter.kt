@@ -1,12 +1,11 @@
 package org.example.strategies
 
-import org.example.AbstractSyntaxTree
-import org.example.ConditionalLeaf
-import org.example.InterpreterStrategy
-import org.example.Types
+import org.example.*
 import org.example.inputReader.ReadInputFromTerminal
 
-class ConditionalInterpreter : InterpreterStrategy {
+class ConditionalInterpreter(
+    private val output: Output,
+) : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
@@ -39,8 +38,8 @@ class ConditionalInterpreter : InterpreterStrategy {
         for (subTree in tree.getBody()) {
             when (subTree.getToken().getType()) {
                 Types.KEYWORD -> tempMap.putAll(DeclarationInterpreter().interpret(subTree, tempMap))
-                Types.ASSIGNATION -> tempMap.putAll(AssignationInterpreter(ReadInputFromTerminal()).interpret(subTree, tempMap))
-                Types.FUNCTION -> tempMap.putAll(PrintInterpreter(ReadInputFromTerminal()).interpret(subTree, tempMap))
+                Types.ASSIGNATION -> tempMap.putAll(AssignationInterpreter(ReadInputFromTerminal(), output).interpret(subTree, tempMap))
+                Types.FUNCTION -> tempMap.putAll(PrintInterpreter(ReadInputFromTerminal(), output).interpret(subTree, tempMap))
                 else -> throw IllegalArgumentException("Unsupported token type: ${subTree.getToken().getType()}")
             }
         }

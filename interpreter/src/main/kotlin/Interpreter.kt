@@ -48,6 +48,6 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     }
 
     private fun executeConditional(tree: AbstractSyntaxTree) {
-        variables.putAll(ConditionalInterpreter().interpret(tree, variables))
+        variables.putAll(ConditionalInterpreter(output).interpret(tree, variables))
     }
 }

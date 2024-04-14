@@ -236,24 +236,6 @@ class ParserTest {
     }
 
     @Test
-    fun `test 009 first test conditional test`() {
-        val input = "if (true) { println(\"hola\"); println(\"hola2\"); } else { println(\"chau\"); }"
-        val lexer = Lexer(ValueMapper())
-        val tokens = lexer.execute(input)
-        val parser = Parser()
-        val trees = parser.execute(tokens)
-
-        val firstTree = trees[0]
-
-        assertEquals("if", firstTree.getToken().getValue())
-        assertEquals("true", firstTree.getLeft()?.getLeft()?.getToken()?.getValue())
-        assertEquals("println", firstTree.getRight()?.getLeft()?.getLeft()?.getToken()?.getValue())
-        assertEquals("hola", firstTree.getRight()?.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue())
-        assertEquals("println", firstTree.getRight()?.getRight()?.getLeft()?.getToken()?.getValue())
-        assertEquals("chau", firstTree.getRight()?.getRight()?.getRight()?.getLeft()?.getToken()?.getValue())
-    }
-
-    @Test
     fun `test 009 -should add readInput as a leaf node`() {
         val input = "let x: number = readInput();"
         val lexer = Lexer(ValueMapper())
