@@ -1,6 +1,7 @@
 package org.example
 
 import org.example.inputReader.DummyInputReader
+import org.example.inputReader.ReadInputFromTerminal
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
@@ -745,6 +746,16 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
         assertEquals("Name:\nHello dummy input!", result.string)
+    }
+
+    val MESSAGE: String = "This is a text"
+    val LINE: String = "println(\"$MESSAGE\");\n"
+    val NUMBER_OF_LINES: Int = 32 * 1024
+    val interpreterExecuter = InterpreterExecuter()
+
+    @Test
+    fun testWithCounterBigFile() {
+        interpreterExecuter.execute(LINE.repeat(NUMBER_OF_LINES))
     }
 
     @Test
