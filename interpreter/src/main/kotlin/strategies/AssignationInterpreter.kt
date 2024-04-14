@@ -1,5 +1,8 @@
-package org.example
+package org.example.strategies
 
+import org.example.AbstractSyntaxTree
+import org.example.InterpreterStrategy
+import org.example.Types
 import org.example.inputReader.InputReaderType
 
 class AssignationInterpreter(private val inputReader: InputReaderType) : InterpreterStrategy {

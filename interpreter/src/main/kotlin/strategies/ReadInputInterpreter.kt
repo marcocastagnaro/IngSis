@@ -1,5 +1,8 @@
-package org.example
+package org.example.strategies
 
+import org.example.AbstractSyntaxTree
+import org.example.ParseTreeToTokens
+import org.example.Types
 import org.example.inputReader.InputReaderType
 
 class ReadInputInterpreter(val inputReader: InputReaderType) {
@@ -40,6 +43,6 @@ class ReadInputInterpreter(val inputReader: InputReaderType) {
     }
 
     private fun readInput(): String {
-        return inputReader.getInput()
+        return inputReader.input()
     }
 }

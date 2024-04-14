@@ -1,5 +1,7 @@
-package org.example
+package org.example.strategies
 
+import org.example.AbstractSyntaxTree
+import org.example.Types
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths

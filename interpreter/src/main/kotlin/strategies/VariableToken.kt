@@ -1,4 +1,4 @@
-package org.example
+package org.example.strategies
 
 data class VariableToken(val value: String, val type: TokenType)
 

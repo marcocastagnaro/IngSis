@@ -1,7 +1,7 @@
 package org.example.inputReader
 
 class DummyInputReader : InputReaderType {
-    override fun getInput(): String {
+    override fun input(): String {
         return "dummy input"
     }
 }

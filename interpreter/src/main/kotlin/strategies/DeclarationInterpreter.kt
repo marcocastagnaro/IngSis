@@ -1,4 +1,7 @@
-package org.example
+package org.example.strategies
+
+import org.example.AbstractSyntaxTree
+import org.example.InterpreterStrategy
 
 class DeclarationInterpreter : InterpreterStrategy {
     override fun interpret(

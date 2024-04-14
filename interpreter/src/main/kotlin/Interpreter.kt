@@ -2,6 +2,10 @@ package org.example
 
 import org.example.inputReader.InputReaderType
 import org.example.inputReader.ReadInputFromTerminal
+import org.example.strategies.AssignationInterpreter
+import org.example.strategies.DeclarationInterpreter
+import org.example.strategies.PrintInterpreter
+import org.example.strategies.VariableToken
 
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
