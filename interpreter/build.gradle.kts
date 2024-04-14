@@ -3,7 +3,7 @@ plugins {
     id("publish-plugin")
 }
 
-version = "1.0.1-SNAPSHOT"
+version = "1.0.2-SNAPSHOT"
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")

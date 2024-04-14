@@ -746,4 +746,19 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("Name:\nHello dummy input!", result.string)
     }
+    val MESSAGE: String = "This is a text"
+    val LINE: String = "println(\"$MESSAGE\");\n"
+    val NUMBER_OF_LINES: Int = 32 * 1024
+    val interpreterExecuter = InterpreterExecuter()
+
+    @Test
+    fun testWithCounterBigFile() {
+        interpreterExecuter.execute(LINE.repeat(NUMBER_OF_LINES))
+    }
+
+//    @Test
+//    fun testConditionalInInterpreterExecuter(){
+//        val input = "if (a) { println(\"Hello\") }"
+//        val output = interpreterExecuter.execute(input)
+//    }
 }
