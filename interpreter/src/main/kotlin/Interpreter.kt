@@ -24,7 +24,7 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
-        variables.putAll(AssignationInterpreter(inputReader).interpret(tree, variables))
+        variables.putAll(AssignationInterpreter(inputReader, output).interpret(tree, variables))
     }
 
     private fun executeDeclaration(tree: AbstractSyntaxTree) {
@@ -32,7 +32,7 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     }
 
     private fun executePrint(tree: AbstractSyntaxTree) {
-        val mapResult = PrintInterpreter(inputReader).interpret(tree, variables).entries.first().value
+        val mapResult = PrintInterpreter(inputReader, output).interpret(tree, variables).entries.first().value
         output.buildOutput(mapResult)
     }
 }

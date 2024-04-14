@@ -730,6 +730,20 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("\"JOAFAC_PUTO\"", result.string)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
+
+    @Test
+    fun `test 011 similar test from tck`() {
+        val interpreter = Interpreter(DummyInputReader())
+        val input =
+            """
+            const name: string = readInput("Name:");
+            println("Hello " + name + "!");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Name:\nHello dummy input!", result.string)
     }
 }

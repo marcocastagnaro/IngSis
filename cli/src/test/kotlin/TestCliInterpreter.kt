@@ -10,7 +10,7 @@ class TestCliInterpreter {
     fun `test 001 test a simple println from lexer to interpreter`() {
         val printScript = PrintScript()
         val result = printScript.test("execute src/test/resources/test001.txt")
-        assertEquals("\"Hello, World!\"\n", result.stdout) // wtf porque me funciona el test solo si le salto una linea
+        assertEquals("Hello, World!\n", result.stdout) // wtf porque me funciona el test solo si le salto una linea
     }
 
     @Test

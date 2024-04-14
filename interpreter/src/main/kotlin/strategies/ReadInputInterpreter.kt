@@ -1,6 +1,7 @@
 package org.example.strategies
 
 import org.example.AbstractSyntaxTree
+import org.example.Output
 import org.example.ParseTreeToTokens
 import org.example.Types
 import org.example.inputReader.InputReaderType
@@ -10,12 +11,14 @@ class ReadInputInterpreter(private val inputReader: InputReaderType) {
     fun getInput(
         ast: AbstractSyntaxTree,
         statementType: Types,
+        output: Output,
     ): String {
         val msg = getMessage(ast)
+        output.buildOutput(formatInputmessage(msg))
         if (statementType == Types.FUNCTION) {
-            return formatInputmessage(msg) + readInput()
+            return readInput()
         } else if (statementType == Types.ASSIGNATION) {
-            return formatInputmessage(msg) + checkInput(ast)
+            return checkInput(ast)
         } else {
             throw Exception("Error! Not Valid Type")
         }
