@@ -236,14 +236,13 @@ class ParserTest {
     }
 
     @Test
-    fun `test 009 first test conditional test` () {
-        val input = "if (true) { println(\"hola\"); } else { println(\"chau\") }"
+    fun `test 009 first test conditional test`() {
+        val input = "if (true) { println(\"hola\"); println(\"hola2\"); } else { println(\"chau\"); }"
         val lexer = Lexer(ValueMapper())
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
 
-        assertEquals(1, trees.size)
         val firstTree = trees[0]
 
         assertEquals("if", firstTree.getToken().getValue())

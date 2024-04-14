@@ -42,11 +42,12 @@ class `Version1-1-tests` {
         val result = lexer.execute(input)
         assertEquals(result[0].getType(), expected[0].getType())
     }
+
     @Test
-    fun `test004 test if with conditionand result ` () {
+    fun `test004 test if with conditionand result `() {
         val input = "if (\"true\"){ println(\"hola\"); x=5; let n :string = hola; } else { (\"chau\"); }"
         val result = lexer.execute(input)
-        System.out.println(result.map{it.getValue()})
+        System.out.println(result.map { it.getValue() })
     }
 }
 /*
