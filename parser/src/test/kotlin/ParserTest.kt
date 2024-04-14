@@ -278,7 +278,6 @@ class ParserTest {
         val input = "let x: number = readInput(\"insert number here: \");"
         val lexer = Lexer(ValueMapper())
         val tokens = lexer.execute(input)
-//        assertEquals(11, tokens.size)
         assertEquals("\"insert number here: \"", tokens[7].getValue())
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -300,5 +299,31 @@ class ParserTest {
         val parser = Parser()
         val trees = parser.execute(tokens)
         assertEquals(1, trees.size)
+    }
+
+    @Test
+    fun `test 012 test println (read input)`() {
+        val input = "println(readInput(\"Ingrese valor\"));"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+        assertEquals(1, trees.size)
+        assertEquals("println", trees[0].getToken().getValue())
+        assertEquals("readInput", trees[0].getRight()?.getToken()?.getValue())
+        assertEquals("\"Ingrese valor\"", trees[0].getRight()?.getRight()?.getToken()?.getValue())
+    }
+
+    @Test
+    fun `test 013 test println readEnv`() {
+        val input = "println(readEnv(\"JOAFAC\"));"
+        val lexer = Lexer(ValueMapper())
+        val tokens = lexer.execute(input)
+        val parser = Parser()
+        val trees = parser.execute(tokens)
+        assertEquals(1, trees.size)
+        assertEquals("println", trees[0].getToken().getValue())
+        assertEquals("readEnv", trees[0].getRight()?.getToken()?.getValue())
+        assertEquals("\"JOAFAC\"", trees[0].getRight()?.getRight()?.getToken()?.getValue())
     }
 }

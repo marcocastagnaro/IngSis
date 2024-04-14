@@ -4,7 +4,7 @@ import org.example.factory.ConditionalFactory2
 import org.example.factory.ReadEnvFactory
 
 class Parser {
-    val factories = listOf(ReadEnvFactory(), PrintlnFactory(), DeclarationFactory(), AssignationFactory(), ConditionalFactory2())
+    val factories = listOf(PrintlnFactory(), ReadEnvFactory(), DeclarationFactory(), AssignationFactory(), ConditionalFactory2())
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)

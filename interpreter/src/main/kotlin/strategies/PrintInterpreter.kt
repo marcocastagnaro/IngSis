@@ -1,6 +1,11 @@
-package org.example
+package org.example.strategies
 
-class PrintInterpreter : InterpreterStrategy {
+import org.example.AbstractSyntaxTree
+import org.example.InterpreterStrategy
+import org.example.Types
+import org.example.inputReader.InputReaderType
+
+class PrintInterpreter(private val inputReader: InputReaderType) : InterpreterStrategy {
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
@@ -21,7 +26,8 @@ class PrintInterpreter : InterpreterStrategy {
             }
             Types.IDENTIFIER -> getValueForVariable(variables, tree.getToken().getValue()) ?: 0
             Types.LITERAL -> tree.getToken().getValue()
-            Types.FUNCTION -> ReadInputInterpreter().getInput(tree, Types.FUNCTION)
+            Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION)
+            Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
             else -> throw IllegalArgumentException("Unsupported token type: ${tree.getToken().getType()}")
         }
     }

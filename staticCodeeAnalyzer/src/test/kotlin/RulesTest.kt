@@ -4,6 +4,7 @@ import org.example.rules.rulesImpls.CamelCase
 import org.example.rules.rulesImpls.PrintWithoutExpresion
 import org.example.rules.rulesImpls.SnakeCase
 import org.junit.jupiter.api.Test
+import rules.rulesImpls.ReadInputWithoutExpresion
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -81,6 +82,30 @@ class RulesTest {
         val tokensList = parseTreeToTokens.parseToTokens(trees[0])
         val printWithoutExpresion = PrintWithoutExpresion()
         val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
+        assertTrue(brokenRules.isEmpty())
+    }
+
+    @Test
+    fun test007_test_not_read_input_exp() {
+        val input = "let variableMyString:string = readInput(\"hola\" + \"juan\"); "
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
+        val readInputWithoutExpresion = ReadInputWithoutExpresion()
+        val brokenRules = readInputWithoutExpresion.applyRule(listOf(tokensList))
+        assertTrue(brokenRules.isNotEmpty())
+        assertEquals("ReadInputs must not be called with an expresion", brokenRules[0].getBrokenRule())
+        assertEquals(Position(0, 0), brokenRules[0].getErrorPosition())
+    }
+
+    @Test
+    fun test008_test_read_input_exp() {
+        val input = "let variableMyString:string = readInput(\"hola + juan\"); "
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val tokensList = parseTreeToTokens.parseToTokens(trees[0])
+        val readInputWithoutExpresion = ReadInputWithoutExpresion()
+        val brokenRules = readInputWithoutExpresion.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isEmpty())
     }
 }
