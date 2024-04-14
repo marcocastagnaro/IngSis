@@ -1,7 +1,9 @@
 plugins {
     id("org.example.basic-plugin")
     id("application")
+    id("publish-plugin")
 }
+
 repositories {
     mavenCentral()
 }
