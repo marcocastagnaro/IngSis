@@ -748,19 +748,22 @@ class InterpreterTest {
         assertEquals("Name:\nHello dummy input!", result.string)
     }
 
-    val message: String = "This is a text"
-    val line: String = "println(\"$message\");\n"
-    val numberOfLines: Int = 32 * 1024
-    val interpreterExecuter = InterpreterExecuter(ReadInputFromTerminal())
+    val MESSAGE: String = "This is a text"
+    val LINE: String = "println(\"$MESSAGE\");\n"
+    val NUMBER_OF_LINES: Int = 32 * 1024
+    val interpreterExecuter = InterpreterExecuter()
 
     @Test
     fun testWithCounterBigFile() {
-        interpreterExecuter.execute(line.repeat(numberOfLines))
+        interpreterExecuter.execute(LINE.repeat(NUMBER_OF_LINES))
     }
 
-//    @Test
-//    fun testConditionalInInterpreterExecuter(){
-//        val input = "if (a) { println(\"Hello\") }"
-//        val output = interpreterExecuter.execute(input)
-//    }
+    @Test
+    fun `test 011 conditional simple`() {
+        val input = "let x: boolean = true; if (x) { println(\"Hola\"); } else { println(\"Chau\"); }"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Hola", result.string)
+    }
 }
