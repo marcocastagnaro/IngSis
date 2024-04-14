@@ -6,4 +6,5 @@ enum class TokenType {
     NUMBER,
     STRING,
     PRINT,
+    BOOLEAN,
 }

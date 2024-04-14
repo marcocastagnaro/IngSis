@@ -732,4 +732,13 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("\"JOAFAC_PUTO\"", result.string)
     }
+
+    @Test
+    fun `test 011 conditional simple`() {
+        val input = "let x: boolean = false; if (x) { println(0); } else { println(1); }"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("1", result.string)
+    }
 }

@@ -15,16 +15,31 @@ class ConditionalFactory2 : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val parser = Parser()
         val rootConditional = ConditionalBuilder()
-
         for (index in tokens.indices) {
             val token = tokens[index]
             when (token.getType()) {
                 Types.CONDITIONAL -> handleConditionalType(tokens, index, rootConditional)
                 Types.PUNCTUATOR -> handlePunctuatorType(tokens, index, rootConditional, parser)
-                else -> continue
+                else -> {
+                    if (conditionalState.indexEnteringIf == -1 && conditionalState.indexEnteringElse == -1 && conditionalState.alreadyEntered) {
+                        finishParsing(index, tokens, parser)
+                    } else continue
+                }
             }
         }
         return rootConditional.build()
+    }
+
+    private fun finishParsing(index: Int, tokens: List<Token>, parser: Parser) {
+        var indexAux = index
+        while (indexAux < tokens.size) {
+            val token = tokens[indexAux]
+            if (token.getValue() == "if" && token.getType() == Types.CONDITIONAL) {
+                break
+            }
+            indexAux++
+        }
+        parser.execute(tokens.slice(index until indexAux))
     }
 
     private fun handleConditionalType(
@@ -33,11 +48,12 @@ class ConditionalFactory2 : ASTFactory {
         root: ConditionalBuilder,
     ) {
         val conditionToken = tokens[index]
-        if (tokens[index].getValue() == "if") {
+        if (conditionToken.getValue() == "if") {
             conditionalState.indexEnteringIf = index + 5
-            root.setToken(tokens[index + 2])
+            val token = tokens[index + 2]
+            root.setToken(Token(Types.CONDITIONAL, token.getValue(), token.getInitialPosition(), token.getFinalPosition()))
         } else {
-            conditionalState.indexEnteringElse = index + 5
+            conditionalState.indexEnteringElse = index + 2
         }
     }
 
@@ -48,6 +64,7 @@ class ConditionalFactory2 : ASTFactory {
         parser: Parser,
     ) {
         val punctuator = tokens[index].getValue()
+        conditionalState.alreadyEntered = true
         if (punctuator == "}") {
             if (conditionalState.indexEnteringIf != -1) {
                 val conditionalToken = tokens[conditionalState.indexEnteringIf - 5]
@@ -59,6 +76,7 @@ class ConditionalFactory2 : ASTFactory {
                         ConditionalLeaf(conditionalToken, listOfTrees),
                     )
                 root.setLeft(ifTree)
+                sliceList(tokens.toMutableList(), index + 1)
                 conditionalState.indexEnteringIf = -1
             } else {
                 val conditionalToken = tokens[conditionalState.indexEnteringElse - 5]
@@ -70,17 +88,33 @@ class ConditionalFactory2 : ASTFactory {
                         ConditionalLeaf(conditionalToken, listOfTrees),
                     )
                 root.setRight(elseTree)
+                sliceList(tokens.toMutableList(), 0)
                 conditionalState.indexEnteringElse = -1
             }
         }
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
-        return tokens.find { it.getType() == Types.CONDITIONAL } != null
+        return tokens.find { it.getType() == Types.CONDITIONAL && it.getValue() == "if" } != null
+    }
+
+    private fun continueParsing(tokens: List<Token>, index: Int): Boolean {
+        return index < tokens.size
+    }
+
+    private fun sliceList(tokens: MutableList<Token>, fromIndex: Int) {
+        while (fromIndex < tokens.size) {
+            val token = tokens[fromIndex]
+            if (token.getValue() == "}" && token.getType() == Types.PUNCTUATOR) {
+                break
+            }
+            tokens.removeAt(fromIndex)
+        }
     }
 }
 
 class ConditionalState(
     var indexEnteringIf: Int,
     var indexEnteringElse: Int,
+    var alreadyEntered: Boolean = false,
 )

@@ -45,6 +45,7 @@ class AssignationInterpreter(private val inputReader: InputReaderType) : Interpr
         return when (value) {
             "number" -> TokenType.NUMBER
             "string" -> TokenType.STRING
+            "boolean" -> TokenType.BOOLEAN
             else -> throw Exception("Error! Not Valid Type")
         }
     }
@@ -56,7 +57,7 @@ class AssignationInterpreter(private val inputReader: InputReaderType) : Interpr
         val token = tree.getToken()
         return when (token.getType()) {
             Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
-            Types.LITERAL -> token.getValue()
+            Types.LITERAL, Types.BOOLEAN -> token.getValue()
             Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION)
             Types.OPERATOR -> {
                 val leftValue = getTokenValue(tree.getLeft()!!, variables)
