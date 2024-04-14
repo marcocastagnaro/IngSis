@@ -678,7 +678,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("dummy input", result.string)
+        assertEquals("Please enter a value for x\ndummy input", result.string)
     }
 
     @Test
@@ -730,7 +730,21 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("\"JOAFAC_PUTO\"", result.string)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
+
+    @Test
+    fun `test 011 similar test from tck`() {
+        val interpreter = Interpreter(DummyInputReader())
+        val input =
+            """
+            const name: string = readInput("Name:");
+            println("Hello " + name + "!");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Name:\nHello dummy input!", result.string)
     }
 
     @Test
@@ -741,4 +755,15 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("1", result.string)
     }
+
+    val MESSAGE: String = "This is a text"
+    val LINE: String = "println(\"$MESSAGE\");\n"
+    val NUMBER_OF_LINES: Int = 32 * 1024
+
+
+//    @Test
+//    fun testConditionalInInterpreterExecuter(){
+//        val input = "if (a) { println(\"Hello\") }"
+//        val output = interpreterExecuter.execute(input)
+//    }
 }

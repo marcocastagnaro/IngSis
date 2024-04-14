@@ -1,5 +1,5 @@
 package org.example.inputReader
 
 interface InputReaderType {
-    fun input(): String
+    fun input(name: String = ""): String
 }

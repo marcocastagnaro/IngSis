@@ -1,16 +1,20 @@
 package org.example.strategies
 
 import org.example.AbstractSyntaxTree
+import org.example.Output
 import org.example.ParseTreeToTokens
 import org.example.Types
 import org.example.inputReader.InputReaderType
+import org.example.utils.ClearCommas
 
-class ReadInputInterpreter(val inputReader: InputReaderType) {
+class ReadInputInterpreter(private val inputReader: InputReaderType) {
     fun getInput(
         ast: AbstractSyntaxTree,
         statementType: Types,
+        output: Output,
     ): String {
-        print(getMessage(ast))
+        val msg = getMessage(ast)
+        output.buildOutput(formatInputmessage(msg))
         if (statementType == Types.FUNCTION) {
             return readInput()
         } else if (statementType == Types.ASSIGNATION) {
@@ -20,10 +24,17 @@ class ReadInputInterpreter(val inputReader: InputReaderType) {
         }
     }
 
+    private fun formatInputmessage(msg: String): String {
+        if (msg.length > 1) {
+            return ClearCommas().clearCommas(msg + "\n")
+        }
+        return ""
+    }
+
     private fun getMessage(ast: AbstractSyntaxTree): String {
         val tokens = ParseTreeToTokens().parseToTokens(ast)
         val values = tokens.filter { it.getType() == Types.LITERAL }
-        return values.map { it.getValue() }.toString()
+        return values.map { it.getValue() }.joinToString(" ")
     }
 
     private fun checkInput(ast: AbstractSyntaxTree): String {
@@ -43,6 +54,6 @@ class ReadInputInterpreter(val inputReader: InputReaderType) {
     }
 
     private fun readInput(): String {
-        return inputReader.input()
+        return ClearCommas().clearCommas(inputReader.input())
     }
 }
