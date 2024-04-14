@@ -3,8 +3,10 @@ package org.example
 import org.example.inputReader.InputReaderType
 import org.example.inputReader.ReadInputFromTerminal
 import org.example.strategies.AssignationInterpreter
+import org.example.strategies.ConditionalInterpreter
 import org.example.strategies.DeclarationInterpreter
 import org.example.strategies.PrintInterpreter
+import org.example.strategies.TokenType
 import org.example.strategies.VariableToken
 
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
@@ -17,10 +19,19 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
                 Types.KEYWORD -> executeDeclaration(tree)
                 Types.ASSIGNATION -> executeAssignation(tree)
                 Types.FUNCTION -> executePrint(tree)
+                Types.CONDITIONAL -> executeConditional(tree)
                 else -> continue
             }
         }
+        checkRemainingPrints()
         return output
+    }
+
+    private fun checkRemainingPrints() {
+        val remainingPrints = variables.filter { it.key.type == TokenType.PRINT }
+        for (print in remainingPrints) {
+            print.value?.let { output.buildOutput(it) }
+        }
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
@@ -34,5 +45,9 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     private fun executePrint(tree: AbstractSyntaxTree) {
         val mapResult = PrintInterpreter(inputReader, output).interpret(tree, variables).entries.first().value
         output.buildOutput(mapResult)
+    }
+
+    private fun executeConditional(tree: AbstractSyntaxTree) {
+        variables.putAll(ConditionalInterpreter(output).interpret(tree, variables))
     }
 }

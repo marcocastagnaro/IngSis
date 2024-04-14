@@ -49,6 +49,7 @@ class AssignationInterpreter(
         return when (value) {
             "number" -> TokenType.NUMBER
             "string" -> TokenType.STRING
+            "boolean" -> TokenType.BOOLEAN
             else -> throw Exception("Error! Not Valid Type")
         }
     }
