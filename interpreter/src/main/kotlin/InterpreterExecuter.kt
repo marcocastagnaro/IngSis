@@ -1,12 +1,13 @@
 package org.example
 
-class InterpreterExecuter {
-    private val interpreter: Interpreter = Interpreter()
+import org.example.inputReader.InputReaderType
+
+class InterpreterExecuter(provider: InputReaderType) {
+    private val interpreter: Interpreter = Interpreter(provider)
     private val lexer: Lexer = Lexer(ValueMapper())
     private val parser: Parser = Parser()
 
     fun execute(input: String): Output {
-        // Inicialización de la lista de tokens y el objeto Output
         val listOfTokens = ArrayList<Token>()
         val output = Output()
 
