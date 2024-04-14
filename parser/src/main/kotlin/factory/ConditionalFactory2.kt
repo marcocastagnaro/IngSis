@@ -21,16 +21,24 @@ class ConditionalFactory2 : ASTFactory {
                 Types.CONDITIONAL -> handleConditionalType(tokens, index, rootConditional)
                 Types.PUNCTUATOR -> handlePunctuatorType(tokens, index, rootConditional, parser)
                 else -> {
-                    if (conditionalState.indexEnteringIf == -1 && conditionalState.indexEnteringElse == -1 && conditionalState.alreadyEntered) {
+                    if (conditionalState.indexEnteringIf == -1 && conditionalState.indexEnteringElse == -1 &&
+                        conditionalState.alreadyEntered
+                    ) {
                         finishParsing(index, tokens, parser)
-                    } else continue
+                    } else {
+                        continue
+                    }
                 }
             }
         }
         return rootConditional.build()
     }
 
-    private fun finishParsing(index: Int, tokens: List<Token>, parser: Parser) {
+    private fun finishParsing(
+        index: Int,
+        tokens: List<Token>,
+        parser: Parser,
+    ) {
         var indexAux = index
         while (indexAux < tokens.size) {
             val token = tokens[indexAux]
@@ -51,7 +59,14 @@ class ConditionalFactory2 : ASTFactory {
         if (conditionToken.getValue() == "if") {
             conditionalState.indexEnteringIf = index + 5
             val token = tokens[index + 2]
-            root.setToken(Token(Types.CONDITIONAL, token.getValue(), token.getInitialPosition(), token.getFinalPosition()))
+            root.setToken(
+                Token(
+                    Types.CONDITIONAL,
+                    token.getValue(),
+                    token.getInitialPosition(),
+                    token.getFinalPosition(),
+                ),
+            )
         } else {
             conditionalState.indexEnteringElse = index + 2
         }
@@ -98,11 +113,17 @@ class ConditionalFactory2 : ASTFactory {
         return tokens.find { it.getType() == Types.CONDITIONAL && it.getValue() == "if" } != null
     }
 
-    private fun continueParsing(tokens: List<Token>, index: Int): Boolean {
+    private fun continueParsing(
+        tokens: List<Token>,
+        index: Int,
+    ): Boolean {
         return index < tokens.size
     }
 
-    private fun sliceList(tokens: MutableList<Token>, fromIndex: Int) {
+    private fun sliceList(
+        tokens: MutableList<Token>,
+        fromIndex: Int,
+    ) {
         while (fromIndex < tokens.size) {
             val token = tokens[fromIndex]
             if (token.getValue() == "}" && token.getType() == Types.PUNCTUATOR) {

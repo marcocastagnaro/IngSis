@@ -8,7 +8,7 @@ class Parser {
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)
-         val result = mutableListOf<AbstractSyntaxTree>()
+        val result = mutableListOf<AbstractSyntaxTree>()
         for (tokenList in sameLineTokens) {
             val astFactory = determineFactory(tokenList)
             if (astFactory != null) {

@@ -2,7 +2,12 @@ package org.example
 
 import org.example.inputReader.InputReaderType
 import org.example.inputReader.ReadInputFromTerminal
-import org.example.strategies.*
+import org.example.strategies.AssignationInterpreter
+import org.example.strategies.ConditionalInterpreter
+import org.example.strategies.DeclarationInterpreter
+import org.example.strategies.PrintInterpreter
+import org.example.strategies.TokenType
+import org.example.strategies.VariableToken
 
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
@@ -28,8 +33,6 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
             print.value?.let { output.buildOutput(it) }
         }
     }
-
-
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
         variables.putAll(AssignationInterpreter(inputReader, output).interpret(tree, variables))

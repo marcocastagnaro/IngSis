@@ -15,7 +15,12 @@ class PrintInterpreter(
         variables: HashMap<VariableToken, String?>,
     ): Map<VariableToken, String> {
         val result = evaluateNode(tree.getRight()!!, variables)
-        return hashMapOf(VariableToken("printResult", TokenType.PRINT) to result.toString())
+        return hashMapOf(VariableToken("printResult", TokenType.PRINT) to removeStringQuotes(result.toString()))
+    }
+
+    private fun removeStringQuotes(value: String): String {
+        if (!value.startsWith("\"") || !value.endsWith("\"")) return value
+        return value.removePrefix("\"").removeSuffix("\"")
     }
 
     private fun evaluateNode(

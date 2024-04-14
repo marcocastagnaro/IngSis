@@ -749,21 +749,10 @@ class InterpreterTest {
 
     @Test
     fun `test 011 conditional simple`() {
-        val input = "let x: boolean = false; if (x) { println(0); } else { println(1); }"
+        val input = "let x: boolean = true; if (x) { println(\"Hola\"); } else { println(\"Chau\"); }"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("1", result.string)
+        assertEquals("Hola", result.string)
     }
-
-    val MESSAGE: String = "This is a text"
-    val LINE: String = "println(\"$MESSAGE\");\n"
-    val NUMBER_OF_LINES: Int = 32 * 1024
-
-
-//    @Test
-//    fun testConditionalInInterpreterExecuter(){
-//        val input = "if (a) { println(\"Hello\") }"
-//        val output = interpreterExecuter.execute(input)
-//    }
 }

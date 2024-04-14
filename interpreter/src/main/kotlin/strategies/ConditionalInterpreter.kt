@@ -7,10 +7,9 @@ import org.example.Types
 import org.example.inputReader.ReadInputFromTerminal
 
 class ConditionalInterpreter : InterpreterStrategy {
-
     override fun interpret(
         tree: AbstractSyntaxTree,
-        variables: HashMap<VariableToken, String?>
+        variables: HashMap<VariableToken, String?>,
     ): Map<VariableToken, String?> {
         if (isConditionTrue(tree, variables)) {
             val body = tree.getLeft()!!.getRight() as ConditionalLeaf
@@ -23,7 +22,7 @@ class ConditionalInterpreter : InterpreterStrategy {
 
     private fun isConditionTrue(
         tree: AbstractSyntaxTree,
-        variables: HashMap<VariableToken, String?>
+        variables: HashMap<VariableToken, String?>,
     ): Boolean {
         if (variables.containsKey(VariableToken(tree.getToken().getValue(), TokenType.BOOLEAN))) {
             return variables[VariableToken(tree.getToken().getValue(), TokenType.BOOLEAN)] == "true"
@@ -34,7 +33,7 @@ class ConditionalInterpreter : InterpreterStrategy {
 
     private fun solveBody(
         tree: ConditionalLeaf,
-        variables: HashMap<VariableToken, String?>
+        variables: HashMap<VariableToken, String?>,
     ): Map<VariableToken, String?> {
         val tempMap = HashMap(variables)
         for (subTree in tree.getBody()) {
@@ -47,5 +46,4 @@ class ConditionalInterpreter : InterpreterStrategy {
         }
         return tempMap.toMap()
     }
-
 }
