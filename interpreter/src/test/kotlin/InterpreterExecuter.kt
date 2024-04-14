@@ -1,10 +1,10 @@
 package org.example
 
 class InterpreterExecuter {
-
     private val interpreter: Interpreter = Interpreter()
     private val lexer: Lexer = Lexer(ValueMapper())
     private val parser: Parser = Parser()
+
     fun execute(input: String): Output {
         // Inicialización de la lista de tokens y el objeto Output
         val listOfTokens = ArrayList<Token>()
@@ -26,5 +26,4 @@ class InterpreterExecuter {
 
         return output
     }
-
 }
