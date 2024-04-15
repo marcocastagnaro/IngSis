@@ -27,10 +27,11 @@ class ConditionalBuilder {
     }
 
     fun build(): AbstractSyntaxTree {
-        return if (body != null) {
-            ConditionalLeaf(token!!, body!!)
-        } else {
-            ConditionalNode(token!!, right, left!!)
-        }
+        return ConditionalNode(
+            token = token!!,
+            right = right,
+            left = left!!,
+            body = body,
+        )
     }
 }

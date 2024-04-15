@@ -9,7 +9,17 @@ class Output {
         string += ClearCommas().clearCommas(newString)
     }
 
+    fun setOutput(newString: String) {
+        string = newString
+    }
+
     fun print() {
         println(string)
+    }
+
+    fun removeLastNewLine() {
+        if (string.endsWith("\n")) {
+            string = string.dropLast(1)
+        }
     }
 }

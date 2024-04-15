@@ -4,6 +4,7 @@ class ConditionalNode(
     private val token: Token,
     private val right: AbstractSyntaxTree?,
     private val left: AbstractSyntaxTree,
+    private val body: List<AbstractSyntaxTree>? = null,
 ) : AbstractSyntaxTree {
     override fun getLeft(): AbstractSyntaxTree {
         return left
@@ -19,5 +20,9 @@ class ConditionalNode(
 
     override fun getToken(): Token {
         return this.token
+    }
+
+    override fun getBody(): List<AbstractSyntaxTree>? {
+        return body
     }
 }

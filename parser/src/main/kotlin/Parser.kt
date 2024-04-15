@@ -4,16 +4,27 @@ import org.example.factory.ConditionalFactory2
 import org.example.factory.ReadEnvFactory
 
 class Parser {
-    private val factories = listOf(ConditionalFactory2(), ReadEnvFactory(), PrintlnFactory(), DeclarationFactory(), AssignationFactory())
+    val result = mutableListOf<AbstractSyntaxTree>()
+
+    private val factories = listOf(
+        ConditionalFactory2(),
+        ReadEnvFactory(),
+        PrintlnFactory(),
+        DeclarationFactory(),
+        AssignationFactory()
+    )
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)
-        val result = mutableListOf<AbstractSyntaxTree>()
         for (tokenList in sameLineTokens) {
             val astFactory = determineFactory(tokenList)
             if (astFactory != null) {
                 if (astFactory is ConditionalFactory2) {
-                    result.add(astFactory.createAST(tokens))
+                    val res = astFactory.createAST(tokens)
+                    result.add(res)
+                    if (res.getBody() != null) {
+                        res.getBody()!!.forEach(result::add)
+                    }
                     return result
                 } else {
                     result.add(astFactory.createAST(tokenList))

@@ -9,7 +9,7 @@ class ConditionalLeaf(private val token: Token, private val body: List<AbstractS
         return this.token
     }
 
-    fun getBody(): List<AbstractSyntaxTree> {
+    override fun getBody(): List<AbstractSyntaxTree> {
         return this.body
     }
 }

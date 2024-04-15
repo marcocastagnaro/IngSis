@@ -61,7 +61,7 @@ class AssignationInterpreter(
         val token = tree.getToken()
         return when (token.getType()) {
             Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
-            Types.LITERAL -> token.getValue()
+            Types.LITERAL, Types.BOOLEAN -> token.getValue()
             Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION, output)
             Types.OPERATOR -> {
                 val leftValue = getTokenValue(tree.getLeft()!!, variables)
@@ -100,7 +100,7 @@ class AssignationInterpreter(
             val isAInt = a.toIntOrNull() != null
             val isBInt = b.toIntOrNull() != null
             if (isAInt && isBInt) {
-                a.toInt() + b.toInt()
+                a.toDouble() + b.toDouble()
             } else {
                 a + b
             }
@@ -114,7 +114,7 @@ class AssignationInterpreter(
         val isAInt = a.toIntOrNull() != null
         val isBInt = b.toIntOrNull() != null
         return when {
-            isAInt && isBInt -> a.toInt() - b.toInt()
+            isAInt && isBInt -> a.toDouble() - b.toDouble()
             else -> throw IllegalArgumentException("Unsupported operand types for subtraction: $a and $b")
         }
     }
@@ -122,12 +122,12 @@ class AssignationInterpreter(
     private fun multiply(
         a: String,
         b: String,
-    ): Int {
+    ): Double {
         val isAInt = a.toIntOrNull() != null
         val isBInt = b.toIntOrNull() != null
 
         return when {
-            isAInt && isBInt -> a.toInt() * b.toInt()
+            isAInt && isBInt -> a.toDouble() * b.toDouble()
             else -> throw IllegalArgumentException("Unsupported operand types for multiplication: $a and $b")
         }
     }
@@ -135,12 +135,12 @@ class AssignationInterpreter(
     private fun divide(
         a: String,
         b: String,
-    ): Int {
+    ): Double {
         val isAInt = a.toIntOrNull() != null
         val isBInt = b.toIntOrNull() != null
 
         return when {
-            isAInt && isBInt -> a.toInt() / b.toInt()
+            isAInt && isBInt -> a.toDouble() / b.toDouble()
             else -> throw IllegalArgumentException("Unsupported operand types for division: $a and $b")
         }
     }

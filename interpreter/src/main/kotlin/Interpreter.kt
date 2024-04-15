@@ -24,14 +24,17 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
             }
         }
         checkRemainingPrints()
+        output.removeLastNewLine()
         return output
     }
 
     private fun checkRemainingPrints() {
         val remainingPrints = variables.filter { it.key.type == TokenType.PRINT }
+        val tempOutput = Output()
         for (print in remainingPrints) {
-            print.value?.let { output.buildOutput(it) }
+            print.value?.let { tempOutput.buildOutput(it + "\n") }
         }
+        output.setOutput(tempOutput.string + output.string)
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
@@ -44,7 +47,7 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
 
     private fun executePrint(tree: AbstractSyntaxTree) {
         val mapResult = PrintInterpreter(inputReader, output).interpret(tree, variables).entries.first().value
-        output.buildOutput(mapResult)
+        output.buildOutput(mapResult + "\n")
     }
 
     private fun executeConditional(tree: AbstractSyntaxTree) {

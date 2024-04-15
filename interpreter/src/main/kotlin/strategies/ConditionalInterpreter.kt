@@ -14,6 +14,9 @@ class ConditionalInterpreter(
             val body = tree.getLeft()!!.getRight() as ConditionalLeaf
             return solveBody(body, variables)
         } else {
+            if (tree.getRight() == null) {
+                return variables
+            }
             val body = tree.getRight()!!.getRight() as ConditionalLeaf
             return solveBody(body, variables)
         }

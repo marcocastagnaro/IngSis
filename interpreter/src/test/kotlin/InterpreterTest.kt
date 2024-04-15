@@ -1,7 +1,6 @@
 package org.example
 
 import org.example.inputReader.DummyInputReader
-import org.example.inputReader.ReadInputFromTerminal
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
@@ -17,14 +16,14 @@ class InterpreterTest {
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                "Hello world!",
-                                Position(1, 1),
-                                Position(1, 1),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            "Hello world!",
+                            Position(1, 1),
+                            Position(1, 1),
                         ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -39,30 +38,30 @@ class InterpreterTest {
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        CompositeAbstractSyntaxTree(
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "+",
+                            Position(2, 2),
+                            Position(3, 3),
+                        ),
+                        Leaf(
                             Token(
-                                Types.OPERATOR,
-                                value = "+",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.LITERAL,
-                                    "Hello",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.LITERAL,
-                                    " world!",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
+                                Types.LITERAL,
+                                "Hello",
+                                Position(1, 1),
+                                Position(1, 1),
                             ),
                         ),
+                        Leaf(
+                            Token(
+                                Types.LITERAL,
+                                " world!",
+                                Position(1, 1),
+                                Position(1, 1),
+                            ),
+                        ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -77,78 +76,78 @@ class InterpreterTest {
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = " world!",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = " world!",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.DECLARATOR,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.DECLARATOR,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "string",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "x",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "string",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "x",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        CompositeAbstractSyntaxTree(
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "+",
+                            Position(2, 2),
+                            Position(3, 3),
+                        ),
+                        Leaf(
                             Token(
-                                Types.OPERATOR,
-                                value = "+",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.LITERAL,
-                                    "Hello",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "x",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
+                                Types.LITERAL,
+                                "Hello",
+                                Position(1, 1),
+                                Position(1, 1),
                             ),
                         ),
+                        Leaf(
+                            Token(
+                                Types.IDENTIFIER,
+                                "x",
+                                Position(1, 1),
+                                Position(1, 1),
+                            ),
+                        ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -187,126 +186,126 @@ class InterpreterTest {
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "2",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "2",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "x",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "x",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "3",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "3",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "y",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "y",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        CompositeAbstractSyntaxTree(
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "*",
+                            Position(2, 2),
+                            Position(3, 3),
+                        ),
+                        Leaf(
                             Token(
-                                Types.OPERATOR,
-                                value = "*",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "x",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "y",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
+                                Types.IDENTIFIER,
+                                "x",
+                                Position(1, 1),
+                                Position(1, 1),
                             ),
                         ),
+                        Leaf(
+                            Token(
+                                Types.IDENTIFIER,
+                                "y",
+                                Position(1, 1),
+                                Position(1, 1),
+                            ),
+                        ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -327,126 +326,126 @@ class InterpreterTest {
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "6",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "6",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "x",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "x",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "3",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "3",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "y",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "y",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        CompositeAbstractSyntaxTree(
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "/",
+                            Position(2, 2),
+                            Position(3, 3),
+                        ),
+                        Leaf(
                             Token(
-                                Types.OPERATOR,
-                                value = "/",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "x",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "y",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
+                                Types.IDENTIFIER,
+                                "x",
+                                Position(1, 1),
+                                Position(1, 1),
                             ),
                         ),
+                        Leaf(
+                            Token(
+                                Types.IDENTIFIER,
+                                "y",
+                                Position(1, 1),
+                                Position(1, 1),
+                            ),
+                        ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -467,126 +466,126 @@ class InterpreterTest {
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "6",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "6",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "x",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "x",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 CompositeAbstractSyntaxTree(
                     Token(Types.ASSIGNATION, "=", Position(1, 1), Position(1, 6)),
                     right =
-                        Leaf(
-                            Token(
-                                Types.LITERAL,
-                                value = "3",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
+                    Leaf(
+                        Token(
+                            Types.LITERAL,
+                            value = "3",
+                            Position(2, 2),
+                            Position(3, 3),
                         ),
+                    ),
                     left =
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.KEYWORD,
+                            value = "let",
+                            Position(1, 1),
+                            Position(1, 1),
+                        ),
+                        right =
                         CompositeAbstractSyntaxTree(
                             Token(
-                                Types.KEYWORD,
-                                value = "let",
+                                Types.IDENTIFIER,
+                                value = ":",
                                 Position(1, 1),
                                 Position(1, 1),
                             ),
                             right =
-                                CompositeAbstractSyntaxTree(
-                                    Token(
-                                        Types.IDENTIFIER,
-                                        value = ":",
-                                        Position(1, 1),
-                                        Position(1, 1),
-                                    ),
-                                    right =
-                                        Leaf(
-                                            Token(
-                                                Types.DATA_TYPE,
-                                                value = "number",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
-                                    left =
-                                        Leaf(
-                                            Token(
-                                                Types.IDENTIFIER,
-                                                value = "y",
-                                                Position(1, 1),
-                                                Position(1, 1),
-                                            ),
-                                        ),
+                            Leaf(
+                                Token(
+                                    Types.DATA_TYPE,
+                                    value = "number",
+                                    Position(1, 1),
+                                    Position(1, 1),
                                 ),
+                            ),
+                            left =
+                            Leaf(
+                                Token(
+                                    Types.IDENTIFIER,
+                                    value = "y",
+                                    Position(1, 1),
+                                    Position(1, 1),
+                                ),
+                            ),
                         ),
+                    ),
                 ),
                 PrintNode(
                     Token(Types.FUNCTION, "println", Position(1, 1), Position(1, 6)),
                     child =
-                        CompositeAbstractSyntaxTree(
+                    CompositeAbstractSyntaxTree(
+                        Token(
+                            Types.OPERATOR,
+                            value = "-",
+                            Position(2, 2),
+                            Position(3, 3),
+                        ),
+                        Leaf(
                             Token(
-                                Types.OPERATOR,
-                                value = "-",
-                                Position(2, 2),
-                                Position(3, 3),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "x",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
-                            ),
-                            Leaf(
-                                Token(
-                                    Types.IDENTIFIER,
-                                    "y",
-                                    Position(1, 1),
-                                    Position(1, 1),
-                                ),
+                                Types.IDENTIFIER,
+                                "x",
+                                Position(1, 1),
+                                Position(1, 1),
                             ),
                         ),
+                        Leaf(
+                            Token(
+                                Types.IDENTIFIER,
+                                "y",
+                                Position(1, 1),
+                                Position(1, 1),
+                            ),
+                        ),
+                    ),
                 ),
             )
         val interpreter = Interpreter()
@@ -748,16 +747,6 @@ class InterpreterTest {
         assertEquals("Name:\nHello dummy input!", result.string)
     }
 
-    val MESSAGE: String = "This is a text"
-    val LINE: String = "println(\"$MESSAGE\");\n"
-    val NUMBER_OF_LINES: Int = 32 * 1024
-    val interpreterExecuter = InterpreterExecuter()
-
-    @Test
-    fun testWithCounterBigFile() {
-        interpreterExecuter.execute(LINE.repeat(NUMBER_OF_LINES))
-    }
-
     @Test
     fun `test 011 conditional simple`() {
         val input = "let x: boolean = true; if (x) { println(\"Hola\"); } else { println(\"Chau\"); }"
@@ -765,5 +754,66 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
         assertEquals("Hola", result.string)
+    }
+
+    @Test
+    fun `test 012 pi division`() {
+        val input = "let pi: number = 3.14; println(pi/2);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("1.57", result.string)
+    }
+
+    @Test
+    fun `test 013 - some conditional test`() {
+        val input =
+            """
+            const booleanValue: boolean = false;
+            if(booleanValue) {
+                println("if statement is not working correctly");
+            }
+            println("outside of conditional");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("outside of conditional", result.string)
+    }
+
+    @Test
+    fun `test 014 - some conditional test2`() {
+        val input =
+            """
+            const booleanResult: boolean = true;
+            if (booleanResult) {
+                println("else statement working correctly");
+            } else {
+                println("else statement not working correctly");
+            }
+            println("outside of conditional");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("else statement working correctly\noutside of conditional", result.string)
+    }
+
+    @Test
+    fun `test 015 - some conditional test3`() {
+        val input =
+            """
+            const booleanResult: boolean = false;
+            if(booleanResult) {
+                println("else statement not working correctly");
+            } else {
+                println("else statement working correctly");
+            }
+            println("outside of conditional");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("else statement working correctly\noutside of conditional", result.string)
     }
 }
