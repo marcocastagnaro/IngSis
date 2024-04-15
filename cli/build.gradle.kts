@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
 }
 
-version = "1.1.0-SNAPSHOT"
+version = "1.1.1-SNAPSHOT"
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
