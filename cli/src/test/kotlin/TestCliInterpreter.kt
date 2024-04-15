@@ -31,14 +31,14 @@ class TestCliInterpreter {
     fun `test 004 testing sum of variables`() {
         val cli = PrintScript()
         val result = cli.test("execute src/test/resources/test004.txt")
-        assertEquals("15.0\n", result.stdout)
+        assertEquals("15\n", result.stdout)
     }
 
     @Test
     fun `test 005 testing a varaible with multiplication`() {
         val cli = PrintScript()
         val result = cli.test("execute src/test/resources/test005.txt")
-        assertEquals("50.0\n", result.stdout)
+        assertEquals("50\n", result.stdout)
     }
 
 //    @Test

@@ -28,7 +28,7 @@ class OperationInterpreter {
             val isAInt = a.toDoubleOrNull() != null
             val isBInt = b.toDoubleOrNull() != null
             if (isAInt && isBInt) {
-                a.toDouble() + b.toDouble()
+                trimDecimalsIfPossible(a.toDouble() + b.toDouble())
             } else {
                 a + b
             }
@@ -38,11 +38,11 @@ class OperationInterpreter {
     private fun subtract(
         a: String,
         b: String,
-    ): Any {
+    ): Number {
         val isAInt = a.toDoubleOrNull() != null
         val isBInt = b.toDoubleOrNull() != null
         return when {
-            isAInt && isBInt -> a.toDouble() - b.toDouble()
+            isAInt && isBInt -> trimDecimalsIfPossible(a.toDouble() - b.toDouble())
             else -> throw IllegalArgumentException("Unsupported operand types for subtraction: $a and $b")
         }
     }
@@ -50,12 +50,12 @@ class OperationInterpreter {
     private fun multiply(
         a: String,
         b: String,
-    ): Double {
+    ): Number {
         val isAInt = a.toDoubleOrNull() != null
         val isBInt = b.toDoubleOrNull() != null
 
         return when {
-            isAInt && isBInt -> a.toDouble() * b.toDouble()
+            isAInt && isBInt -> trimDecimalsIfPossible(a.toDouble() * b.toDouble())
             else -> throw IllegalArgumentException("Unsupported operand types for multiplication: $a and $b")
         }
     }
@@ -63,12 +63,12 @@ class OperationInterpreter {
     private fun divide(
         a: String,
         b: String,
-    ): Double {
+    ): Number {
         val isAInt = a.toDoubleOrNull() != null
         val isBInt = b.toDoubleOrNull() != null
 
         return when {
-            isAInt && isBInt -> a.toDouble() / b.toDouble()
+            isAInt && isBInt -> trimDecimalsIfPossible(a.toDouble() / b.toDouble())
             else -> throw IllegalArgumentException("Unsupported operand types for division: $a and $b")
         }
     }
@@ -78,5 +78,13 @@ class OperationInterpreter {
         variables: MutableMap<VariableToken, String?>,
     ): Boolean {
         return variables.entries.any { it.key.value == variable && it.key.type == TokenType.STRING }
+    }
+
+    private fun trimDecimalsIfPossible(value: Double): Number {
+        return if (value % 1 == 0.0) {
+            value.toInt()
+        } else {
+            value
+        }
     }
 }
