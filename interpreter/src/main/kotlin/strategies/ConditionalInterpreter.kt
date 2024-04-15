@@ -14,7 +14,7 @@ class ConditionalInterpreter(
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
-        inmutableList : MutableList<String>
+        inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         if (isConditionTrue(tree, variables)) {
             val body = tree.getLeft()!!.getRight() as ConditionalLeaf
@@ -42,7 +42,7 @@ class ConditionalInterpreter(
     private fun solveBody(
         tree: ConditionalLeaf,
         variables: HashMap<VariableToken, String?>,
-        inmutableList: MutableList<String>
+        inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         val tempMap = HashMap(variables)
         for (subTree in tree.getBody()) {

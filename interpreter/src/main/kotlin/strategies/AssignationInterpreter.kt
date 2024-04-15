@@ -13,7 +13,7 @@ class AssignationInterpreter(
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
-        inmutableList: MutableList<String>
+        inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         val tempMap = variables.toMutableMap()
         if (tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER) {
@@ -37,12 +37,13 @@ class AssignationInterpreter(
     private fun addValuesToMap(
         tree: AbstractSyntaxTree,
         variables: MutableMap<VariableToken, String?>,
-        inmutableList : MutableList<String>
+        inmutableList: MutableList<String>,
     ) {
         val keyword = tree.getLeft()?.getToken()?.getValue()
-        if (keyword == "const"){
-            tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
-        }
+        if (keyword == "const")
+            {
+                tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
+            }
         val variable = getVariable(tree)
         val type = getType(tree)
         val value = getTokenValue(tree.getRight()!!, variables)

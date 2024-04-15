@@ -12,7 +12,7 @@ import org.example.strategies.VariableToken
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
     private val output: Output = Output()
-    private val inmutableList : MutableList<String> = mutableListOf()
+    private val inmutableList: MutableList<String> = mutableListOf()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
         output.setOutput("")
