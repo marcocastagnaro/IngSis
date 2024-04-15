@@ -6,13 +6,14 @@ import org.example.factory.ReadEnvFactory
 class Parser {
     val result = mutableListOf<AbstractSyntaxTree>()
 
-    private val factories = listOf(
-        ConditionalFactory2(),
-        ReadEnvFactory(),
-        PrintlnFactory(),
-        DeclarationFactory(),
-        AssignationFactory()
-    )
+    private val factories =
+        listOf(
+            ConditionalFactory2(),
+            ReadEnvFactory(),
+            PrintlnFactory(),
+            DeclarationFactory(),
+            AssignationFactory(),
+        )
 
     fun execute(tokens: List<Token>): List<AbstractSyntaxTree> {
         val sameLineTokens = getSameLineTokens(tokens)

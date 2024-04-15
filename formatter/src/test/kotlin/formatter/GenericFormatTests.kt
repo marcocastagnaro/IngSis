@@ -4,8 +4,6 @@ import org.example.Lexer
 import org.example.Parser
 import org.example.ValueMapper
 import org.example.formatter.Formatter
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class GenericFormatTests {
     val lexer = Lexer(ValueMapper())

@@ -9,7 +9,7 @@ class FunctionFactory {
     fun createAST(tokens: List<Token>): AbstractSyntaxTree {
         val root = NodeBuilder()
         root.setValue(tokens.find { it.getType() == Types.FUNCTION }!!)
-        val rightTokens = tokens.filter { it.getType() != Types.FUNCTION && it.getType() != Types.PUNCTUATOR }
+        val rightTokens = tokens.filter { it.getType() != Types.FUNCTION && it.getType() != Types.PARENTHESIS }
         if (rightTokens.isEmpty()) return root.build()
         if (rightTokens.size > 1) {
             val left = OperationFactory().createAST(rightTokens)

@@ -111,7 +111,6 @@ class ConditionalFactory2() : ASTFactory {
     override fun canHandle(tokens: List<Token>): Boolean {
         return tokens.find { it.getType() == Types.CONDITIONAL && it.getValue() == "if" } != null
     }
-
 }
 
 class ConditionalState(
