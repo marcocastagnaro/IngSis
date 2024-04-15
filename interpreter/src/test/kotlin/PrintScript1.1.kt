@@ -23,4 +23,37 @@ class PrintScript1 {
 
         assertEquals("Name:Hello dummy input!", result)
     }
+
+    @Test
+    fun `a failing test from tck`() {
+        val input = """
+               let numberResult: number = 5 * 5 - 8;
+               println(numberResult);"""
+        val lexer = Lexer(ValueMapper())
+        val interpreter = Interpreter(DummyInputReader())
+        val parser = Parser()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees).string
+        assertEquals("17", result)
+    }
+
+    @Test
+    fun `a simple if test from tck`() {
+        val input: MutableList<String> =
+            @Suppress("ktlint:standard:max-line-length")
+            "const booleanValue: boolean = true;\r\nif(booleanValue) {\r\nprintln(\"if statement is not working correctly\");}\r\nprintln(\"outside of conditional\");".split(
+                "if(",
+            ).toMutableList()
+        val lexer = Lexer(ValueMapper())
+        val interpreter = Interpreter(DummyInputReader())
+        var result = ""
+        input.set(1, "if(" + input[1])
+        input.forEach {
+            val tokens = lexer.execute(it)
+            val trees = Parser().execute(tokens)
+            result += interpreter.execute(trees).string + "\n"
+        }
+        assertEquals("\nif statement is not working correctly\noutside of conditional\n", result)
+    }
 }
