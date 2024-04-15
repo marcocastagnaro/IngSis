@@ -14,16 +14,17 @@ class ConditionalInterpreter(
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
+        inmutableList : MutableList<String>
     ): Map<VariableToken, String?> {
         if (isConditionTrue(tree, variables)) {
             val body = tree.getLeft()!!.getRight() as ConditionalLeaf
-            return solveBody(body, variables)
+            return solveBody(body, variables, inmutableList)
         } else {
             if (tree.getRight() == null) {
                 return variables
             }
             val body = tree.getRight()!!.getRight() as ConditionalLeaf
-            return solveBody(body, variables)
+            return solveBody(body, variables, inmutableList)
         }
     }
 
@@ -41,13 +42,14 @@ class ConditionalInterpreter(
     private fun solveBody(
         tree: ConditionalLeaf,
         variables: HashMap<VariableToken, String?>,
+        inmutableList: MutableList<String>
     ): Map<VariableToken, String?> {
         val tempMap = HashMap(variables)
         for (subTree in tree.getBody()) {
             when (subTree.getToken().getType()) {
-                Types.KEYWORD -> tempMap.putAll(DeclarationInterpreter().interpret(subTree, tempMap))
-                Types.ASSIGNATION -> tempMap.putAll(AssignationInterpreter(inputReader, output).interpret(subTree, tempMap))
-                Types.FUNCTION -> tempMap.putAll(PrintInterpreter(inputReader, output).interpret(subTree, tempMap))
+                Types.KEYWORD -> tempMap.putAll(DeclarationInterpreter().interpret(subTree, tempMap, inmutableList))
+                Types.ASSIGNATION -> tempMap.putAll(AssignationInterpreter(inputReader, output).interpret(subTree, tempMap, inmutableList))
+                Types.FUNCTION -> tempMap.putAll(PrintInterpreter(inputReader, output).interpret(subTree, tempMap, inmutableList))
                 else -> throw IllegalArgumentException("Unsupported token type: ${subTree.getToken().getType()}")
             }
         }

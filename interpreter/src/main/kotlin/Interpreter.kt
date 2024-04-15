@@ -12,6 +12,7 @@ import org.example.strategies.VariableToken
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
     private val output: Output = Output()
+    private val inmutableList : MutableList<String> = mutableListOf()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
         output.setOutput("")
@@ -39,19 +40,19 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     }
 
     private fun executeAssignation(tree: AbstractSyntaxTree) {
-        variables.putAll(AssignationInterpreter(inputReader, output).interpret(tree, variables))
+        variables.putAll(AssignationInterpreter(inputReader, output).interpret(tree, variables, inmutableList))
     }
 
     private fun executeDeclaration(tree: AbstractSyntaxTree) {
-        variables.putAll(DeclarationInterpreter().interpret(tree, variables))
+        variables.putAll(DeclarationInterpreter().interpret(tree, variables, inmutableList))
     }
 
     private fun executePrint(tree: AbstractSyntaxTree) {
-        val mapResult = PrintInterpreter(inputReader, output).interpret(tree, variables).entries.first().value
+        val mapResult = PrintInterpreter(inputReader, output).interpret(tree, variables, inmutableList).entries.first().value
         output.buildOutput(mapResult + "\n")
     }
 
     private fun executeConditional(tree: AbstractSyntaxTree) {
-        variables.putAll(ConditionalInterpreter(inputReader, output).interpret(tree, variables))
+        variables.putAll(ConditionalInterpreter(inputReader, output).interpret(tree, variables, inmutableList))
     }
 }

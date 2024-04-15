@@ -13,6 +13,7 @@ class PrintInterpreter(
     override fun interpret(
         tree: AbstractSyntaxTree,
         variables: HashMap<VariableToken, String?>,
+        inmutableList : MutableList<String>
     ): Map<VariableToken, String> {
         val result = evaluateNode(tree.getRight()!!, variables)
         return hashMapOf(VariableToken("printResult", TokenType.PRINT) to removeStringQuotes(result.toString()))

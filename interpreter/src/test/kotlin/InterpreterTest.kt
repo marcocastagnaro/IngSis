@@ -816,4 +816,18 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("else statement working correctly\noutside of conditional", result.string)
     }
+    @Test
+    fun `test 016 assignation const variable` (){
+        val input = "const x: number = 10; println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("10", result.string)
+    }
+    @Test
+    fun `test 017 assignation const variable` (){
+        val input = "const x: number = 10; x = 20; println(x);"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+    }
 }
