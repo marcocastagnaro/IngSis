@@ -170,7 +170,7 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val interpreter = Interpreter()
         val result = interpreter.execute(trees)
-        assertEquals("5.0", result.string)
+        assertEquals("5", result.string)
     }
 
     @Test
@@ -310,7 +310,7 @@ class InterpreterTest {
             )
         val interpreter = Interpreter()
         val result = interpreter.execute(trees)
-        assertEquals("6.0", result.string)
+        assertEquals("6", result.string)
     }
 
     @Test
@@ -450,7 +450,7 @@ class InterpreterTest {
             )
         val interpreter = Interpreter()
         val result = interpreter.execute(trees)
-        assertEquals("2.0", result.string)
+        assertEquals("2", result.string)
     }
 
     @Test
@@ -590,7 +590,7 @@ class InterpreterTest {
             )
         val interpreter = Interpreter()
         val result = interpreter.execute(trees)
-        assertEquals("3.0", result.string)
+        assertEquals("3", result.string)
     }
 
     @Test
@@ -603,7 +603,7 @@ class InterpreterTest {
             println(x + y + z);
             """.trimIndent()
         val result = Interpreter().execute(Parser().execute(Lexer(ValueMapper()).execute(input)))
-        assertEquals("10.0", result.string)
+        assertEquals("10", result.string)
     }
 
     @Test
@@ -631,7 +631,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("1.0", result.string)
+        assertEquals("1", result.string)
     }
 
     @Test
@@ -645,7 +645,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("The result of the operations is: 6.0", result.string)
+        assertEquals("The result of the operations is: 6", result.string)
     }
 
     @Test
@@ -659,7 +659,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("4.0", result.string)
+        assertEquals("4", result.string)
     }
 
     @Test
@@ -721,7 +721,7 @@ class InterpreterTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("8.0", result.string)
+        assertEquals("8", result.string)
     }
 
     @Test
