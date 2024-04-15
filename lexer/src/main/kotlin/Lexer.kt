@@ -5,7 +5,8 @@ import org.example.splittingStrategy.StrategyMapper
 
 class Lexer(private var map: ValueMapper = ValueMapper(), private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
     fun execute(string: String): List<Token> {
-        val rows = splitRows(string)
+        val updatedString = string.replace("\r", "")
+        val rows = splitRows(updatedString)
         val tokens = ArrayList<SplitToken>()
         for ((index, row) in rows.withIndex()) {
             if (row.isBlank()) continue
