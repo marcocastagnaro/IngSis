@@ -14,6 +14,7 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     private val output: Output = Output()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
+        output.setOutput("")
         for (tree in trees) {
             when (tree.getToken().getType()) {
                 Types.KEYWORD -> executeDeclaration(tree)
