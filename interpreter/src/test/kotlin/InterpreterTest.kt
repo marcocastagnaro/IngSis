@@ -724,14 +724,14 @@ class InterpreterTest {
         assertEquals("8.0", result.string)
     }
 
-//    @Test
-//    fun `test 010 println(readenv)`() {
-//        val input = "println(readEnv(JOAFAC))"
-//        val tokens = lexer.execute(input)
-//        val trees = parser.execute(tokens)
-//        val result = interpreter.execute(trees)
-//        assertEquals("JOAFAC_PUTO", result.string)
-//    }
+    @Test
+    fun `test 010 println(readenv)`() {
+        val input = "println(readEnv(JOAFAC))"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("JOAFAC_PUTO", result.string)
+    }
 
     @Test
     fun `test 011 similar test from tck`() {

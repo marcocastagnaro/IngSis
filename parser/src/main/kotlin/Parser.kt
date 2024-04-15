@@ -9,8 +9,8 @@ class Parser {
     private val factories =
         listOf(
             ConditionalFactory2(),
-            ReadEnvFactory(),
             PrintlnFactory(),
+            ReadEnvFactory(),
             DeclarationFactory(),
             AssignationFactory(),
         )
