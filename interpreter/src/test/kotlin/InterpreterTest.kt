@@ -818,7 +818,7 @@ class InterpreterTest {
     }
 
     @Test
-    fun `test 016 assignation const variable`()  {
+    fun `test 016 assignation const variable`() {
         val input = "const x: number = 10; println(x);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)

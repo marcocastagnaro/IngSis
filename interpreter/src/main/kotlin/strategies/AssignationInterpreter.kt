@@ -40,10 +40,9 @@ class AssignationInterpreter(
         inmutableList: MutableList<String>,
     ) {
         val keyword = tree.getLeft()?.getToken()?.getValue()
-        if (keyword == "const")
-            {
-                tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
-            }
+        if (keyword == "const") {
+            tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
+        }
         val variable = getVariable(tree)
         val type = getType(tree)
         val value = getTokenValue(tree.getRight()!!, variables)
