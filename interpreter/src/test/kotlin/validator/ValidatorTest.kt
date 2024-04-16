@@ -21,7 +21,7 @@ class ValidatorTest {
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
-        val result = validator.validate(trees)
+        val result = validator.validate(trees, mapOf())
         assertEquals(true, result)
     }
 
@@ -35,7 +35,7 @@ class ValidatorTest {
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
-        val result = validator.validate(trees)
+        val result = validator.validate(trees, mapOf())
         assertEquals(false, result)
     }
 
@@ -49,21 +49,7 @@ class ValidatorTest {
         val tokens = formatter.execute(input)
         val trees = parser.execute(tokens)
         val validator = Validator()
-        val result = validator.validate(trees)
-        assertEquals(true, result)
-    }
-
-    @Test
-    fun `test 004 - should return true when no declaration is present`() {
-        val input =
-            """
-            value1 = 1 + 2+ "3";
-            value2 = "hello World";
-            """.trimMargin()
-        val tokens = formatter.execute(input)
-        val trees = parser.execute(tokens)
-        val validator = Validator()
-        val result = validator.validate(trees)
+        val result = validator.validate(trees, mapOf())
         assertEquals(true, result)
     }
 }

@@ -56,4 +56,52 @@ class PrintScript1 {
         }
         assertEquals("\nif statement is not working correctly\noutside of conditional\n", result)
     }
+
+    @Test
+    fun `make an invalid code`() {
+        try {
+            val input =
+                """
+                const name: string;
+                name = 13;
+                """.trimIndent()
+            val lexer = Lexer(ValueMapper())
+            val interpreter = Interpreter(DummyInputReader())
+            val tokens = lexer.execute(input)
+            val trees = Parser().execute(tokens)
+            val result = interpreter.execute(trees)
+            assertEquals("Invalid syntax", result.string)
+        } catch (e: Exception) {
+            assertEquals("Invalid syntax", e.message)
+        }
+    }
+
+    @Test
+    fun `make an invalid code because variable doesn't exist`() {
+        try {
+            val input =
+                """
+                const name: string;
+                player = 13;
+                """.trimIndent()
+            val lexer = Lexer(ValueMapper())
+            val interpreter = Interpreter(DummyInputReader())
+            val tokens = lexer.execute(input)
+            val trees = Parser().execute(tokens)
+            val result = interpreter.execute(trees)
+            assertEquals("Invalid syntax", result.string)
+        } catch (e: Exception) {
+            assertEquals("Variable player no declarada", e.message)
+        }
+    }
+
+    @Test
+    fun `simple passing validation`() {
+        val input = "let x: number = 8;"
+        val lexer = Lexer(ValueMapper())
+        val interpreter = Interpreter(DummyInputReader())
+        val tokens = lexer.execute(input)
+        val trees = Parser().execute(tokens)
+        val result = interpreter.execute(trees).string
+    }
 }
