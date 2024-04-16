@@ -8,11 +8,13 @@ import org.example.strategies.DeclarationInterpreter
 import org.example.strategies.PrintInterpreter
 import org.example.strategies.TokenType
 import org.example.strategies.VariableToken
+import org.example.validator.Validator
 
 class Interpreter(private val inputReader: InputReaderType = ReadInputFromTerminal()) {
     private val variables = HashMap<VariableToken, String?>()
     private val output: Output = Output()
     private val inmutableList: MutableList<String> = mutableListOf()
+    private val validator: Validator = Validator()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
         output.setOutput("")
@@ -25,6 +27,7 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
                 else -> continue
             }
         }
+        if (!validator.validate(trees, variables)) throw Exception("Invalid syntax")
         checkRemainingPrints()
         output.removeLastNewLine()
         return output
