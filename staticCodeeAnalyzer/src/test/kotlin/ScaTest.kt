@@ -60,6 +60,6 @@ class ScaTest {
         val output = sca.check(trees)
         assertFalse(output.isOk())
         assertTrue(output.getBrokenRules().size == 1)
-        assertEquals("Printlns must not be called with an expresion at line 0", output.getBrokenRules()[0])
+        assertEquals("Println must not be called with an expression at line 0", output.getBrokenRules()[0])
     }
 }

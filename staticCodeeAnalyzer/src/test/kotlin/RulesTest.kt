@@ -68,10 +68,10 @@ class RulesTest {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val tokensList = parseTreeToTokens.parseToTokens(trees[0])
-        val printWithoutExpresion = PrintWithoutExpresion()
-        val brokenRules = printWithoutExpresion.applyRule(listOf(tokensList))
+        val printWithoutExpression = PrintWithoutExpresion()
+        val brokenRules = printWithoutExpression.applyRule(listOf(tokensList))
         assertTrue(brokenRules.isNotEmpty())
-        assertEquals("Printlns must not be called with an expresion", brokenRules[0].getBrokenRule())
+        assertEquals("Println must not be called with an expression", brokenRules[0].getBrokenRule())
         assertEquals(Position(0, 0), brokenRules[0].getErrorPosition())
     }
 
