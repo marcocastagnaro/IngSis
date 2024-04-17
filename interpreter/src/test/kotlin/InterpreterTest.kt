@@ -740,5 +740,4 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("10", result.string)
     }
-
 }
