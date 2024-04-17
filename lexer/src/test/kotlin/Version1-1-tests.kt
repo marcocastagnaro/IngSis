@@ -1,7 +1,6 @@
 package org.example
 
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class `Version1-1-tests` {
     val lexer = Lexer("1.1")
