@@ -578,7 +578,7 @@ class InterpreterTest {
 
     @Test
     fun `test 005 testing red env variables`() {
-        val input = "let x : string = readEnv(JOAFAC); println(x)"
+        val input = "let x : string = readEnv(JOAFAC); println(x);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
@@ -608,7 +608,7 @@ class InterpreterTest {
     @Test
     fun `test 008 -should print directly the output from the println`() {
         val interpreter = Interpreter(DummyInputReader())
-        val input = "println(readInput())"
+        val input = "println(readInput());"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
@@ -631,7 +631,7 @@ class InterpreterTest {
 
     @Test
     fun `test 006 testing operation in println`() {
-        val input = "println(2*2+2*2)"
+        val input = "println(2*2+2*2);"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
@@ -640,7 +640,7 @@ class InterpreterTest {
 
     @Test
     fun `test 010 println(readenv)`() {
-        val input = "println(readEnv(JOAFAC))"
+        val input = "println(readEnv(JOAFAC));"
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
