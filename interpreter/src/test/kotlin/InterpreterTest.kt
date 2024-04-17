@@ -739,12 +739,5 @@ class InterpreterTest {
         val result = interpreter.execute(trees)
         assertEquals("10", result.string)
     }
-    // todo : ESTA BIEN QUE FALLE!
-//    @Test
-//    fun `test 017 re-assignation const variables` (){
-//        val input = "const x: number = 10; x = 20; println(x);"
-//        val tokens = lexer.execute(input)
-//        val ast = parser.execute(tokens)
-//        val res = interpreter.execute(ast)
-//    }
+
 }
