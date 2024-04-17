@@ -17,7 +17,7 @@ class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs m
         return false
     }
 
-    private fun isAnExpresion(tokenList: List<Token>): Boolean {
+    private fun isAnExpression(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
             if (token.getType() != Types.PUNCTUATOR && token.getType() != Types.LITERAL && token.getType() != Types.IDENTIFIER) {
                 return true
@@ -29,7 +29,7 @@ class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs m
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (tokenList in tokens) {
             if (checkIsReadInput(tokenList)) {
-                if (isAnExpresion(splitTokens(tokenList))) {
+                if (isAnExpression(splitTokens(tokenList))) {
                     brokenRules.add(BrokenRule(errorMessage, tokenList[0].getInitialPosition()))
                 }
             }

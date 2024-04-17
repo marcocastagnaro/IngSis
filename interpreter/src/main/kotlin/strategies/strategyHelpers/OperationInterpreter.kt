@@ -1,4 +1,7 @@
-package org.example.strategies
+package org.example.strategies.strategyHelpers
+
+import org.example.strategies.TokenType
+import org.example.strategies.VariableToken
 
 class OperationInterpreter {
     fun performOperation(

@@ -5,7 +5,7 @@ import org.example.Types
 import org.example.brokenRule.BrokenRule
 import org.example.rules.Rules
 
-class PrintWithoutExpresion(private var errorMessage: String = "Printlns must not be called with an expresion") : Rules {
+class PrintWithoutExpresion(private var errorMessage: String = "Println must not be called with an expression") : Rules {
     private val brokenRules = mutableListOf<BrokenRule>()
 
     private fun checkIsPrintln(tokenList: List<Token>): Boolean {

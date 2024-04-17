@@ -1,6 +1,7 @@
 package org.example
 
 import org.example.inputReader.DummyInputReader
+import org.example.parser.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -91,7 +92,7 @@ class PrintScript1 {
             val result = interpreter.execute(trees)
             assertEquals("Invalid syntax", result.string)
         } catch (e: Exception) {
-            assertEquals("Variable player no declarada", e.message)
+            assertEquals("Variable player not declared", e.message)
         }
     }
 

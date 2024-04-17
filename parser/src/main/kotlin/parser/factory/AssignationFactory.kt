@@ -1,7 +1,10 @@
-package org.example
+package org.example.parser.factory
 
-import org.example.factory.FunctionFactory
-import org.example.factory.OperationFactory
+import org.example.AbstractSyntaxTree
+import org.example.NodeBuilder
+import org.example.Token
+import org.example.Types
+import org.example.parser.ASTFactory
 
 class AssignationFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
@@ -33,7 +36,7 @@ class AssignationFactory : ASTFactory {
                 return root.build()
             }
             if (rightTokens.size > 1) {
-                val right = createAssignatedTree(rightTokens)
+                val right = createAssignedTree(rightTokens)
                 root.setRight(right)
             } else {
                 root.setRight(NodeBuilder().setValue(rightTokens[0]).build())
@@ -42,7 +45,7 @@ class AssignationFactory : ASTFactory {
         }
     }
 
-    private fun createAssignatedTree(tokens: List<Token>): AbstractSyntaxTree {
+    private fun createAssignedTree(tokens: List<Token>): AbstractSyntaxTree {
         if (tokens.any { it.getType() == Types.FUNCTION }) {
             return FunctionFactory().createAST(tokens)
         }
@@ -58,22 +61,6 @@ class AssignationFactory : ASTFactory {
     }
 
     private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
-        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
-        val root = NodeBuilder()
-        if (declarationToken != null) {
-            root.setValue(declarationToken)
-        }
-        val identifierToken = tokens.find { it.getType() == Types.IDENTIFIER }!!
-        root.setLeft(NodeBuilder().setValue(identifierToken).build())
-        val dataTypeToken = tokens.find { it.getType() == Types.DATA_TYPE }!!
-        root.setRight(NodeBuilder().setValue(dataTypeToken).build())
-
-        val realRoot = NodeBuilder()
-        val letToken = tokens.find { it.getType() == Types.KEYWORD }
-        if (letToken != null) {
-            realRoot.setValue(letToken)
-        }
-        realRoot.setRight(root.build())
-        return realRoot.build()
+        return DeclarationFactory().createAST(tokens)
     }
 }

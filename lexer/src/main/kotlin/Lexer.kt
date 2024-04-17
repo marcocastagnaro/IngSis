@@ -3,11 +3,11 @@ package org.example
 import org.example.splittingStrategy.SplittingState
 import org.example.splittingStrategy.StrategyMapper
 
-class Lexer(private val version: String, private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
+class Lexer(version: String, private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
     private var map: ValueMapper = ValueMapper(version)
 
     fun execute(string: String): List<Token> {
-        val updatedString = string.replace("\r", "")
+        val updatedString = formatString(string)
         val rows = splitRows(updatedString)
         val tokens = ArrayList<SplitToken>()
         for ((index, row) in rows.withIndex()) {
@@ -16,6 +16,8 @@ class Lexer(private val version: String, private val splitStrategyMapper: Strate
         }
         return map.assigningTypesToTokenValues(tokens)
     }
+
+    private fun formatString(string: String) = string.replace("\r", "")
 
     private fun splitRows(string: String): List<String> {
         return string.split("(?<=;)(?=\\R|$)".toRegex())

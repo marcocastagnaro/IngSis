@@ -14,7 +14,7 @@ class ScaImpl : Sca {
     private val jsonReader = JsonReader()
 
     private fun createTokens(trees: List<AbstractSyntaxTree>): List<List<Token>> {
-        var tokens = mutableListOf<List<Token>>()
+        val tokens = mutableListOf<List<Token>>()
         for (tree in trees) {
             val tokensForTree = ParseTreeToTokens().parseToTokens(tree)
             tokens.add(tokensForTree)
@@ -38,9 +38,8 @@ class ScaImpl : Sca {
                 output.addBrokenRule(brokenRule)
             }
         }
-
-        val txtContent = generateTxtContent(brokenRules)
-        val htmlContent = generateHtmlContent(brokenRules)
+//        val txtContent = generateTxtContent(brokenRules)
+//        val htmlContent = generateHtmlContent(brokenRules)
 //        writeReports(txtContent, htmlContent)
         return output
     }
@@ -50,7 +49,7 @@ class ScaImpl : Sca {
         tokens: List<List<Token>>,
         brokenRules: MutableList<BrokenRule>,
     ) {
-        var brkRules = applyRule.applyRule(tokens)
+        val brkRules = applyRule.applyRule(tokens)
         for (brkRule in brkRules) {
             brokenRules.addLast(brkRule)
         }
@@ -67,14 +66,6 @@ class ScaImpl : Sca {
         val file = File(filePath)
         file.writeText(content)
     }
-
-//    fun writeReports(
-//        txtContent: String,
-//        htmlContent: String,
-//    ) {
-//        writeToFile(txtContent, "src/main/resources/broken_rules_report.txt")
-//        writeToFile(htmlContent, "src/main/resources/broken_rules_report.html")
-//    }
 
     private fun generateTxtContent(brokenRules: List<BrokenRule>): String {
         val sb = StringBuilder()

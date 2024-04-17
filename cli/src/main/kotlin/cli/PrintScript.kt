@@ -9,8 +9,8 @@ import org.example.AbstractSyntaxTree
 import org.example.Interpreter
 import org.example.Lexer
 import org.example.Output
-import org.example.Parser
 import org.example.Token
+import org.example.parser.Parser
 import org.example.sca.ScaImpl
 import java.io.File
 

@@ -1,8 +1,8 @@
 package formatter
 
 import org.example.Lexer
-import org.example.Parser
 import org.example.formatter.Formatter
+import org.example.parser.Parser
 
 class GenericFormatTests {
     val lexer = Lexer("1.1")

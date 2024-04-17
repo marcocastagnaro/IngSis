@@ -1,4 +1,4 @@
-package org.example.strategies
+package org.example.strategies.strategyHelpers
 
 import org.example.AbstractSyntaxTree
 import org.example.Output
@@ -14,7 +14,7 @@ class ReadInputInterpreter(private val inputReader: InputReaderType) {
         output: Output,
     ): String {
         val msg = getMessage(ast)
-        output.buildOutput(formatInputmessage(msg))
+        output.buildOutput(formatInputMessage(msg))
         if (statementType == Types.FUNCTION) {
             return readInput()
         } else if (statementType == Types.ASSIGNATION) {
@@ -24,7 +24,7 @@ class ReadInputInterpreter(private val inputReader: InputReaderType) {
         }
     }
 
-    private fun formatInputmessage(msg: String): String {
+    private fun formatInputMessage(msg: String): String {
         if (msg.length > 1) {
             return ClearCommas().clearCommas(msg + "\n")
         }
@@ -46,7 +46,7 @@ class ReadInputInterpreter(private val inputReader: InputReaderType) {
                 throw Exception("Error! Not Valid Type")
             }
         } else if (variableType == "string") {
-            if (!input.matches(Regex("(\\d+|\"[^\"]*\"|'[^']*')"))) {
+            if (!input.matches(Regex("(\"[^\"]*\"|'[^']*')"))) {
                 throw Exception("Error! Not Valid Type")
             }
         }

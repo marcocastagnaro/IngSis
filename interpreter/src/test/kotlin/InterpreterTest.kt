@@ -1,6 +1,7 @@
 package org.example
 
 import org.example.inputReader.DummyInputReader
+import org.example.parser.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 

@@ -94,7 +94,7 @@ class TestCliInterpreter {
     fun `012 test simple sca`() {
         val printScript = PrintScript()
         val result = printScript.test("1.1 analyze src/test/resources/test012.txt src/test/resources/linterRules.json")
-        assertEquals("Printlns must not be called with an expresion at line 0\n", result.stdout)
+        assertEquals("Println must not be called with an expression at line 0\n", result.stdout)
     }
 
     @Test

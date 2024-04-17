@@ -1,6 +1,6 @@
 package org.example.formatter
 import org.example.Lexer
-import org.example.Parser
+import org.example.parser.Parser
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

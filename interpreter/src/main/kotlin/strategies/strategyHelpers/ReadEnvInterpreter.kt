@@ -1,4 +1,4 @@
-package org.example.strategies
+package org.example.strategies.strategyHelpers
 
 import org.example.AbstractSyntaxTree
 import org.example.Types
@@ -13,7 +13,7 @@ class ReadEnvInterpreter {
             val envFilePath = Paths.get("../.env")
 
             if (!Files.exists(envFilePath)) {
-                throw IllegalArgumentException("El archivo de variables de entorno no se encontró en $envFilePath")
+                throw IllegalArgumentException("File not found on file path: $envFilePath")
             }
 
             val envVariables = mutableMapOf<String, String>()
@@ -29,12 +29,12 @@ class ReadEnvInterpreter {
 
             if (envVariables.containsKey(variableName)) {
                 return envVariables[variableName]
-                    ?: throw IllegalArgumentException("Variable $variableName no encontrada en el archivo .env")
+                    ?: throw IllegalArgumentException("Variable $variableName not found on file .env")
             } else {
-                throw IllegalArgumentException("Variable $variableName no encontrada en el archivo .env")
+                throw IllegalArgumentException("Variable $variableName not found on file .env")
             }
         }
-        throw IllegalArgumentException("Nombre de variable inválido: ${token.getValue()}")
+        throw IllegalArgumentException("Invalid name variable: ${token.getValue()}")
     }
 
     fun printEnvVariable(tree: AbstractSyntaxTree): String {
