@@ -49,7 +49,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
             "format" -> echo(formatter(filepathJSON))
             "analyze" -> analyze().getBrokenRules().forEach { echo(it) }
             else -> {
-                println("Opción inválida")
+                echo("Opción inválida")
             }
         }
     }

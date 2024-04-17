@@ -39,9 +39,18 @@ class PrintInterpreter(
             }
             Types.IDENTIFIER -> getValueForVariable(variables, tree.getToken().getValue()) ?: 0
             Types.LITERAL -> tree.getToken().getValue()
-            Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION, output)
-            Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
+            Types.FUNCTION -> defineFunction(tree)
             else -> throw IllegalArgumentException("Unsupported token type: ${tree.getToken().getType()}")
+        }
+    }
+
+    private fun defineFunction(tree: AbstractSyntaxTree): String {
+        if (tree.getToken().getValue() == "readEnv") {
+            return ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
+        } else if (tree.getToken().getValue() == "readInput") {
+            return ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION, output)
+        } else {
+            throw IllegalArgumentException("Unsupported function: ${tree.getToken().getValue()}")
         }
     }
 

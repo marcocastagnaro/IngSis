@@ -3,6 +3,7 @@ package org.example.strategies
 import org.example.AbstractSyntaxTree
 import org.example.InterpreterStrategy
 import org.example.Output
+import org.example.Token
 import org.example.Types
 import org.example.inputReader.InputReaderType
 import org.example.strategies.strategyHelpers.OperationInterpreter
@@ -104,9 +105,8 @@ class AssignationInterpreter(
     ): String? {
         val token = tree.getToken()
         return when (token.getType()) {
-            Types.READENV -> ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
             Types.LITERAL, Types.BOOLEAN -> token.getValue()
-            Types.FUNCTION -> ReadInputInterpreter(inputReader).getInput(tree, Types.FUNCTION, output)
+            Types.FUNCTION -> assignFunction(token, tree, token.getType())
             Types.OPERATOR -> {
                 val leftValue = getTokenValue(tree.getLeft()!!, variables)
                 val rightValue = getTokenValue(tree.getRight()!!, variables)
@@ -114,6 +114,20 @@ class AssignationInterpreter(
             }
 
             else -> null
+        }
+    }
+
+    private fun assignFunction(
+        token: Token,
+        tree: AbstractSyntaxTree,
+        type: Types,
+    ): String {
+        if (token.getValue() == "readEnv") {
+            return ReadEnvInterpreter().readEnvVariables(tree.getRight()!!)
+        } else if (token.getValue() == "readInput") {
+            return ReadInputInterpreter(inputReader).getInput(tree, type, output)
+        } else {
+            throw Exception("Error! Not Valid Type")
         }
     }
 

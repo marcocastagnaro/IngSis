@@ -6,7 +6,6 @@ import org.example.parser.factory.AssignationFactory
 import org.example.parser.factory.ConditionalFactory
 import org.example.parser.factory.DeclarationFactory
 import org.example.parser.factory.PrintlnFactory
-import org.example.parser.factory.ReadEnvFactory
 
 class Parser {
     val result = mutableListOf<AbstractSyntaxTree>()
@@ -15,7 +14,6 @@ class Parser {
         listOf(
             ConditionalFactory(),
             PrintlnFactory(),
-            ReadEnvFactory(),
             DeclarationFactory(),
             AssignationFactory(),
         )

@@ -11,7 +11,7 @@ class OperationFactory {
             return Leaf(tokens[0])
         }
         for (token in tokens) {
-            if (token.getValue() == "+" || token.getValue() == "-") {
+            if (isAdditionOrSubstraction(token)) {
                 val tree = NodeBuilder(value = token)
                 tree.setLeft(createAST(tokens.subList(0, tokens.indexOf(token))))
                 tree.setRight(createAST(tokens.subList(tokens.indexOf(token) + 1, tokens.size)))
@@ -19,13 +19,17 @@ class OperationFactory {
             }
         }
         for (token in tokens) {
-            if (token.getValue() == "*" || token.getValue() == "/") {
+            if (isMultiplicationOrDivision(token)) {
                 val tree = NodeBuilder(value = token)
                 tree.setLeft(createAST(tokens.subList(0, tokens.indexOf(token))))
                 tree.setRight(createAST(tokens.subList(tokens.indexOf(token) + 1, tokens.size)))
                 return tree.build()
             }
         }
-        throw Exception("Error")
+        throw Exception("Error in operation")
     }
+
+    private fun isMultiplicationOrDivision(token: Token) = token.getValue() == "*" || token.getValue() == "/"
+
+    private fun isAdditionOrSubstraction(token: Token) = token.getValue() == "+" || token.getValue() == "-"
 }

@@ -22,32 +22,36 @@ class PrintlnFactory : ASTFactory {
         tokens: List<Token>,
         root: NodeBuilder? = null,
     ): AbstractSyntaxTree {
-        if (tokens[0].getType() === Types.FUNCTION) {
+        if (firstValueIsFunction(tokens)) {
             val functionNode = FunctionFactory().createAST(tokens)
             if (root != null) {
                 root.setRight(functionNode)
             } else {
                 return functionNode
             }
-        } else if (tokens[0].getType() === Types.READENV) {
-            val readEnvNode = ReadEnvFactory().createAST(tokens)
-            if (root != null) {
-                root.setRight(readEnvNode)
-            } else {
-                return readEnvNode
-            }
         } else {
-            val sumIndex =
-                tokens.indexOfFirst { it.getValue() == "+" || it.getValue() == "-" || it.getValue() == "*" || it.getValue() == "/" }
-            return if (sumIndex == -1) {
-                root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build()
-                    ?: NodeBuilder().setValue(tokens[0]).build()
-            } else {
-                OperationFactory().createAST(tokens).also {
-                    root?.setRight(it)
-                }
-            }
+            return manageOperation(tokens, root)
         }
         return root.build()
     }
+
+    private fun manageOperation(
+        tokens: List<Token>,
+        root: NodeBuilder?,
+    ): AbstractSyntaxTree {
+        val sumIndex = getOperationToken(tokens)
+        return if (sumIndex == -1) {
+            root?.setRight(NodeBuilder().setValue(tokens[0]).build())?.build()
+                ?: NodeBuilder().setValue(tokens[0]).build()
+        } else {
+            OperationFactory().createAST(tokens).also {
+                root?.setRight(it)
+            }
+        }
+    }
+
+    private fun getOperationToken(tokens: List<Token>) =
+        tokens.indexOfFirst { it.getValue() == "+" || it.getValue() == "-" || it.getValue() == "*" || it.getValue() == "/" }
+
+    private fun firstValueIsFunction(tokens: List<Token>) = tokens[0].getType() === Types.FUNCTION
 }
