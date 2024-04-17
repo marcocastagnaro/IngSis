@@ -17,16 +17,20 @@ class ConditionalInterpreter(
         inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         if (isConditionTrue(tree, variables)) {
-            val body = tree.getLeft()!!.getRight() as ConditionalLeaf
+            val body = getIfTrueBody(tree)
             return solveBody(body, variables, inmutableList)
         } else {
             if (tree.getRight() == null) {
                 return variables
             }
-            val body = tree.getRight()!!.getRight() as ConditionalLeaf
+            val body = getElseBody(tree)
             return solveBody(body, variables, inmutableList)
         }
     }
+
+    private fun getElseBody(tree: AbstractSyntaxTree) = tree.getRight()!!.getRight() as ConditionalLeaf
+
+    private fun getIfTrueBody(tree: AbstractSyntaxTree) = tree.getLeft()!!.getRight() as ConditionalLeaf
 
     private fun isConditionTrue(
         tree: AbstractSyntaxTree,
@@ -45,14 +49,38 @@ class ConditionalInterpreter(
         inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         val tempMap = HashMap(variables)
+        interpretASTs(tree, tempMap, inmutableList)
+        return tempMap.toMap()
+    }
+
+    private fun interpretASTs(
+        tree: ConditionalLeaf,
+        tempMap: HashMap<VariableToken, String?>,
+        inmutableList: MutableList<String>,
+    ) {
         for (subTree in tree.getBody()) {
             when (subTree.getToken().getType()) {
                 Types.KEYWORD -> tempMap.putAll(DeclarationInterpreter().interpret(subTree, tempMap, inmutableList))
-                Types.ASSIGNATION -> tempMap.putAll(AssignationInterpreter(inputReader, output).interpret(subTree, tempMap, inmutableList))
-                Types.FUNCTION -> tempMap.putAll(PrintInterpreter(inputReader, output).interpret(subTree, tempMap, inmutableList))
+                Types.ASSIGNATION ->
+                    tempMap.putAll(
+                        AssignationInterpreter(inputReader, output).interpret(
+                            subTree,
+                            tempMap,
+                            inmutableList,
+                        ),
+                    )
+
+                Types.FUNCTION ->
+                    tempMap.putAll(
+                        PrintInterpreter(inputReader, output).interpret(
+                            subTree,
+                            tempMap,
+                            inmutableList,
+                        ),
+                    )
+
                 else -> throw IllegalArgumentException("Unsupported token type: ${subTree.getToken().getType()}")
             }
         }
-        return tempMap.toMap()
     }
 }

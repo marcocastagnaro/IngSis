@@ -5,6 +5,9 @@ import org.example.InterpreterStrategy
 import org.example.Output
 import org.example.Types
 import org.example.inputReader.InputReaderType
+import org.example.strategies.strategyHelpers.OperationInterpreter
+import org.example.strategies.strategyHelpers.ReadEnvInterpreter
+import org.example.strategies.strategyHelpers.ReadInputInterpreter
 
 class AssignationInterpreter(
     private val inputReader: InputReaderType,
@@ -16,17 +19,15 @@ class AssignationInterpreter(
         inmutableList: MutableList<String>,
     ): Map<VariableToken, String?> {
         val tempMap = variables.toMutableMap()
-        if (tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER) {
-            val variable = tree.getLeft()?.getToken()?.getValue()
-            if (variable in inmutableList) {
-                throw IllegalArgumentException("Variable $variable es inmutable")
-            }
+        if (isAssignation(tree)) {
+            val variable = getVariableFromAssignation(tree)
+            checkVAriableIsNotConst(variable, inmutableList)
             val value = getTokenValue(tree.getRight()!!, variables)
-            val actualValue = tempMap.entries.firstOrNull { it.key.value == variable }
+            val actualValue = getActualValue(tempMap, variable)
             if (actualValue != null) {
-                tempMap[VariableToken(variable!!, actualValue.key.type)] = value
+                updateValue(tempMap, variable, actualValue, value)
             } else {
-                throw IllegalArgumentException("Variable $variable no declarada")
+                throw IllegalArgumentException("Variable $variable not declared")
             }
         } else {
             addValuesToMap(tree, tempMap, inmutableList)
@@ -34,20 +35,54 @@ class AssignationInterpreter(
         return tempMap
     }
 
+    private fun updateValue(
+        tempMap: MutableMap<VariableToken, String?>,
+        variable: String?,
+        actualValue: MutableMap.MutableEntry<VariableToken, String?>,
+        value: String?,
+    ) {
+        tempMap[VariableToken(variable!!, actualValue.key.type)] = value
+    }
+
+    private fun getActualValue(
+        tempMap: MutableMap<VariableToken, String?>,
+        variable: String?,
+    ) = tempMap.entries.firstOrNull { it.key.value == variable }
+
+    private fun checkVAriableIsNotConst(
+        variable: String?,
+        inmutableList: MutableList<String>,
+    ) {
+        if (variable in inmutableList) {
+            throw IllegalArgumentException("Variable $variable es inmutable")
+        }
+    }
+
+    private fun isAssignation(tree: AbstractSyntaxTree) = tree.getLeft()?.getToken()?.getType() == Types.IDENTIFIER
+
     private fun addValuesToMap(
         tree: AbstractSyntaxTree,
         variables: MutableMap<VariableToken, String?>,
         inmutableList: MutableList<String>,
     ) {
-        val keyword = tree.getLeft()?.getToken()?.getValue()
+        val keyword = getVariableFromAssignation(tree)
         if (keyword == "const") {
-            tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
+            addToInmutableList(tree, inmutableList)
         }
         val variable = getVariable(tree)
         val type = getType(tree)
         val value = getTokenValue(tree.getRight()!!, variables)
         addVariable(variable!!, type, value!!, variables)
     }
+
+    private fun addToInmutableList(
+        tree: AbstractSyntaxTree,
+        inmutableList: MutableList<String>,
+    ) {
+        tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()?.let { inmutableList.add(it) }
+    }
+
+    private fun getVariableFromAssignation(tree: AbstractSyntaxTree) = tree.getLeft()?.getToken()?.getValue()
 
     private fun getVariable(tree: AbstractSyntaxTree): String? {
         return tree.getLeft()?.getRight()?.getLeft()?.getToken()?.getValue()

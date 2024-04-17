@@ -5,6 +5,9 @@ import org.example.InterpreterStrategy
 import org.example.Output
 import org.example.Types
 import org.example.inputReader.InputReaderType
+import org.example.strategies.strategyHelpers.OperationInterpreter
+import org.example.strategies.strategyHelpers.ReadEnvInterpreter
+import org.example.strategies.strategyHelpers.ReadInputInterpreter
 
 class PrintInterpreter(
     private val inputReader: InputReaderType,

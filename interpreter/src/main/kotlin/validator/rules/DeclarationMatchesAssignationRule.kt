@@ -2,6 +2,7 @@ package org.example.validator.rules
 
 import org.example.AbstractSyntaxTree
 import org.example.ParseTreeToTokens
+import org.example.Token
 import org.example.Types
 import org.example.strategies.VariableToken
 import org.example.validator.ValidationRule
@@ -11,31 +12,58 @@ class DeclarationMatchesAssignationRule : ValidationRule {
         input: AbstractSyntaxTree,
         variables: Map<VariableToken, String?>,
     ): Boolean {
-        val listOfTokens = ParseTreeToTokens().parseToTokens(input)
-        val symbol = listOfTokens.find { it.getType() == Types.IDENTIFIER }?.getValue() ?: return true
-        listOfTokens.find { it.getType() == Types.ASSIGNATION }?.getValue() ?: return true
-        if (listOfTokens.any { it.getType() == Types.FUNCTION || it.getType() == Types.READENV }) return true
-        val declarationToken = listOfTokens.find { it.getType() == Types.DATA_TYPE }?.getValue() ?: findVariableInMap(symbol, variables)
-        val values: List<String> =
-            listOfTokens.filter { it.getType() == Types.LITERAL || it.getType() == Types.BOOLEAN }.map {
-                it.getValue()
-            }
+        val listOfTokens = getTokens(input)
+        val symbol = getIdentifier(listOfTokens) ?: return true
+        checkIsAssignation(listOfTokens) ?: return true
+        if (checkIsNotFunction(listOfTokens)) return true
+        val declarationToken = getAssginationToken(listOfTokens, symbol, variables)
+        val values: List<String> = getAllValuesInAssignation(listOfTokens)
         if (declarationToken == null) throw Exception("Variable $symbol not declared")
+        return validateAssignedValuesAreCorrect(declarationToken, values)
+    }
+
+    private fun validateAssignedValuesAreCorrect(
+        declarationToken: String,
+        values: List<String>,
+    ): Boolean {
         when (declarationToken) {
             "number" -> {
                 return checkValuesAreNumeric(values)
             }
+
             "string" -> {
                 return checkAtLeastOneValueIsString(values)
             }
+
             "boolean" -> {
                 return checkValueIsBoolean(values)
             }
+
             else -> {
                 return false
             }
         }
     }
+
+    private fun getAllValuesInAssignation(listOfTokens: MutableList<Token>) =
+        listOfTokens.filter { it.getType() == Types.LITERAL || it.getType() == Types.BOOLEAN }.map {
+            it.getValue()
+        }
+
+    private fun getAssginationToken(
+        listOfTokens: MutableList<Token>,
+        symbol: String,
+        variables: Map<VariableToken, String?>,
+    ) = listOfTokens.find { it.getType() == Types.DATA_TYPE }?.getValue() ?: findVariableInMap(symbol, variables)
+
+    private fun checkIsNotFunction(listOfTokens: MutableList<Token>) =
+        listOfTokens.any { it.getType() == Types.FUNCTION || it.getType() == Types.READENV }
+
+    private fun checkIsAssignation(listOfTokens: MutableList<Token>) = listOfTokens.find { it.getType() == Types.ASSIGNATION }?.getValue()
+
+    private fun getIdentifier(listOfTokens: MutableList<Token>) = listOfTokens.find { it.getType() == Types.IDENTIFIER }?.getValue()
+
+    private fun getTokens(input: AbstractSyntaxTree) = ParseTreeToTokens().parseToTokens(input)
 
     private fun checkValueIsBoolean(values: List<String>): Boolean {
         if (values.size > 1) return false

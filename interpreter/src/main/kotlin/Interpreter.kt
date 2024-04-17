@@ -17,6 +17,22 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     private val validator: Validator = Validator()
 
     fun execute(trees: List<AbstractSyntaxTree>): Output {
+        interpretASTs(trees)
+        validateCode(trees)
+        formatOutput()
+        return output
+    }
+
+    private fun formatOutput() {
+        checkRemainingPrints()
+        output.removeLastNewLine()
+    }
+
+    private fun validateCode(trees: List<AbstractSyntaxTree>) {
+        if (!validator.validate(trees, variables)) throw Exception("Invalid syntax")
+    }
+
+    private fun interpretASTs(trees: List<AbstractSyntaxTree>) {
         output.setOutput("")
         for (tree in trees) {
             when (tree.getToken().getType()) {
@@ -27,10 +43,6 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
                 else -> continue
             }
         }
-        if (!validator.validate(trees, variables)) throw Exception("Invalid syntax")
-        checkRemainingPrints()
-        output.removeLastNewLine()
-        return output
     }
 
     private fun checkRemainingPrints() {

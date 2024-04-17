@@ -91,7 +91,7 @@ class PrintScript1 {
             val result = interpreter.execute(trees)
             assertEquals("Invalid syntax", result.string)
         } catch (e: Exception) {
-            assertEquals("Variable player no declarada", e.message)
+            assertEquals("Variable player not declared", e.message)
         }
     }
 
