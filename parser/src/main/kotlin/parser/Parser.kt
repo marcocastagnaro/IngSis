@@ -69,10 +69,9 @@ class Parser {
                 singleRow = mutableListOf()
             }
         }
-        if (rows.isEmpty())
-            {
-                throw Exception("Error: Not valid code.")
-            }
+        if (rows.isEmpty()) {
+            throw Exception("Error: Not valid code.")
+        }
         return rows
     }
 }
