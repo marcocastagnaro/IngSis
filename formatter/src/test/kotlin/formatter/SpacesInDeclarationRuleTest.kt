@@ -8,7 +8,7 @@ class SpacesInDeclarationRuleTest {
     @Test
     fun `test 001 simple two points testing only space after`() {
         val declaration = "let x : number = 8;"
-        val tokens = Lexer(ValueMapper()).execute(declaration)
+        val tokens = Lexer("1.1").execute(declaration)
         assertEquals("let", tokens[0].getValue())
         assertEquals("x", tokens[1].getValue())
         assertEquals(":", tokens[2].getValue())

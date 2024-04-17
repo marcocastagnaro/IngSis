@@ -7,7 +7,6 @@ import org.example.Position
 import org.example.PrintNode
 import org.example.Token
 import org.example.Types
-import org.example.ValueMapper
 import org.example.sca.ScaImpl
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -53,7 +52,7 @@ class ScaTest {
         val sca = ScaImpl()
         sca.readJson("src/main/resources/linternRules.json")
         val input = "println(\"hola\" + \"juan\"); "
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val parser = Parser()
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)

@@ -3,7 +3,9 @@ package org.example
 import org.example.splittingStrategy.SplittingState
 import org.example.splittingStrategy.StrategyMapper
 
-class Lexer(private var map: ValueMapper = ValueMapper(), private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
+class Lexer(private val version: String, private val splitStrategyMapper: StrategyMapper = StrategyMapper()) {
+    private var map: ValueMapper = ValueMapper(version)
+
     fun execute(string: String): List<Token> {
         val updatedString = string.replace("\r", "")
         val rows = splitRows(updatedString)

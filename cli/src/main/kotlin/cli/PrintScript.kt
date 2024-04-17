@@ -11,11 +11,11 @@ import org.example.Lexer
 import org.example.Output
 import org.example.Parser
 import org.example.Token
-import org.example.ValueMapper
 import org.example.sca.ScaImpl
 import java.io.File
 
 class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
+    private val version by argument(help = "version")
     private val operation by argument(help = "apply operation")
         .choice("execute", "format", "analyze")
     private val source by argument(help = "source file path")
@@ -75,7 +75,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
     }
 
     private fun executeLexing(string: String): List<Token> {
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer(version)
         return lexer.execute(string)
     }
 

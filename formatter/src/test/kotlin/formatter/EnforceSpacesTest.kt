@@ -2,12 +2,11 @@ package org.example.formatter
 
 import org.example.Lexer
 import org.example.Parser
-import org.example.ValueMapper
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class EnforceSpacesTest {
-    val lexer = Lexer(ValueMapper())
+    val lexer = Lexer("1.1")
     val parser = Parser()
     val formatter = Formatter()
 

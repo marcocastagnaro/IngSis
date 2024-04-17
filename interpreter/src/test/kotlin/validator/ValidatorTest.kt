@@ -2,13 +2,12 @@ package validator
 
 import org.example.Lexer
 import org.example.Parser
-import org.example.ValueMapper
 import org.example.validator.Validator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class ValidatorTest {
-    val formatter = Lexer(ValueMapper())
+    val formatter = Lexer("1.1")
     val parser = Parser()
 
     @Test

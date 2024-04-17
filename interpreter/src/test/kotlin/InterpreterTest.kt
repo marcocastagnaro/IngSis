@@ -7,7 +7,7 @@ import kotlin.test.Test
 class InterpreterTest {
     val interpreter = Interpreter()
     val parser = Parser()
-    val lexer = Lexer(ValueMapper())
+    val lexer = Lexer("1.1")
 
     @Test
     fun testPrintOutput() {
@@ -77,7 +77,7 @@ class InterpreterTest {
             let y: number = 3;
             println(x + y);
             """.trimIndent()
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         println(tokens.map { it.getValue() })
         val parser = Parser()
@@ -516,7 +516,7 @@ class InterpreterTest {
             let z: number = 1;
             println(x + y + z);
             """.trimIndent()
-        val result = Interpreter().execute(Parser().execute(Lexer(ValueMapper()).execute(input)))
+        val result = Interpreter().execute(Parser().execute(Lexer("1.").execute(input)))
         assertEquals("10", result.string)
     }
 

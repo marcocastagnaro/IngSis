@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class RulesTest {
-    val lexer = Lexer(ValueMapper())
+    val lexer = Lexer("1.1")
     val parser = Parser()
     val parseTreeToTokens = ParseTreeToTokens()
 

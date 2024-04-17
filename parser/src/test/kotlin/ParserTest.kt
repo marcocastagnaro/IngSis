@@ -167,7 +167,7 @@ class ParserTest {
     @Test
     fun `test 006 variable with more than one value`() {
         val input = "let x : number = 5+5;println(x+70);"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.0")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -188,7 +188,7 @@ class ParserTest {
     @Test
     fun `test 007- should order prioritizing the operations`() {
         val input = "let x : number = 5+5*5;"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -211,7 +211,7 @@ class ParserTest {
     @Test
     fun `test 008 -should order prioritizing the operations`() {
         val input = "let x: number = 4 * 5 + 10 + 5*2;\n"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -238,7 +238,7 @@ class ParserTest {
     @Test
     fun `test 009 -should add readInput as a leaf node`() {
         val input = "let x: number = readInput();"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -257,7 +257,7 @@ class ParserTest {
     @Test
     fun `test 010 -should add readInput as tree with comment as leaf`() {
         val input = "let x: number = readInput(\"insert number here: \");"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         assertEquals("\"insert number here: \"", tokens[7].getValue())
         val parser = Parser()
@@ -275,7 +275,7 @@ class ParserTest {
     @Test
     fun `test 011 read env variable`() {
         val input = "let x : string = readEnv(\"JOAFAC\");"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -285,7 +285,7 @@ class ParserTest {
     @Test
     fun `test 012 test println (read input)`() {
         val input = "println(readInput(\"Ingrese valor\"));"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
@@ -298,7 +298,7 @@ class ParserTest {
 //    @Test
 //    fun `test 013 test println readEnv`() {
 //        val input = "println(readEnv(\"JOAFAC\"));"
-//        val lexer = Lexer(ValueMapper())
+//        val lexer = Lexer("1.1)
 //        val tokens = lexer.execute(input)
 //        val parser = Parser()
 //        val trees = parser.execute(tokens)

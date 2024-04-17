@@ -2,11 +2,10 @@ package formatter
 
 import org.example.Lexer
 import org.example.Parser
-import org.example.ValueMapper
 import org.example.formatter.Formatter
 
 class GenericFormatTests {
-    val lexer = Lexer(ValueMapper())
+    val lexer = Lexer("1.1")
     val formatter = Formatter()
     val parser = Parser()
 

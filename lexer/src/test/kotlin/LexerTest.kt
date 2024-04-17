@@ -4,7 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LexerTest {
-    private val lexer = Lexer(ValueMapper())
+    private val lexer = Lexer("1.1")
 
     @Test
     fun simpleLexing() {

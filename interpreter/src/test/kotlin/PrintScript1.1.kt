@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class PrintScript1 {
     @Test
     fun `test 001 readlinePrint`() {
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val interpreter = Interpreter(DummyInputReader())
         var result = ""
         val input =
@@ -29,7 +29,7 @@ class PrintScript1 {
         val input = """
                let numberResult: number = 5 * 5 - 8;
                println(numberResult);"""
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val interpreter = Interpreter(DummyInputReader())
         val parser = Parser()
         val tokens = lexer.execute(input)
@@ -45,7 +45,7 @@ class PrintScript1 {
             "const booleanValue: boolean = true;\r\nif(booleanValue) {\r\nprintln(\"if statement is not working correctly\");}\r\nprintln(\"outside of conditional\");".split(
                 "if(",
             ).toMutableList()
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val interpreter = Interpreter(DummyInputReader())
         var result = ""
         input.set(1, "if(" + input[1])
@@ -65,7 +65,7 @@ class PrintScript1 {
                 const name: string;
                 name = 13;
                 """.trimIndent()
-            val lexer = Lexer(ValueMapper())
+            val lexer = Lexer("1.1")
             val interpreter = Interpreter(DummyInputReader())
             val tokens = lexer.execute(input)
             val trees = Parser().execute(tokens)
@@ -84,7 +84,7 @@ class PrintScript1 {
                 const name: string;
                 player = 13;
                 """.trimIndent()
-            val lexer = Lexer(ValueMapper())
+            val lexer = Lexer("1.1")
             val interpreter = Interpreter(DummyInputReader())
             val tokens = lexer.execute(input)
             val trees = Parser().execute(tokens)
@@ -98,7 +98,7 @@ class PrintScript1 {
     @Test
     fun `simple passing validation`() {
         val input = "let x: number = 8;"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val interpreter = Interpreter(DummyInputReader())
         val tokens = lexer.execute(input)
         val trees = Parser().execute(tokens)

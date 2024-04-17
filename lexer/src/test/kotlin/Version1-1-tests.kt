@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class `Version1-1-tests` {
-    val lexer = Lexer()
+    val lexer = Lexer("1.1")
 
     @Test
     fun `test 001- should recognize the const keyword const`() {

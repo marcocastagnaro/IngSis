@@ -7,7 +7,7 @@ class SecondTestsForParser {
     @Test
     fun `test 012 test println (read input)`() {
         val input = "println(readInput(\"Ingrese valor\"));"
-        val lexer = Lexer(ValueMapper())
+        val lexer = Lexer("1.1")
         val tokens = lexer.execute(input)
         val parser = Parser()
         val trees = parser.execute(tokens)
