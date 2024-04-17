@@ -18,7 +18,7 @@ class Lexer(private val version: String, private val splitStrategyMapper: Strate
     }
 
     private fun splitRows(string: String): List<String> {
-        return string.split(";")
+        return string.split("(?<=;)(?=\\R|$)".toRegex())
     }
 
     private fun splitRow(
@@ -29,6 +29,7 @@ class Lexer(private val version: String, private val splitStrategyMapper: Strate
         val splittingState = SplittingState(-1, false, false)
         string.forEachIndexed { index, char ->
             val strategy = splitStrategyMapper.getStrategy(char.toString())
+            val chart = char.toString()
             if (strategy != null) {
                 strategy.split(string, row, tokens, splittingState, index, char)
                 if (char == '"') {
@@ -36,7 +37,6 @@ class Lexer(private val version: String, private val splitStrategyMapper: Strate
                 }
             }
         }
-        splitStrategyMapper.getStrategy(";")?.split(string, row, tokens, splittingState, string.length, ';')
         return tokens
     }
 }

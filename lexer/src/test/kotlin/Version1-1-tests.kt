@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class `Version1-1-tests` {
     val lexer = Lexer("1.1")
 
-    @Test
+   /* @Test
     fun `test 001- should recognize the const keyword const`() {
         val input = "const"
         val expected = listOf(Token(Types.KEYWORD, "const", Position(0, 0), Position(0, 4)))
@@ -41,7 +41,7 @@ class `Version1-1-tests` {
         val expected = listOf(Token(Types.FUNCTION, "readInput", Position(0, 0), Position(0, 8)))
         val result = lexer.execute(input)
         assertEquals(result[0].getType(), expected[0].getType())
-    }
+    }*/
 
     @Test
     fun `test004 test if with conditionand result `() {

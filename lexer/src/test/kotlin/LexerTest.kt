@@ -142,4 +142,12 @@ class LexerTest {
         val result = lexer.execute(input)
         System.out.println(result.map { it.getValue() })
     }
+
+    @Test
+    fun simplePrint() {
+        val intput = "println(\"Hello World\")"
+        val result = lexer.execute(intput)
+        System.out.println(result.map { it.getValue() })
+        assertEquals(4, result.size)
+    }
 }
