@@ -1,6 +1,7 @@
 package org.example
 
 import org.example.formatter.Formatter
+import org.example.parser.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.parser.Parser
 import org.example.rules.rulesImpls.CamelCase
 import org.example.rules.rulesImpls.PrintWithoutExpresion
 import org.example.rules.rulesImpls.SnakeCase

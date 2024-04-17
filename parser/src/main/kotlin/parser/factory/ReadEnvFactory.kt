@@ -1,10 +1,10 @@
-package org.example.factory
+package org.example.parser.factory
 
-import org.example.ASTFactory
 import org.example.AbstractSyntaxTree
 import org.example.NodeBuilder
 import org.example.Token
 import org.example.Types
+import org.example.parser.ASTFactory
 
 class ReadEnvFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
@@ -42,22 +42,6 @@ class ReadEnvFactory : ASTFactory {
     }
 
     private fun variableDeclaration(tokens: List<Token>): AbstractSyntaxTree {
-        val declarationToken = tokens.find { it.getType() == Types.DECLARATOR }
-        val root = NodeBuilder()
-        if (declarationToken != null) {
-            root.setValue(declarationToken)
-        }
-        val identifierToken = tokens.find { it.getType() == Types.IDENTIFIER }!!
-        root.setLeft(NodeBuilder().setValue(identifierToken).build())
-        val dataTypeToken = tokens.find { it.getType() == Types.DATA_TYPE }!!
-        root.setRight(NodeBuilder().setValue(dataTypeToken).build())
-
-        val realRoot = NodeBuilder()
-        val letToken = tokens.find { it.getType() == Types.KEYWORD }
-        if (letToken != null) {
-            realRoot.setValue(letToken)
-        }
-        realRoot.setRight(root.build())
-        return realRoot.build()
+        return DeclarationFactory().createAST(tokens)
     }
 }

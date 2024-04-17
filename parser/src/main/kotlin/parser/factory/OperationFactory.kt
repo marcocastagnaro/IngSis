@@ -1,4 +1,4 @@
-package org.example.factory
+package org.example.parser.factory
 
 import org.example.AbstractSyntaxTree
 import org.example.Leaf

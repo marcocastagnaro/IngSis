@@ -2,11 +2,11 @@
 
 import org.example.Leaf
 import org.example.Lexer
-import org.example.Parser
 import org.example.Position
 import org.example.PrintNode
 import org.example.Token
 import org.example.Types
+import org.example.parser.Parser
 import org.example.sca.ScaImpl
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

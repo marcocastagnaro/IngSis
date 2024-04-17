@@ -1,4 +1,10 @@
-package org.example
+package org.example.parser.factory
+
+import org.example.AbstractSyntaxTree
+import org.example.NodeBuilder
+import org.example.Token
+import org.example.Types
+import org.example.parser.ASTFactory
 
 class DeclarationFactory : ASTFactory {
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {

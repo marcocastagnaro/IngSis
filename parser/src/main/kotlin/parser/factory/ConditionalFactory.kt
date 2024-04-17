@@ -1,15 +1,15 @@
-package org.example.factory
+package org.example.parser.factory
 
-import org.example.ASTFactory
 import org.example.AbstractSyntaxTree
 import org.example.CompositeAbstractSyntaxTree
 import org.example.ConditionalBuilder
 import org.example.ConditionalLeaf
-import org.example.Parser
 import org.example.Token
 import org.example.Types
+import org.example.parser.ASTFactory
+import org.example.parser.Parser
 
-class ConditionalFactory2() : ASTFactory {
+class ConditionalFactory() : ASTFactory {
     private val conditionalState = ConditionalState(-1, -1)
 
     override fun createAST(tokens: List<Token>): AbstractSyntaxTree {
