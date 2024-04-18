@@ -90,12 +90,6 @@ class InterpreterTest {
 
     @Test
     fun testMultiplicationVariables() {
-        val input =
-            """
-            let x: number = 2;
-            let y: number = 3;
-            println(x * y);
-            """.trimIndent()
         val trees =
             listOf(
                 CompositeAbstractSyntaxTree(
@@ -230,12 +224,6 @@ class InterpreterTest {
 
     @Test
     fun testDivisionVariables() {
-        val input =
-            """
-            let x: number = 6;
-            let y: number = 3;
-            println(x / y);
-            """.trimIndent()
         val trees =
             listOf(
                 CompositeAbstractSyntaxTree(
@@ -739,5 +727,25 @@ class InterpreterTest {
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
         assertEquals("10", result.string)
+    }
+
+    @Test
+    fun testingConditional() {
+        val input =
+            """
+            let x: boolean = false;
+            if(x) {
+                println("Hola");
+            } else {
+                println("Chau");
+                println("adios");
+                println("hasta luego");
+            }
+            println("outside of conditional");
+            """.trimIndent()
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = interpreter.execute(trees)
+        assertEquals("Chau\nadios\nhasta luego\noutside of conditional", result.string)
     }
 }

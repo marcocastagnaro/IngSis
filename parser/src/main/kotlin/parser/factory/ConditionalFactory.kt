@@ -109,7 +109,7 @@ class ConditionalFactory() : ASTFactory {
         root: ConditionalBuilder,
         parser: Parser,
     ) {
-        val conditionalToken = tokens[conditionalState.indexEnteringElse - 5]
+        val conditionalToken = tokens[conditionalState.indexEnteringElse - 2]
         val listOfTrees = parser.execute(tokens.slice(conditionalState.indexEnteringElse until index))
         val elseTree = createConditionalTree(conditionalToken, listOfTrees)
         root.setRight(elseTree)

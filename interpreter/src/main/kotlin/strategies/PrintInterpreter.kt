@@ -8,6 +8,7 @@ import org.example.inputReader.InputReaderType
 import org.example.strategies.strategyHelpers.OperationInterpreter
 import org.example.strategies.strategyHelpers.ReadEnvInterpreter
 import org.example.strategies.strategyHelpers.ReadInputInterpreter
+import kotlin.collections.HashMap
 
 class PrintInterpreter(
     private val inputReader: InputReaderType,
@@ -19,7 +20,17 @@ class PrintInterpreter(
         inmutableList: MutableList<String>,
     ): Map<VariableToken, String> {
         val result = evaluateNode(tree.getRight()!!, variables)
-        return hashMapOf(VariableToken("printResult", TokenType.PRINT) to removeStringQuotes(result.toString()))
+        return hashMapOf(VariableToken(getId(variables), TokenType.PRINT) to removeStringQuotes(result.toString()))
+    }
+
+    private fun getId(variables: HashMap<VariableToken, String?>): String {
+        val maxValue =
+            variables.entries
+                .filter { it.key.type == TokenType.PRINT } // Filter entries with TokenType.PRINT
+                .mapNotNull { it.key.value.toIntOrNull() } // Convert values to Int, ignoring null values
+                .maxOrNull() // Find the maximum value
+
+        return (maxValue?.plus(1) ?: 0).toString() // Return the maximum value + 1, or 0 if no value is found
     }
 
     private fun removeStringQuotes(value: String): String {

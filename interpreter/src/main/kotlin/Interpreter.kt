@@ -46,10 +46,13 @@ class Interpreter(private val inputReader: InputReaderType = ReadInputFromTermin
     }
 
     private fun checkRemainingPrints() {
-        val remainingPrints = variables.filter { it.key.type == TokenType.PRINT }
+        val remainingPrints =
+            variables.filter { it.key.type == TokenType.PRINT }
+                .toSortedMap(compareBy { it.value.toInt() })
+
         val tempOutput = Output()
         for (print in remainingPrints) {
-            print.value?.let { tempOutput.buildOutput(it + "\n") }
+            print.value.let { tempOutput.buildOutput(it + "\n") }
         }
         output.setOutput(tempOutput.string + output.string)
     }
