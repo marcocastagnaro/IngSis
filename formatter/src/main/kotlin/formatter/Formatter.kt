@@ -1,13 +1,17 @@
 package org.example.formatter
 
 import org.example.AbstractSyntaxTree
+import org.example.ParseToTokens
 import org.example.ParseTreeToTokens
 import org.example.Token
 
-class Formatter(val formatPath: String = "src/main/resources/formatter/StandardRules.json") {
+class Formatter(
+    private val formatPath: String = "src/main/resources/formatter/StandardRules.json",
+    val parser: ParseToTokens = ParseTreeToTokens(),
+) {
     private val formatRules: List<FormatRule> = JsonDeserialization().getRulesFromJson(formatPath)
 
-    val mandatoryRules =
+    private val mandatoryRules =
         listOf(
             EnforceSpaces(1),
             AddBrackets(),
@@ -17,7 +21,7 @@ class Formatter(val formatPath: String = "src/main/resources/formatter/StandardR
     fun execute(trees: List<AbstractSyntaxTree>): String {
         val formattedCode = mutableListOf<String>()
         for (tree in trees) {
-            val tokens = ParseTreeToTokens().parseToTokens(tree)
+            val tokens = parser.parseToTokens(tree)
             formattedCode.add(giveFormat(tokens))
         }
         return formattedCode.joinToString("")

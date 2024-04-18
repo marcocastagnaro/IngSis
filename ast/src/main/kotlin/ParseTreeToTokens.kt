@@ -1,7 +1,7 @@
 package org.example
 
-class ParseTreeToTokens {
-    fun parseToTokens(root: AbstractSyntaxTree): MutableList<Token> {
+class ParseTreeToTokens : ParseToTokens {
+    override fun parseToTokens(root: AbstractSyntaxTree): MutableList<Token> {
         val tokenList: MutableList<Token> = mutableListOf()
         getTokens(root, tokenList)
         return tokenList
@@ -17,9 +17,6 @@ class ParseTreeToTokens {
         tokenList.add(root.getToken())
         if (root.getRight() != null) {
             getTokens(root.getRight()!!, tokenList)
-        }
-        if (root.getToken().getType() == Types.CONDITIONAL) {
-            root.getBody()?.map { getTokens(it, tokenList) }
         }
     }
 }
