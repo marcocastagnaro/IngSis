@@ -9,12 +9,8 @@ class PrintWithoutExpresion(private var errorMessage: String = "Println must not
     private val brokenRules = mutableListOf<BrokenRule>()
 
     private fun checkIsPrintln(tokenList: List<Token>): Boolean {
-        for (token in tokenList) {
-            if (isPrintLn(token)) {
-                return true
-            }
-        }
-        return false
+        val firstToken = tokenList[0]
+        return isPrintLn(firstToken)
     }
 
     private fun isPrintLn(token: Token) =
