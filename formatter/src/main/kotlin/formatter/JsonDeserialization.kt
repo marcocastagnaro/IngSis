@@ -7,6 +7,7 @@ data class FormattingRules(
     val SpacesAfterDeclaration: Boolean,
     val SpacesInAssignation: Boolean,
     val NewLinesBeforePrintln: Int,
+    val SpacesInIndentation: Int,
 )
 
 class JsonDeserialization {
@@ -16,6 +17,7 @@ class JsonDeserialization {
         val rules = mapper.readValue(file, FormattingRules::class.java)
         val listOfRules = mutableListOf<FormatRule>()
         listOfRules.add(SpacesInDeclarationRule(rules.SpacesBeforeDeclaration, rules.SpacesAfterDeclaration))
+        listOfRules.add(ConditionalFormatter(rules.SpacesInIndentation))
         if (!rules.SpacesInAssignation) {
             listOfRules.add(NoSpacesInAssignationRule())
         }

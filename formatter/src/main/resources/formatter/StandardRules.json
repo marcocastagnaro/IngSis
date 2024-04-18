@@ -2,5 +2,6 @@
   "NewLinesBeforePrintln": 1,
   "SpacesBeforeDeclaration": false,
   "SpacesAfterDeclaration": true,
-  "SpacesInAssignation": true
+  "SpacesInAssignation": true,
+  "SpacesInIndentation": 4
 }
