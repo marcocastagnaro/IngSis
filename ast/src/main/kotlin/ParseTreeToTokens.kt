@@ -18,5 +18,8 @@ class ParseTreeToTokens {
         if (root.getRight() != null) {
             getTokens(root.getRight()!!, tokenList)
         }
+        if (root.getToken().getType() == Types.CONDITIONAL) {
+            root.getBody()?.map { getTokens(it, tokenList) }
+        }
     }
 }
