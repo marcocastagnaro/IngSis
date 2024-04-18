@@ -3,7 +3,6 @@ package formatter
 import org.example.Lexer
 import org.example.formatter.Formatter
 import org.example.parser.Parser
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class ConditionalsRules {
@@ -28,7 +27,7 @@ class ConditionalsRules {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-    //  assertEquals("let x: boolean = false; if(x){\n println(\"Hola\");\n else {\n println(\"chau\");\n}", result)
+        //  assertEquals("let x: boolean = false; if(x){\n println(\"Hola\");\n else {\n println(\"chau\");\n}", result)
     }
 
     @Test
@@ -50,6 +49,6 @@ class ConditionalsRules {
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = formatter.execute(trees)
-    //  assertEquals("let x: boolean = false; if(x){\n println(\"Hola\");\n else {\n println(\"chau\");\n}", result)
+        //  assertEquals("let x: boolean = false; if(x){\n println(\"Hola\");\n else {\n println(\"chau\");\n}", result)
     }
 }
