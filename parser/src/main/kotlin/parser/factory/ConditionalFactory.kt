@@ -83,29 +83,48 @@ class ConditionalFactory() : ASTFactory {
         conditionalState.alreadyEntered = true
         if (punctuator == "}") {
             if (conditionalState.indexEnteringIf != -1) {
-                val conditionalToken = tokens[conditionalState.indexEnteringIf - 5]
-                val listOfTrees = parser.execute(tokens.slice(conditionalState.indexEnteringIf until index))
-                val ifTree =
-                    CompositeAbstractSyntaxTree(
-                        tokens[conditionalState.indexEnteringIf - 5],
-                        null,
-                        ConditionalLeaf(conditionalToken, listOfTrees),
-                    )
-                root.setLeft(ifTree)
-                conditionalState.indexEnteringIf = -1
+                handleIfBranch(tokens, index, root, parser)
             } else {
-                val conditionalToken = tokens[conditionalState.indexEnteringElse - 5]
-                val listOfTrees = parser.execute(tokens.slice(conditionalState.indexEnteringElse until index))
-                val elseTree =
-                    CompositeAbstractSyntaxTree(
-                        tokens[conditionalState.indexEnteringElse - 5],
-                        null,
-                        ConditionalLeaf(conditionalToken, listOfTrees),
-                    )
-                root.setRight(elseTree)
-                conditionalState.indexEnteringElse = -1
+                handleElseBranch(tokens, index, root, parser)
             }
         }
+    }
+
+    private fun handleIfBranch(
+        tokens: List<Token>,
+        index: Int,
+        root: ConditionalBuilder,
+        parser: Parser,
+    ) {
+        val conditionalToken = tokens[conditionalState.indexEnteringIf - 5]
+        val listOfTrees = parser.execute(tokens.slice(conditionalState.indexEnteringIf until index))
+        val ifTree = createConditionalTree(conditionalToken, listOfTrees)
+        root.setLeft(ifTree)
+        conditionalState.indexEnteringIf = -1
+    }
+
+    private fun handleElseBranch(
+        tokens: List<Token>,
+        index: Int,
+        root: ConditionalBuilder,
+        parser: Parser,
+    ) {
+        val conditionalToken = tokens[conditionalState.indexEnteringElse - 5]
+        val listOfTrees = parser.execute(tokens.slice(conditionalState.indexEnteringElse until index))
+        val elseTree = createConditionalTree(conditionalToken, listOfTrees)
+        root.setRight(elseTree)
+        conditionalState.indexEnteringElse = -1
+    }
+
+    private fun createConditionalTree(
+        conditionalToken: Token,
+        listOfTrees: List<AbstractSyntaxTree>,
+    ): CompositeAbstractSyntaxTree {
+        return CompositeAbstractSyntaxTree(
+            conditionalToken,
+            null,
+            ConditionalLeaf(conditionalToken, listOfTrees),
+        )
     }
 
     override fun canHandle(tokens: List<Token>): Boolean {
