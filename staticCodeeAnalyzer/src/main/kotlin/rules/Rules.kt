@@ -5,4 +5,6 @@ import org.example.brokenRule.BrokenRule
 
 interface Rules {
     fun applyRule(tokens: List<List<Token>>): List<BrokenRule>
+
+    fun getRuleName(): String
 }

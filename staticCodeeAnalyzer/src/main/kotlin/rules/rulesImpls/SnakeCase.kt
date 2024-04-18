@@ -12,7 +12,6 @@ class SnakeCase(var errorMessage: String = "The following identifier must be in 
         val tokenString = token.getValue()
         for (i in 1 until tokenString.length - 1) {
             val currentChar = tokenString[i]
-            // Verifica si el carácter actual es una letra en mayúscula
             if (currentChar.isUpperCase()) {
                 return false
             }
@@ -23,7 +22,7 @@ class SnakeCase(var errorMessage: String = "The following identifier must be in 
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (line in tokens) {
             for (token in line) {
-                if (token.getType() == Types.IDENTIFIER) {
+                if (isIdentifier(token)) {
                     if (!isSnakeCase(token)) {
                         brokenRules.add(BrokenRule(errorMessage, token.getInitialPosition()))
                     }
@@ -31,5 +30,11 @@ class SnakeCase(var errorMessage: String = "The following identifier must be in 
             }
         }
         return brokenRules
+    }
+
+    private fun isIdentifier(token: Token) = token.getType() == Types.IDENTIFIER
+
+    override fun getRuleName(): String {
+        return "SnakeCase"
     }
 }

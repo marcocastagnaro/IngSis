@@ -16,7 +16,7 @@ class CamelCase(private var errorMessage: String = "The following identifier mus
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (line in tokens) {
             for (token in line) {
-                if (token.getType() == Types.IDENTIFIER) {
+                if (isIdentifier(token)) {
                     if (!isCamelCase(token)) {
                         brokenRules.add(BrokenRule(errorMessage, token.getInitialPosition()))
                     }
@@ -24,5 +24,11 @@ class CamelCase(private var errorMessage: String = "The following identifier mus
             }
         }
         return brokenRules
+    }
+
+    private fun isIdentifier(token: Token) = token.getType() == Types.IDENTIFIER
+
+    override fun getRuleName(): String {
+        return "CamelCase"
     }
 }

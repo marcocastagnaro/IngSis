@@ -6,12 +6,15 @@ import org.example.Token
 import org.example.brokenRule.BrokenRule
 import org.example.rules.Rules
 import output.Output
+import rules.RulesFactory
 import sca.JsonReader
+import sca.ScaVersion
 import java.io.File
 
-class ScaImpl : Sca {
+class ScaImpl(private var version: ScaVersion) : Sca {
     private var rules: List<Rules> = listOf()
     private val jsonReader = JsonReader()
+    private val rulesFactory = RulesFactory()
 
     private fun createTokens(trees: List<AbstractSyntaxTree>): List<List<Token>> {
         val tokens = mutableListOf<List<Token>>()
@@ -22,8 +25,13 @@ class ScaImpl : Sca {
         return tokens
     }
 
+    fun getVersion(): ScaVersion {
+        return version
+    }
+
     override fun readJson(rulesPath: String) {
-        rules = jsonReader.getRulesFromJson(rulesPath)
+        var jsonRules = jsonReader.getRulesFromJson(rulesPath)
+        rules = rulesFactory.createRules(jsonRules, version)
     }
 
     override fun check(trees: List<AbstractSyntaxTree>): Output {

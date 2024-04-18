@@ -10,21 +10,30 @@ class PrintWithoutExpresion(private var errorMessage: String = "Println must not
 
     private fun checkIsPrintln(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
-            if (token.getType() == Types.FUNCTION && token.getValue().lowercase() == "println") {
+            if (isPrintLn(token)) {
                 return true
             }
         }
         return false
     }
 
+    private fun isPrintLn(token: Token) =
+        token.getType() == Types.FUNCTION &&
+            token.getValue().lowercase() == "println"
+
     private fun isAnExpresion(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
-            if (token.getType() != Types.PUNCTUATOR && token.getType() != Types.LITERAL && token.getType() != Types.IDENTIFIER) {
+            if (isExpresionType(token)) {
                 return true
             }
         }
         return false
     }
+
+    private fun isExpresionType(token: Token) =
+        token.getType() != Types.PUNCTUATOR &&
+            token.getType() != Types.LITERAL &&
+            token.getType() != Types.IDENTIFIER
 
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (tokenList in tokens) {
@@ -36,5 +45,9 @@ class PrintWithoutExpresion(private var errorMessage: String = "Println must not
             }
         }
         return brokenRules
+    }
+
+    override fun getRuleName(): String {
+        return "PrintWithoutExpresion"
     }
 }

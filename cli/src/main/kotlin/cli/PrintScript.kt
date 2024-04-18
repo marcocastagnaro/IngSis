@@ -12,6 +12,7 @@ import org.example.Output
 import org.example.Token
 import org.example.parser.Parser
 import org.example.sca.ScaImpl
+import sca.ScaVersion
 import java.io.File
 
 class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
@@ -37,7 +38,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)
-        val linter = ScaImpl()
+        val linter = ScaImpl(ScaVersion.VERSION_1_1)
         linter.readJson(filepathJSON!!)
         val result = linter.check(abstractSyntaxTrees)
         return result
