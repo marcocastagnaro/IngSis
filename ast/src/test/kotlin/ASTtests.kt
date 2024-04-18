@@ -6,7 +6,7 @@ import kotlin.test.assertTrue
 
 class ASTtests {
     @Test
-    fun `test 001 print abstract syntax tree`()  {
+    fun `test 001 print abstract syntax tree`() {
         val token = Token(Types.FUNCTION, "print", Position(0, 0), Position(0, 5))
         val printNode = PrintNode(token)
         val token2 = Token(Types.LITERAL, "Hello World", Position(0, 0), Position(0, 5))
@@ -16,7 +16,7 @@ class ASTtests {
     }
 
     @Test
-    fun `test 002 assignation abstract syntax tree`()  {
+    fun `test 002 assignation abstract syntax tree`() {
         val trees =
             listOf(
                 CompositeAbstractSyntaxTree(

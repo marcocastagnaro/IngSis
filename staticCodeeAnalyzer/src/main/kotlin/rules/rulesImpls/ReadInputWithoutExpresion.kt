@@ -10,21 +10,26 @@ class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs m
 
     private fun checkIsReadInput(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
-            if (token.getType() == Types.FUNCTION && token.getValue() == "readInput") {
+            if (isReadInput(token)) {
                 return true
             }
         }
         return false
     }
 
+    private fun isReadInput(token: Token) = token.getType() == Types.FUNCTION && token.getValue() == "readInput"
+
     private fun isAnExpression(tokenList: List<Token>): Boolean {
         for (token in tokenList) {
-            if (token.getType() != Types.PUNCTUATOR && token.getType() != Types.LITERAL && token.getType() != Types.IDENTIFIER) {
+            if (isExpresionType(token)) {
                 return true
             }
         }
         return false
     }
+
+    private fun isExpresionType(token: Token) =
+        token.getType() != Types.PUNCTUATOR && token.getType() != Types.LITERAL && token.getType() != Types.IDENTIFIER
 
     override fun applyRule(tokens: List<List<Token>>): List<BrokenRule> {
         for (tokenList in tokens) {
@@ -35,6 +40,10 @@ class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs m
             }
         }
         return brokenRules
+    }
+
+    override fun getRuleName(): String {
+        return "ReadInputWithoutExpresion"
     }
 
     private fun splitTokens(tokens: List<Token>): List<Token> {

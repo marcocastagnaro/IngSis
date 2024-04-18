@@ -9,6 +9,8 @@ import org.example.Types
 import org.example.parser.Parser
 import org.example.sca.ScaImpl
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import sca.ScaVersion
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -16,17 +18,17 @@ import kotlin.test.assertTrue
 class ScaTest {
     @Test
     fun test001_readJSON() {
-        val sca = ScaImpl()
+        val sca = ScaImpl(ScaVersion.VERSION_1_1)
         sca.readJson("src/main/resources/linternRules.json")
         assert(sca.getRules().size == 3)
-        assert(sca.getRules()[0].javaClass.simpleName == "CamelCase")
-        assert(sca.getRules()[1].javaClass.simpleName == "PrintWithoutExpresion")
-        assert(sca.getRules()[2].javaClass.simpleName == "ReadInputWithoutExpresion")
+        assert(sca.getRules()[0].getRuleName() == "CamelCase")
+        assert(sca.getRules()[1].getRuleName() == "PrintWithoutExpresion")
+        assert(sca.getRules()[2].getRuleName() == "ReadInputWithoutExpresion")
     }
 
     @Test
     fun test002_applyRules() {
-        val sca = ScaImpl()
+        val sca = ScaImpl(ScaVersion.VERSION_1_1)
         sca.readJson("src/main/resources/linternRules.json")
         val trees =
             listOf(
@@ -49,7 +51,7 @@ class ScaTest {
 
     @Test
     fun test003_outputTest() {
-        val sca = ScaImpl()
+        val sca = ScaImpl(ScaVersion.VERSION_1_1)
         sca.readJson("src/main/resources/linternRules.json")
         val input = "println(\"hola\" + \"juan\"); "
         val lexer = Lexer("1.1")
@@ -61,5 +63,13 @@ class ScaTest {
         assertFalse(output.isOk())
         assertTrue(output.getBrokenRules().size == 1)
         assertEquals("Println must not be called with an expression at line 0", output.getBrokenRules()[0])
+    }
+
+    @Test
+    fun test004_errorWhenWrongVersion() {
+        val sca = ScaImpl(ScaVersion.VERSION_1_0)
+        assertThrows<IllegalArgumentException> {
+            sca.readJson("src/main/resources/linternRules.json")
+        }
     }
 }
