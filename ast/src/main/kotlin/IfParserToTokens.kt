@@ -50,7 +50,10 @@ class IfParserToTokens : ParseToTokens {
             is ConditionalLeaf -> {
                 tokenList.add(root.getToken())
                 tokenList.add(Token(Types.PUNCTUATOR, "{", root.getToken().getFinalPosition(), root.getToken().getFinalPosition()))
-                root.getBody().map { getTokens(it, tokenList) }
+                root.getBody().map {
+                    getTokens(it, tokenList)
+                    tokenList.add(Token(Types.PUNCTUATOR, ";\n", root.getToken().getFinalPosition(), root.getToken().getFinalPosition()))
+                }
                 tokenList.add(Token(Types.PUNCTUATOR, "}", root.getToken().getFinalPosition(), root.getToken().getFinalPosition()))
             }
             else -> {
