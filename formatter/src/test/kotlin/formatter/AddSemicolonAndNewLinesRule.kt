@@ -18,4 +18,14 @@ class AddSemicolonAndNewLinesRule {
         val result = formater.execute(trees)
         assertEquals("let x: number;\n", result)
     }
+
+    @Test
+    fun `test 002 add the semicolon with new line`() {
+        val input = "let x : number;"
+        val tokens = lexer.execute(input)
+        val trees = parser.execute(tokens)
+        val result = formater.execute(trees)
+        assertEquals("let x: string;\n", result)
+    }
+
 }

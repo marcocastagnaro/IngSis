@@ -10,9 +10,12 @@ class SnakeCase(var errorMessage: String = "The following identifier must be in 
 
     private fun isSnakeCase(token: Token): Boolean {
         val tokenString = token.getValue()
-        for (i in 1 until tokenString.length - 1) {
+        for (i in 1 until
+            tokenString.length - 1) {
             val currentChar = tokenString[i]
-            if (currentChar.isUpperCase()) {
+            if (
+                currentChar.isUpperCase()
+            ) {
                 return false
             }
         }
