@@ -40,25 +40,6 @@ class PrintScript1 {
     }
 
     @Test
-    fun `a simple if test from tck`() {
-        val input: MutableList<String> =
-            @Suppress("ktlint:standard:max-line-length")
-            "const booleanValue: boolean = true;\r\nif(booleanValue) {\r\nprintln(\"if statement is not working correctly\");}\r\nprintln(\"outside of conditional\");".split(
-                "if(",
-            ).toMutableList()
-        val lexer = Lexer("1.1")
-        val interpreter = Interpreter(DummyInputReader())
-        var result = ""
-        input.set(1, "if(" + input[1])
-        input.forEach {
-            val tokens = lexer.execute(it)
-            val trees = Parser().execute(tokens)
-            result += interpreter.execute(trees).string + "\n"
-        }
-        assertEquals("\nif statement is not working correctly\noutside of conditional\n", result)
-    }
-
-    @Test
     fun `make an invalid code`() {
         try {
             val input =

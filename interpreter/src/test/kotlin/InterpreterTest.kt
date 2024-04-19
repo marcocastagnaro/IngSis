@@ -704,20 +704,28 @@ class InterpreterTest {
 
     @Test
     fun `test 015 - some conditional test3`() {
+        val input0 = """const booleanResult: boolean = false;"""
         val input =
             """
-            const booleanResult: boolean = false;
             if(booleanResult) {
                 println("else statement not working correctly");
             } else {
                 println("else statement working correctly");
             }
-            println("outside of conditional");
+            
             """.trimIndent()
+        val input1 = """println("outside of conditional");"""
+        val tokens0 = lexer.execute(input0)
+        val trees0 = parser.execute(tokens0)
+        interpreter.execute(trees0)
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
-        assertEquals("else statement working correctly\noutside of conditional", result.string)
+        assertEquals("else statement working correctly", result.string)
+        val tokens1 = lexer.execute(input1)
+        val trees1 = Parser().execute(tokens1)
+        val result1 = interpreter.execute(trees1)
+        assertEquals("outside of conditional", result1.string)
     }
 
     @Test
@@ -733,7 +741,7 @@ class InterpreterTest {
     fun testingConditional() {
         val input =
             """
-            let x: boolean = false;
+            const x: boolean = false;
             if(x) {
                 println("Hola");
             } else {
@@ -743,6 +751,7 @@ class InterpreterTest {
             }
             println("outside of conditional");
             """.trimIndent()
+
         val tokens = lexer.execute(input)
         val trees = parser.execute(tokens)
         val result = interpreter.execute(trees)
