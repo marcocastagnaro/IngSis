@@ -1,6 +1,6 @@
-package output
+package org.example.staticCodeeAnalyzer
 
-import org.example.brokenRule.BrokenRule
+import org.example.staticCodeeAnalyzer.BrokenRule
 
 class Output {
     private var isOk: Boolean = true

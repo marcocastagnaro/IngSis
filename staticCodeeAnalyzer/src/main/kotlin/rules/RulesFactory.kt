@@ -1,10 +1,5 @@
-package rules
+package org.example.staticCodeeAnalyzer
 
-import org.example.rules.Rules
-import org.example.rules.rulesImpls.CamelCase
-import org.example.rules.rulesImpls.PrintWithoutExpresion
-import org.example.rules.rulesImpls.SnakeCase
-import rules.rulesImpls.ReadInputWithoutExpresion
 import sca.ScaVersion
 
 class RulesFactory() {

@@ -1,4 +1,4 @@
-package executer
+package org.example.executer
 import org.example.*
 import org.example.inputReader.DummyInputReader
 import org.example.parser.Parser

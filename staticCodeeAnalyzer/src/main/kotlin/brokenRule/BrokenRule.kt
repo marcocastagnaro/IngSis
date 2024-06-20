@@ -1,4 +1,4 @@
-package org.example.brokenRule
+package org.example.staticCodeeAnalyzer
 import org.example.Position
 
 class BrokenRule {

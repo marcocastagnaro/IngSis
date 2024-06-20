@@ -1,9 +1,9 @@
-package org.example.rules.rulesImpls
+package org.example.staticCodeeAnalyzer
 
 import org.example.Token
 import org.example.Types
-import org.example.brokenRule.BrokenRule
-import org.example.rules.Rules
+import org.example.staticCodeeAnalyzer.BrokenRule
+import org.example.staticCodeeAnalyzer.Rules
 
 class SnakeCase(var errorMessage: String = "The following identifier must be in snake_case") : Rules {
     private val brokenRules = mutableListOf<BrokenRule>()
