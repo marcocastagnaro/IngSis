@@ -5,5 +5,7 @@ rootProject.name = "ingsis"
 include("ast", "lexer", "parser", "token")
 include("interpreter")
 include("formatter")
-include("cli")
+include("execute")
 include("staticCodeeAnalyzer")
+include("cli")
+include("untitled")
