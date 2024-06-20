@@ -28,22 +28,22 @@ class ScaImpl(private var version: ScaVersion) : Sca {
         rules = rulesFactory.createRules(jsonRules, version)
     }
 
-    override fun check(trees: List<AbstractSyntaxTree>): Output {
+    override fun check(trees: List<AbstractSyntaxTree>): SCAOutput {
         var tokens = createTokens(trees)
         var brokenRules = mutableListOf<BrokenRule>()
-        var output = Output()
+        var scaOutput = SCAOutput()
         for (rule in rules) {
             getBrkRls(rule, tokens, brokenRules)
         }
         if (brokenRules.isNotEmpty()) {
             for (brokenRule in brokenRules) {
-                output.addBrokenRule(brokenRule)
+                scaOutput.addBrokenRule(brokenRule)
             }
         }
 //        val txtContent = generateTxtContent(brokenRules)
 //        val htmlContent = generateHtmlContent(brokenRules)
 //        writeReports(txtContent, htmlContent)
-        return output
+        return scaOutput
     }
 
     private fun getBrkRls(

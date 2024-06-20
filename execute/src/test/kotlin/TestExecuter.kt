@@ -1,6 +1,5 @@
-package org.example
+package org.example.executer
 
-import executer.Executer
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.io.File
 import java.io.FileInputStream

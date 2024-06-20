@@ -1,6 +1,6 @@
 package org.example.staticCodeeAnalyzer
 
-class Output {
+class SCAOutput {
     private var isOk: Boolean = true
     private var brokenRules: MutableList<String> = mutableListOf()
 

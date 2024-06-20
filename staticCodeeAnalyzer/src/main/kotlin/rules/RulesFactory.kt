@@ -1,7 +1,5 @@
 package org.example.staticCodeeAnalyzer
 
-import sca.ScaVersion
-
 class RulesFactory() {
     fun createRules(
         jsonRules: List<Rules>,

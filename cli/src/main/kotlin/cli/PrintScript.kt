@@ -11,8 +11,9 @@ import org.example.Lexer
 import org.example.Output
 import org.example.Token
 import org.example.parser.Parser
-import org.example.sca.ScaImpl
-import sca.ScaVersion
+import org.example.staticCodeeAnalyzer.SCAOutput
+import org.example.staticCodeeAnalyzer.ScaImpl
+import org.example.staticCodeeAnalyzer.ScaVersion
 import java.io.File
 
 class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
@@ -34,7 +35,7 @@ class PrintScript : CliktCommand() { // ./cli "execute" "src/main/testmlml,.
         optionSelection(operation)
     }
 
-    private fun analyze(): output.Output {
+    private fun analyze(): SCAOutput {
         val string = getFile(source)
         val tokens = executeLexing(string)
         val abstractSyntaxTrees = executeParsing(tokens)

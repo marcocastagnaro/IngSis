@@ -10,7 +10,7 @@ import org.example.splittingStrategy.StrategyMapper
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
+import java.util.Arrays
 
 class Executer() {
     fun execute(
@@ -79,10 +79,10 @@ class Executer() {
 
     @kotlin.Throws(IOException::class)
     private fun handleIf(
-        line: String,
+        string: String,
         reader: BufferedReader,
     ): String {
-        var line = line
+        var line = string
         while (!line.contains("}")) {
             line += reader.readLine()
         }
