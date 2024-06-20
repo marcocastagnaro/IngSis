@@ -13,5 +13,5 @@ dependencies {
     implementation(project(":lexer"))
     implementation(project(":interpreter"))
     implementation(project(":formatter"))
-    implementation(project(":staticCodeeAnalyzer"))
+    implementation(project(":staticcodeeanalyzer"))
 }

@@ -18,7 +18,7 @@ dependencies {
     implementation(project(":lexer"))
     implementation(project(":interpreter"))
     implementation(project(":formatter"))
-    implementation(project(":staticCodeeAnalyzer"))
+    implementation(project(":staticcodeeanalyzer"))
     implementation("com.github.ajalt.clikt:clikt:4.3.0")
 }
 
