@@ -1,37 +1,39 @@
 package org.example.executer
-import org.example.*
+import org.example.AbstractSyntaxTree
+import org.example.Interpreter
+import org.example.Lexer
+import org.example.Output
+import org.example.Token
 import org.example.inputReader.DummyInputReader
 import org.example.parser.Parser
-import org.example.Token
-import org.example.Lexer
 import org.example.splittingStrategy.StrategyMapper
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 
-
 class Executer() {
     fun execute(
         src: java.io.InputStream,
         version: String,
-    ) : Output{
+    ): Output {
         return exec(src, version)
     }
 
     private fun exec(
         src: java.io.InputStream,
-        version: String
-    ) : Output{
+        version: String,
+    ): Output {
         try {
             return executeByLine(src, version)
         } catch (e: java.lang.Exception) {
             throw Error(e.message)
         }
     }
+
     private fun executeByLine(
         src: java.io.InputStream,
-        version: String
+        version: String,
     ): Output {
         val answers = Output()
         val lexer = Lexer(version, StrategyMapper())
@@ -58,22 +60,28 @@ class Executer() {
         return answers
     }
 
-
     private fun splitByLinesAndPrintResponse(response: String): Output {
         val splitResponse: List<String> =
-            Arrays.stream<String>(response.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()).toList()
-        val answer : Output = Output()
-        splitResponse.forEach(java.util.function.Consumer<String> { self: String ->
-            if (!self.isBlank()) {
-                 answer.buildOutput(self)
-            }
-        })
+            Arrays.stream<String>(
+                response.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
+                    .toTypedArray(),
+            ).toList()
+        val answer: Output = Output()
+        splitResponse.forEach(
+            java.util.function.Consumer<String> { self: String ->
+                if (!self.isBlank()) {
+                    answer.buildOutput(self)
+                }
+            },
+        )
         return answer
     }
 
     @kotlin.Throws(IOException::class)
-    private fun handleIf(line: String, reader: BufferedReader): String {
+    private fun handleIf(
+        line: String,
+        reader: BufferedReader,
+    ): String {
         var line = line
         while (!line.contains("}")) {
             line += reader.readLine()

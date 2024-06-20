@@ -1,7 +1,5 @@
 package org.example.staticCodeeAnalyzer
 
-import org.example.staticCodeeAnalyzer.BrokenRule
-
 class Output {
     private var isOk: Boolean = true
     private var brokenRules: MutableList<String> = mutableListOf()

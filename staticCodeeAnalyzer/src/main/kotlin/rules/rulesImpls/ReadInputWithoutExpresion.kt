@@ -2,8 +2,6 @@ package org.example.staticCodeeAnalyzer
 
 import org.example.Token
 import org.example.Types
-import org.example.staticCodeeAnalyzer.BrokenRule
-import org.example.staticCodeeAnalyzer.Rules
 
 class ReadInputWithoutExpresion(private var errorMessage: String = "ReadInputs must not be called with an expresion") : Rules {
     private val brokenRules = mutableListOf<BrokenRule>()

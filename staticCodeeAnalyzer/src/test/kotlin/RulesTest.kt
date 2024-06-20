@@ -1,11 +1,9 @@
-package org.example
-
+package org.example.staticCodeeAnalyzer
+import org.example.Lexer
+import org.example.ParseTreeToTokens
+import org.example.Position
 import org.example.parser.Parser
-import org.example.rules.rulesImpls.CamelCase
-import org.example.rules.rulesImpls.PrintWithoutExpresion
-import org.example.rules.rulesImpls.SnakeCase
-import org.junit.jupiter.api.Test
-import rules.rulesImpls.ReadInputWithoutExpresion
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

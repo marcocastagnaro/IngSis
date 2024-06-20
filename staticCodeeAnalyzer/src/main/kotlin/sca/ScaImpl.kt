@@ -1,14 +1,8 @@
-package org.example.sca
+package org.example.staticCodeeAnalyzer
 
 import org.example.AbstractSyntaxTree
 import org.example.ParseTreeToTokens
 import org.example.Token
-import org.example.brokenRule.BrokenRule
-import org.example.rules.Rules
-import output.Output
-import rules.RulesFactory
-import sca.JsonReader
-import sca.ScaVersion
 import java.io.File
 
 class ScaImpl(private var version: ScaVersion) : Sca {

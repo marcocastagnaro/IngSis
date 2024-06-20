@@ -2,8 +2,6 @@ package org.example.staticCodeeAnalyzer
 
 import org.example.Token
 import org.example.Types
-import org.example.staticCodeeAnalyzer.BrokenRule
-import org.example.staticCodeeAnalyzer.Rules
 
 class PrintWithoutExpresion(private var errorMessage: String = "Println must not be called with an expression") : Rules {
     private val brokenRules = mutableListOf<BrokenRule>()

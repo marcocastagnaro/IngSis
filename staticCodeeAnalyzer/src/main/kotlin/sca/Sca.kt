@@ -1,7 +1,6 @@
-package org.example.sca
+package org.example.staticCodeeAnalyzer
 
 import org.example.AbstractSyntaxTree
-import output.Output
 
 interface Sca {
     fun readJson(rulesPath: String)

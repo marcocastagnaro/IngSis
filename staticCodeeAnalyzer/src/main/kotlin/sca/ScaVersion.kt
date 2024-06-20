@@ -1,4 +1,4 @@
-package sca
+package org.example.staticCodeeAnalyzer
 
 enum class ScaVersion {
     VERSION_1_0,

@@ -18,6 +18,7 @@ class TestExecuter {
         val result = executer.execute(file, "1.0")
         assertEquals("Hello, World!", result.string)
     }
+
     @Test
     fun testExecuter_002() {
         val executer = Executer()
@@ -25,6 +26,7 @@ class TestExecuter {
         val result = executer.execute(file, "1.0")
         assertEquals("15", result.string)
     }
+
     @Test
     fun testExecuter_003() {
         val executer = Executer()
@@ -32,6 +34,7 @@ class TestExecuter {
         val result = executer.execute(file, "1.1")
         assertEquals("outside of conditional", result.string)
     }
+
     @Test
     fun testExecuter_004() {
         val executer = Executer()

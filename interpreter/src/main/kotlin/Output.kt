@@ -15,6 +15,7 @@ class Output {
     fun setOutput(newString: String) {
         _string = newString
     }
+
     fun print() {
         println(string)
     }

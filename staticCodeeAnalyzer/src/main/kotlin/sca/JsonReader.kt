@@ -1,11 +1,6 @@
-package sca
+package org.example.staticCodeeAnalyzer
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.example.rules.Rules
-import org.example.rules.rulesImpls.CamelCase
-import org.example.rules.rulesImpls.PrintWithoutExpresion
-import org.example.rules.rulesImpls.SnakeCase
-import rules.rulesImpls.ReadInputWithoutExpresion
 import java.io.File
 
 data class FormattingRules(
