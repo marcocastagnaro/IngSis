@@ -41,4 +41,20 @@ class TestExecuter {
         val result = executer.execute(file, "1.1")
         assertEquals("JOAFAC_PUTO Y GAY", result.string)
     }
+    @Test
+    fun testExecuter_005() {
+        val executer = Executer()
+        val file = getFile("src/test/resources/hardfile.txt")
+        val result = executer.execute(file, "1.1")
+        assertEquals("hello world\n10\noutside of conditional\n", result.string)
+    }
+    @Test
+    fun testingifelse () {
+        val executer = Executer()
+        val file = getFile("src/test/resources/ifelse.txt")
+        val result = executer.execute(file, "1.1")
+        assertEquals("else statement working correctly\n" +
+                "outside of conditional\n", result.string)
+    }
+
 }

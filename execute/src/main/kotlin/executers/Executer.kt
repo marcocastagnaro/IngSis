@@ -51,6 +51,7 @@ class Executer() {
                     val ast: List<AbstractSyntaxTree> = Parser().execute(tokens)
                     val response: String = interpreter.execute(ast).string
                     answers.buildOutput(splitByLinesAndPrintResponse(response).string)
+
                     line = reader.readLine() // Leer la siguiente línea
                 }
             }
@@ -71,6 +72,8 @@ class Executer() {
             java.util.function.Consumer<String> { self: String ->
                 if (!self.isBlank()) {
                     answer.buildOutput(self)
+                    answer.buildOutput("\n")
+
                 }
             },
         )
@@ -93,7 +96,7 @@ class Executer() {
                 newLine += reader.readLine()
             }
         }
-        line += " $newLine "
+        line += " $newLine }"
         return line
     }
 }
