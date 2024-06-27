@@ -2,7 +2,6 @@ package org.example.executer
 
 import org.example.AbstractSyntaxTree
 import org.example.Lexer
-import org.example.Output
 import org.example.Token
 import org.example.parser.Parser
 import org.example.splittingStrategy.StrategyMapper
@@ -26,7 +25,7 @@ class LinterExecuter() {
     private fun exec(
         src: java.io.InputStream,
         version: String,
-        rulepath: String?
+        rulepath: String? = null
     ): MutableList<SCAOutput> {
         try {
             return executeByLine(src, version, rulepath)
@@ -38,7 +37,7 @@ class LinterExecuter() {
     private fun executeByLine(
         src: java.io.InputStream,
         version: String,
-        rulepath: String?
+        rulepath: String? = null
     ): MutableList<SCAOutput> {
         val response: MutableList<SCAOutput> = mutableListOf()
         val lexer = Lexer(version, StrategyMapper())

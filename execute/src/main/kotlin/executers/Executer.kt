@@ -16,6 +16,7 @@ class Executer() {
     fun execute(
         src: java.io.InputStream,
         version: String,
+        input?: String
     ): Output {
         return exec(src, version)
     }
@@ -23,6 +24,7 @@ class Executer() {
     private fun exec(
         src: java.io.InputStream,
         version: String,
+        input?: String
     ): Output {
         try {
             return executeByLine(src, version)
@@ -34,10 +36,12 @@ class Executer() {
     private fun executeByLine(
         src: java.io.InputStream,
         version: String,
+        input?: String
     ): Output {
         val answers = Output()
         val lexer = Lexer(version, StrategyMapper())
-        val interpreter = Interpreter(DummyInputReader())
+        val input = input ?: DummyInputReader()
+        val interpreter = Interpreter(input)
         val reader = BufferedReader(InputStreamReader(src))
         try {
             reader.use {
