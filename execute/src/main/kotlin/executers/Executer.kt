@@ -5,6 +5,7 @@ import org.example.Lexer
 import org.example.Output
 import org.example.Token
 import org.example.inputReader.DummyInputReader
+import org.example.inputReader.InputReaderType
 import org.example.parser.Parser
 import org.example.splittingStrategy.StrategyMapper
 import java.io.BufferedReader
@@ -16,18 +17,18 @@ class Executer() {
     fun execute(
         src: java.io.InputStream,
         version: String,
-        input?: String
+        input: String? = null
     ): Output {
-        return exec(src, version)
+        return exec(src, version, input)
     }
 
     private fun exec(
         src: java.io.InputStream,
         version: String,
-        input?: String
+        input: String?
     ): Output {
         try {
-            return executeByLine(src, version)
+            return executeByLine(src, version, input)
         } catch (e: java.lang.Exception) {
             throw Error(e.message)
         }
@@ -36,12 +37,14 @@ class Executer() {
     private fun executeByLine(
         src: java.io.InputStream,
         version: String,
-        input?: String
+        input: String?
     ): Output {
         val answers = Output()
         val lexer = Lexer(version, StrategyMapper())
-        val input = input ?: DummyInputReader()
-        val interpreter = Interpreter(input)
+
+        val newInput = if (input != null) InputReader(input) else DummyInputReader()
+        val interpreter = Interpreter(newInput)
+
         val reader = BufferedReader(InputStreamReader(src))
         try {
             reader.use {
@@ -102,5 +105,12 @@ class Executer() {
         }
         line += " $newLine }"
         return line
+    }
+}
+
+class InputReader(val returnValue: String): InputReaderType{
+    override fun input(name: String): String {
+        println(name)
+        return returnValue
     }
 }
