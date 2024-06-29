@@ -2,9 +2,11 @@ package org.example.executer
 
 import org.example.AbstractSyntaxTree
 import org.example.Lexer
+import org.example.Position
 import org.example.Token
 import org.example.parser.Parser
 import org.example.splittingStrategy.StrategyMapper
+import org.example.staticCodeeAnalyzer.BrokenRule
 import org.example.staticCodeeAnalyzer.SCAOutput
 import org.example.staticCodeeAnalyzer.ScaImpl
 import org.example.staticCodeeAnalyzer.ScaVersion
@@ -30,7 +32,10 @@ class LinterExecuter() {
         try {
             return executeByLine(src, version, rulepath)
         } catch (e: java.lang.Exception) {
-            return mutableListOf()
+            val rule = BrokenRule("Error en el codigo", Position(0, 0))
+            val scaOutput = SCAOutput()
+            scaOutput.addBrokenRule(rule)
+            return mutableListOf(scaOutput)
         }
     }
 
@@ -59,8 +64,10 @@ class LinterExecuter() {
                 }
             }
         } catch (e: Exception) {
-            return mutableListOf()
-        }
+            val rule = BrokenRule("Error en el codigo", Position(0, 0))
+            val scaOutput = SCAOutput()
+            scaOutput.addBrokenRule(rule)
+            return mutableListOf(scaOutput)        }
         return response
     }
     @kotlin.Throws(IOException::class)
