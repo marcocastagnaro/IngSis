@@ -30,7 +30,7 @@ class LinterExecuter() {
         try {
             return executeByLine(src, version, rulepath)
         } catch (e: java.lang.Exception) {
-            throw Error(e.message)
+            return mutableListOf()
         }
     }
 
@@ -59,7 +59,7 @@ class LinterExecuter() {
                 }
             }
         } catch (e: Exception) {
-            throw Error(e.message)
+            return mutableListOf()
         }
         return response
     }
